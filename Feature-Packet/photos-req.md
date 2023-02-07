@@ -97,6 +97,8 @@ asdasdasdasdasdasdadasd
 
 ### - Album endpoint
 
+test additions
+
 ## Frontend endpoints
 
 ## Wireframe
