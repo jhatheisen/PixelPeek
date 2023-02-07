@@ -91,6 +91,10 @@ test
 
 ---
 
+## Albums
+
+### - Album endpoint
+
 ## Frontend endpoints
 
 ## Wireframe
