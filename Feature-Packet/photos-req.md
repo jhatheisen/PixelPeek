@@ -36,6 +36,7 @@ Returns all the photos
         "description": "nice animals",
         "city": "Los Angeles",
         "state": "California",
+        "country": "United States"
         "img_url": "!!REPLACE WITH S3 BUCKET!!",
         "created_at": "02/02/2023"
       }
@@ -85,6 +86,8 @@ Returns the details of a spot specified by its id.
 ### - Create a new photo
 
 Creates and returns a new photo image
+
+test
 
 ---
 
