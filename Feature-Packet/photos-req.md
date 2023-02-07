@@ -88,6 +88,12 @@ Creates and returns a new photo image
 
 ---
 
+## Albums
+
+## Comments
+
+## Tags
+
 ## Frontend endpoints
 
 ## Wireframe
