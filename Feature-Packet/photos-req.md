@@ -495,6 +495,249 @@ Delete an album by id
 
 ## Comments
 
+### - Get all Comments of the Current User
+
+Returns all comments of the current user
+
+- Require Authentication: true
+- Request
+  - Method: GET
+  - URL: /api/comments/current
+  - Body: none
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "Comments": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "photo_id": 1,
+        "comment": "What an awesome photo!"
+        "created_at": "04/15/2021",
+        "User": {
+          "id": 1,
+          "firstName": "Jane",
+          "lastName": "Doe",
+        },
+        "Photos": {
+          "id": 1,
+          "user_id": 1,
+          "title": "DogsAndCats",
+          "description": "nice animals",
+          "city": "Los Angeles",
+          "state": "California",
+          "country": "United States"
+          "img_url": "!!REPLACE WITH S3 BUCKET!!",
+        },
+      }
+    ]
+  }
+  ```
+
+### - Get all Comments by a Photo's id
+
+Returns all comments by photo's id
+
+- Require Authentication: false
+- Request
+  - Method: GET
+  - URL: /api/photos/:photoId/comments
+  - Body: none
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "Comments": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "photo_id": 1,
+        "comment": "What an awesome photo!"
+        "created_at": "04/15/2021",
+        "User": {
+        "id": 1,
+        "firstName": "Jane",
+        "lastName": "Doe"
+      },
+      }
+    ]
+  }
+  ```
+Error response: Couldn't find a Photo with the specified id
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  * Body:
+  ```json
+  {
+    "message": "Photo couldn't be found",
+    "statusCode": 404
+  }
+  ```
+
+### - Create a Comment for a Photo based on the Photo's id
+
+Create and return a new comment for a photo specified by id.
+
+- Require Authentication: true
+- Request
+  - Method: POST
+  - URL: /api/photos/:photoId/comments
+  - Body:
+  ```json
+  {
+    "comments": "What an awesome photo!"
+  }
+  ```
+- Successful Response
+  - Status Code: 201
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "Comments": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "photo_id": 1,
+        "comment": "What an awesome photo!"
+        "created_at": "04/15/2021"
+      }
+    ]
+  }
+  ```
+  Error response: Body validation errors
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  * Body:
+  ```json
+  {
+    "message": "Validation error",
+    "statusCode": 400,
+    "errors": {
+    "comment": "Comment is required"
+    }
+  }
+  ```
+
+  Error response: Couldn't find a Photo with the specified id
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  * Body:
+  ```json
+  {
+    "message": "Photo couldn't be found",
+    "statusCode": 404
+  }
+  ```
+
+
+### - Edit a Comment
+
+Update and return an existing comment.
+
+- Require Authentication: true
+- Require proper authorization: Comment must belong to the current user
+- Request
+  - Method: PUT
+  - URL: /api/comments/:commentId
+  - Body:
+  ```json
+  {
+    "comments": "This photo is super cool."
+  }
+  ```
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "Comments": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "photo_id": 1,
+        "comment": "This photo is super cool."
+        "created_at": "04/15/2021"
+      }
+    ]
+  }
+  ```
+
+  Error response: Body validation errors
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  * Body:
+  ```json
+  {
+    "message": "Validation error",
+    "statusCode": 400,
+    "errors": {
+    "comment": "Comment is required"
+    }
+  }
+  ```
+
+ Error response: Couldn't find a Comment with the specified id
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  * Body:
+  ```json
+  {
+    "message": "Comment couldn't be found",
+    "statusCode": 404
+  }
+  ```
+
+### - Delete a Comment
+
+Delete an existing comment.
+
+- Require Authentication: true
+- Require proper authorization: Comment must belong to the current user
+- Request
+  - Method: DELETE
+  - URL: /api/comments/:commentId
+  - Body: none
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "message": "Successfully deleted",
+    "statusCode": 200
+  }
+  ```
+
+  Error response: Couldn't find a Comment with the specified id
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  * Body:
+  ```json
+  {
+    "message": "Comment couldn't be found",
+    "statusCode": 404
+  }
+  ```
+
+
 ## Tags
 
 ### - Get all tags
