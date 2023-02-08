@@ -103,6 +103,72 @@ test additions
 
 ## Tags
 
+### - Get all tags
+
+Returns all the Tags
+
+- Require Authentication: false
+- Request
+  - Method: GET
+  - URL: /api/tags
+  - Body: none
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```
+  {
+    "Tags": [
+      {
+        "id": 1,
+        "name": "Funny",
+      },
+      {
+        "id": 2,
+        "name": "Romantic",
+      }
+    ]
+  }
+  ```
+
+### - Get all tags attatched to an photo
+
+Returns all the Tags for one photo
+
+- Require Authentication: false
+- Request
+  - Method: GET
+  - URL: /api/photos/:photoId/tags
+  - Body: none
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```
+  {
+    "PhotoId": 5
+    "Tags": [
+      {
+        "id": 1,
+        "name": "Funny",
+      },
+      {
+        "id": 2,
+        "name": "Romantic",
+      }
+    ]
+  }
+
+### - Add a tag to a spot
+
+### - Delete a tag from a photo
+
+
+
+
+
 ## Frontend endpoints
 
 ## Wireframe
