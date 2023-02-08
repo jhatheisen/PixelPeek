@@ -493,6 +493,8 @@ Delete an album by id
   }
   ```
 
+---
+
 ## Comments
 
 ### - Get all Comments of the Current User
@@ -736,7 +738,7 @@ Delete an existing comment.
     "statusCode": 404
   }
   ```
-
+---
 
 ## Tags
 
