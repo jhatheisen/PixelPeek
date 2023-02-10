@@ -991,3 +991,28 @@ Deletes a tag from a photo
 ## Frontend endpoints
 
 ## Wireframe
+
+
+Splash Page
+
+![Splash_Page_Logged_Out](images/wireframe/SplashPage_user_logged_out.png)
+
+Drop Down
+
+![Drop_Down](images/wireframe/dropdown.png)
+
+Logged in Explore Page
+
+![Logg](images/wireframe/loggedin_explorepage.png)
+
+Albums
+
+![Logg](images/wireframe/loggedin_explorepage.png)
+
+Single Album
+
+![Logg](images/wireframe/individual_album.png)
+
+Single Photo
+
+![Logg](images/wireframe/single_photo_logged_in.png)
