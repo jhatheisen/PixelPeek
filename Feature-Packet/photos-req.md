@@ -554,6 +554,7 @@ Returns all the Tags for one photo
       }
     ]
   }
+  ```
 
 * Error response: Couldn't find a Photo with the specified id
   - Status Code: 404
@@ -566,7 +567,6 @@ Returns all the Tags for one photo
     "statusCode": 404
   }
   ```
-
 
 ### - Get tag by id
 
@@ -638,6 +638,7 @@ Creates a new tag
     "statusCode": 400
   }
   ```
+
 ### - Add a tag to a photo
 
 Adds a tag to a photo
@@ -645,9 +646,11 @@ Adds a tag to a photo
 - Require Authentication: True
 - Require proper authorization: Photo must belong to the current user
 - Request
+
   - Method: POST
   - URL: /api/photos/:photoId/tags
   - Body:
+
   ```
   {
     "tagId": 1,
@@ -666,12 +669,14 @@ Adds a tag to a photo
   }
   ```
 
-
 * Error response: Couldn't find a Tag with the specified id
+
   - Status Code: 404
   - Headers:
     - Content-Type: application/json
+
   * Body:
+
   ```
   {
     "message": "Tag couldn't be found",
@@ -698,9 +703,11 @@ Deletes a tag from a photo
 - Require Authentication: True
 - Require proper authorization: Photo must belong to the current user
 - Request
+
   - Method: DELETE
   - URL: /api/photos/:photoId/tags
   - Body:
+
   ```
   {
     "tagId": 1,
@@ -720,10 +727,13 @@ Deletes a tag from a photo
   ```
 
 * Error response: Couldn't find a Tag with the specified id
+
   - Status Code: 404
   - Headers:
     - Content-Type: application/json
+
   * Body:
+
   ```
   {
     "message": "Tag couldn't be found",
@@ -742,6 +752,86 @@ Deletes a tag from a photo
     "statusCode": 404
   }
   ```
+
+---
+
+## User Stories
+
+## - Users
+
+### Sign Up
+
+- As an unregistered and unauthorized user, I want to be able to sign up for the website via a sign-up form.
+  - When I'm on the `/signup` page:
+    - I would like to be able to enter my email, username, and preferred password on a clearly laid out form.
+    - I would like the website to log me in upon successful completion of the sign-up form.
+      - So that I can seamlessly access the site's functionality
+  - When I enter invalid data on the sign-up form:
+    - I would like the website to inform me of the validations I failed to pass, and repopulate the form with my valid entries (except my password).
+    - So that I can try again without needing to refill forms I entered valid data into.
+
+### Log in
+
+- As a registered and unauthorized user, I want to be able to log in to the website via a log-in form.
+  - When I'm on the `/login` page:
+    - I would like to be able to enter my email and password on a clearly laid out form.
+    - I would like the website to log me in upon successful completion of the lob-up form.
+      - So that I can seamlessly access the site's functionality
+  - When I enter invalid data on the log-up form:
+    - I would like the website to inform me of the validations I failed to pass, and repopulate the form with my valid entries (except my password).
+      - So that I can try again without needing to refill forms I entered valid data into.
+
+### Demo User
+
+- As an unregistered and unauthorized user, I would like an easy to find and clear button on both the `/signup` and `/login` pages to allow me to visit the site as a guest without signing up or logging in.
+  - When I'm on either the `/signup` or `/login` pages:
+    - I can click on a Demo User button to log me in and allow me access as a normal user.
+      - So that I can test the site's features and functionality without needing to stop and enter credentials.
+
+### Log Out
+
+- As a logged in user, I want to log out via an easy to find log out button on the navigation bar.
+  - While on any page of the site:
+    - I can log out of my account and be redirected to a page displaying recent photos.
+      - So that I can easily log out to keep my information secure.
+
+## - Photos
+
+### Create Photos
+
+- As a logged in user, I want to be able to post new photos.
+  - When I'm on the `/photos` page:
+    - I can add and submit a new photo.
+      - So that I can share my adventures, vacations or other photos with my friends.
+
+### Viewing Photos
+
+- As a logged in _or_ logged out user, I want to be able to view a selection of the most recent photos.
+
+  - When I'm on the `/photos` page:
+    - I can view all the uploaded photos currently on the site.
+      - So that I can see photos that my friends or other users upload.
+
+- As a logged in _or_ logged out user, I want to be able to view a specific photo and its associated comments.
+  - When I'm on the `/photos/:photoId` page:
+    - I can view the content included with the photo like the comments and location.
+      - So that I can see photos that my friends or other users upload.
+
+### Updating Photos
+
+- As a logged in user, I want to be able to edit my photos by clicking an Edit button associated with the photo anywhere that the specific photo appears.
+  - When I'm on the `/photos/:photoId` page:
+    - I can click "Edit" to make permanent changes to photo I have posted.
+      - So that I can fix any errors I make in my photo.
+
+### Deleting Photos
+
+- As a logged in user, I want to be able to delete my photos by clicking a Delete button associated with the photo in the single photo page that the photo appears in.
+  - When I'm on the `/photos/:photoId` page:
+    - I can click "Delete" to permanently delete a photo I have posted.
+      - So that when I realize I shouldn't have included something, I can easily remove it.
+
+---
 
 ## Frontend endpoints
 
