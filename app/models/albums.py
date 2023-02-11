@@ -38,3 +38,6 @@ album_photos = db.Table(
         primary_key=True
     )
 )
+
+if environment == "production":
+    album_photos.schema = SCHEMA
