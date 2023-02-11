@@ -4,6 +4,7 @@ from app.models import db, Photo, environment, SCHEMA
 photo1 = Photo(
     title= "Empire State Building"
     ,description= "Iconic Art Deco Skyscraper in New York City"
+    ,country="USA"
     ,city= "New York"
     ,state= "New York"
     ,img_url= "https://i.pinimg.com/736x/e2/20/75/e22075ef74bc43dc66117f4f4b79f87a.jpg"
@@ -12,6 +13,7 @@ photo1 = Photo(
 photo2 = Photo(
     title= "Empire State Building"
     ,description= "Iconic Art Deco Skyscraper in New York City"
+    ,country="USA"
     ,city= "New York"
     ,state= "New York"
     ,img_url= "https://i.pinimg.com/736x/e2/20/75/e22075ef74bc43dc66117f4f4b79f87a.jpg"
@@ -22,6 +24,7 @@ photo3 = Photo(
     ,description= "Tallest Skyscraper in the Western Hemisphere"
     ,city= "Chicago"
     ,state= "Illinois"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/2096700/pexels-photo-2096700.jpeg?auto=compress&cs=tinysrgb&w=800"
     ,user_id=1
 )
@@ -30,6 +33,7 @@ photo4 = Photo(
     ,description= "Symbolic Skyscraper at the Ground Zero in New York City"
     ,city= "New York"
     ,state= "New York"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/2096700/pexels-photo-2096700.jpeg?auto=compress&cs=tinysrgb&w=800"
     ,user_id=2
 )
@@ -38,6 +42,7 @@ photo5 = Photo(
     ,description= "Distinctive Art Deco Skyscraper in New York City"
     ,city= "New York"
     ,state= "New York"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/457937/pexels-photo-457937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2 "
     ,user_id=1
 )
@@ -46,6 +51,7 @@ photo6 = Photo(
     ,description= "Tall Skyscraper with Observation Deck in Chicago"
     ,city= "Chicago"
     ,state= "Illinois"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/457937/pexels-photo-457937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2 "
     ,user_id=3
 )
@@ -54,6 +60,7 @@ photo7 = Photo(
     ,description= "Tall Skyscraper in Chicago's Business District"
     ,city= "Chicago"
     ,state= "Illinois"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/1467300/pexels-photo-1467300.jpeg"
     ,user_id=1
 )
@@ -62,6 +69,7 @@ photo8 = Photo(
     ,description= "Distinctive Skyscraper in New York City with Slanted Top"
     ,city= "New York"
     ,state= "New York"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/219692/pexels-photo-219692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     ,user_id=2
 )
@@ -70,6 +78,7 @@ photo9 = Photo(
     ,description= "Luxury Skyscraper in Chicago"
     ,city= "Chicago"
     ,state= "Illinois"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/3964406/pexels-photo-3964406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ,user_id=2
 )
@@ -78,6 +87,7 @@ photo10 = Photo(
     ,description= "Tall Skyscraper in Los Angeles"
     ,city= "Los Angeles"
     ,state= "California"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     ,user_id=3
 )
@@ -86,6 +96,7 @@ photo11 = Photo(
     ,description= "Tall, Narrow Skyscraper in San Francisco"
     ,city= "San Francisco"
     ,state= "California"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     ,user_id=2
 )
@@ -94,6 +105,7 @@ photo12 = Photo(
     ,description= "Tall Skyscraper in Dallas"
     ,city= "Dallas"
     ,state= "Texas"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     ,user_id=1
 )
@@ -102,6 +114,7 @@ photo13 = Photo(
     ,description= "Tall Skyscraper in Seattle"
     ,city= "Seattle"
     ,state= "Washington"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/15327176/pexels-photo-15327176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ,user_id=2
 )
@@ -110,6 +123,7 @@ photo14 = Photo(
     ,description= "Tall Skyscraper in Dallas"
     ,city= "Dallas"
     ,state= "Texas"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/3317535/pexels-photo-3317535.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ,user_id=3
 )
@@ -118,6 +132,7 @@ photo15 = Photo(
     ,description= "Tall Skyscraper in Miami"
     ,city= "Miami"
     ,state= "Florida"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/2065639/pexels-photo-2065639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ,user_id=1
 )
@@ -126,6 +141,7 @@ photo16 = Photo(
     ,description= "Tall Skyscraper in Atlanta"
     ,city= "Atlanta"
     ,state= "Georgia"
+    ,country="USA"
     ,img_url= "https://images.pexels.com/photos/2065639/pexels-photo-2065639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ,user_id=2
 )

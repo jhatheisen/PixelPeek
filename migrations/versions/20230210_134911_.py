@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: 155dee45d37d
-Revises: 
+Revises:
 Create Date: 2023-02-10 13:49:11.934518
 
 """
@@ -46,6 +46,7 @@ def upgrade():
     sa.Column('description', sa.String(length=500), nullable=False),
     sa.Column('city', sa.String(length=100), nullable=False),
     sa.Column('state', sa.String(length=100), nullable=False),
+    sa.Column('country', sa.String(length=100), nullable=False),
     sa.Column('img_url', sa.String(length=1000), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
