@@ -1,6 +1,6 @@
-# Flask React Project
+# Pixel Peek
 
-This is the starter for the Flask React project.
+This is the starter for the Pixel Peek.
 
 ## Getting started
 1. Clone this repository (only this branch)
