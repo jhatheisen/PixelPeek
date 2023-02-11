@@ -14,6 +14,7 @@ class Photo(db.Model):
   description = db.Column(db.String(500), nullable=False)
   city = db.Column(db.String(100), nullable=False)
   state = db.Column(db.String(100), nullable=False)
+  country = db.Column(db.String(100), nullable=False)
   img_url = db.Column(db.String(1000), nullable=False)
   createdAt = db.Column(db.DateTime, nullable=False, default=today)
 
@@ -43,6 +44,7 @@ class Photo(db.Model):
       'description': self.description,
       'city': self.city,
       'state': self.state,
+      'country': self.country,
       'img_url': self.img_url,
       'createdAt': self.createdAt,
       'user_id': self.user_id,
