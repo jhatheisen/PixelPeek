@@ -31,3 +31,13 @@ class CreatePhotoForm(FlaskForm):
   state = StringField('state', validators=[DataRequired(), state_validator])
   country = StringField('country', validators=[DataRequired(), country_validator])
   img_url = StringField('img_url', validators=[DataRequired()])
+
+
+
+class EditPhotoForm(FlaskForm):
+  title = StringField('title', validators=[DataRequired(), title_validator])
+  description = StringField('description', validators=[DataRequired(), description_validator])
+  city = StringField('city', validators=[DataRequired(), city_validator])
+  state = StringField('state', validators=[DataRequired(), state_validator])
+  country = StringField('country', validators=[DataRequired(), country_validator])
+  img_url = StringField('img_url', validators=[DataRequired()])

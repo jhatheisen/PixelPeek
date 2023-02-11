@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.models import Photo, db
-from ..forms.create_photo_form import CreatePhotoForm
+from ..forms.photo_form import CreatePhotoForm, EditPhotoForm
+from .auth_routes import validation_errors_to_error_messages
+
 
 photo_routes = Blueprint('photo', __name__)
 
@@ -110,3 +112,67 @@ def create_photo():
         "img_url": data["img_url"],
         "createdAt": data["createdAt"]
     }
+
+#Update photo route
+
+@photo_routes.route('/<int:photoId>', methods=["PUT"])
+@login_required
+def update_photo(photoId):
+    #find photo
+    edit_photo = db.session.query(Photo).get(int(photoId))
+
+    if not edit_photo:
+        return {"message": "Photo couldn't be found"}, 404
+
+    if edit_photo.user_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    form = EditPhotoForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+
+    if form.validate_on_submit():
+        data = form.data
+
+        edit_photo.title = data["title"]
+        edit_photo.description = data["description"]
+        edit_photo.city = data["city"]
+        edit_photo.state = data["state"]
+        edit_photo.country = data['country']
+        edit_photo.img_url = data['img_url']
+
+        db.session.commit()
+        
+        print("-------------------<SUCCESS")
+
+        return {
+            "id": edit_photo.id,
+            "user_id": edit_photo.user_id,
+            "title": data["title"],
+            "description": data["description"],
+            "city": data["city"],
+            "state": data["state"],
+            "country": data["country"],
+            "img_url": data["img_url"],
+            "createdAt": edit_photo.createdAt
+        }
+    #Error handling
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
+@photo_routes.route('/<int:photoId>', methods=["DELETE"])
+@login_required
+def delete_photo(photoId):
+    #find photo
+    delete_photo = db.session.query(Photo).get(int(photoId))
+
+    if not delete_photo:
+      return {"message": "Photo couldn't be found"}, 404
+
+    if delete_photo.user_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    db.session.delete(delete_photo)
+
+    return {"message": "Successfully deleted"}
