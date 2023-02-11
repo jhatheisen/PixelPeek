@@ -6,7 +6,7 @@ def seed_albums():
     album1 = Album(
         album_name='Demo_Album', photos=[photo1, photo2, photo3, photo14])
     album2 = Album(
-        album_name='Red',photos=[photo6,  photo4, photo8, photo13])
+        album_name='Red',photos=[photo6, photo4, photo8, photo13])
     album3 = Album(
         album_name='Thriller', photos=[photo12, photo10, photo9, photo15])
     album4 = Album(

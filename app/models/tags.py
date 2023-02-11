@@ -38,3 +38,6 @@ photo_tags = db.Table(
         primary_key=True
     )
 )
+
+if environment == "production":
+    photo_tags.schema = SCHEMA
