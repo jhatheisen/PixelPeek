@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Photo, db
 from ..forms.create_photo_form import CreatePhotoForm
 
@@ -74,8 +74,8 @@ def get_photo_detail(photoId):
 @photo_routes.route('/', methods=["POST"])
 @login_required
 def create_photo():
-
-  user_id = current_user.id
+  print("-------------------<ROUTEHIT FOUND")
+  user_id = current_user
   print(user_id)
   print("-------------------<USER_ID FOUND")
   form = CreatePhotoForm()
