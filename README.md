@@ -3,7 +3,7 @@
 This is the starter for the Pixel Peek.
 
 ## Live Server Link
-pixel-peek.onrender.com
+[Live site](pixel-peek.onrender.com)
 
 ## Getting started
 1. Clone this repository (only this branch)
