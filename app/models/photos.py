@@ -35,3 +35,19 @@ class Photo(db.Model):
     secondary="photo_tags",
     back_populates="photos"
   )
+
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'title': self.title,
+      'description': self.description,
+      'city': self.city,
+      'state': self.state,
+      'img_url': self.img_url,
+      'createdAt': self.createdAt,
+      'user_id': self.user_id,
+      'user': self.user,
+      'comments':self.comments,
+      'albums': self.albums,
+      'tags': self.tags
+    }

@@ -23,6 +23,13 @@ class Tag(db.Model):
         back_populates="tags"
     )
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.tag_name,
+            "photos": self.photos
+        }
+
 photo_tags = db.Table(
     "photo_tags",
     db.Column(
