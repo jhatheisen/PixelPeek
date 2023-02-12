@@ -7,11 +7,8 @@ from flask_login import LoginManager
 from .models import db, User, Comment, Photo
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-<<<<<<< HEAD
 from .api.photo_routes import photo_routes
-=======
 from .api.comment_routes import comment_routes
->>>>>>> 4f4d2438a2d3a715edc36f6a3866d68ff9f00200
 from .seeds import seed_commands
 from .config import Config
 
@@ -33,11 +30,8 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-<<<<<<< HEAD
 app.register_blueprint(photo_routes, url_prefix='/api/photos')
-=======
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
->>>>>>> 4f4d2438a2d3a715edc36f6a3866d68ff9f00200
 db.init_app(app)
 Migrate(app, db)
 

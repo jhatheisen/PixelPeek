@@ -18,7 +18,6 @@ class Comment(db.Model):
     user = db.relationship("User", back_populates="comments")
     photo = db.relationship("Photo", back_populates="comments")
 
-<<<<<<< HEAD
     def to_dict(self):
         return {
             "id": self.id,
@@ -26,14 +25,4 @@ class Comment(db.Model):
             "user": self.user,
             "photo": self.photo,
             "createdAt": self.createdAt
-=======
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'comment': self.comment,
-            'user_id': self.user_id,
-            'photo_id': self.photo_id,
-            'createdAt': self.createdAt
->>>>>>> 4f4d2438a2d3a715edc36f6a3866d68ff9f00200
         }

@@ -32,6 +32,9 @@ def get_all_photos():
 def get_photo_detail(photoId):
     single_photo = db.session.query(Photo).get(int(photoId))
 
+    if not single_photo:
+        return {"message": "Photo couldn't be found"}, 404
+
     info = single_photo.to_dict()
     print(info, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>single photo Info here")
 
@@ -77,7 +80,7 @@ def get_photo_detail(photoId):
 @login_required
 def create_photo():
   print("-------------------<ROUTEHIT FOUND")
-  user_id = current_user
+  user_id = current_user.id
   print(user_id)
   print("-------------------<USER_ID FOUND")
   form = CreatePhotoForm()
@@ -99,10 +102,11 @@ def create_photo():
     db.session.commit()
     print("-------------------<SUCCESS")
 
-    length = len(Photo.query.all())
+    allPhotos = Photo.query.all()
+
 
     return {
-        "id": length,
+        "id": allPhotos[len(allPhotos)-1].id,
         "user_id": user_id,
         "title": data["title"],
         "description": data["description"],
@@ -110,7 +114,7 @@ def create_photo():
         "state": data["state"],
         "country": data["country"],
         "img_url": data["img_url"],
-        "createdAt": data["createdAt"]
+        "createdAt": allPhotos[len(allPhotos)-1].createdAt
     }
 
 #Update photo route
@@ -174,5 +178,6 @@ def delete_photo(photoId):
         return {'errors': ['Unauthorized']}, 401
 
     db.session.delete(delete_photo)
+    db.session.commit()
 
     return {"message": "Successfully deleted"}
