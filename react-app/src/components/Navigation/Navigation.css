@@ -12,5 +12,17 @@
   margin-right: -8px;
   margin-top: -8px;
   margin-bottom: 0px;
-  height: 55px;
+  height: 65git px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Navbar-Home-Logo {
+  height: 61%;
+  width: 148px;
+  object-fit: cover;
+  margin-top: 12px;
+  margin-left: 31px;
+  padding-right: 14px;
 }
