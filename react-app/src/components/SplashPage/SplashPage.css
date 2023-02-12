@@ -1,0 +1,127 @@
+.SplashPage-Body-Text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.SplashPage-Body-Text h1 {
+  font-size: 50px;
+}
+
+.SplashPage-Body-Text p {
+  font-size: 23px;
+}
+
+.SplashPage-Image-Slides {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin-left: -8px;
+  z-index: 0;
+}
+
+.pic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-animation: fade 48s infinite;
+  animation: fade 48s infinite;
+}
+
+#pic1 {
+  animation-delay: 0s;
+  background-image: url("https://images.pexels.com/photos/1707213/pexels-photo-1707213.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+}
+#pic2 {
+  background-image: url("https://images.pexels.com/photos/2478248/pexels-photo-2478248.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  animation-delay: 6s;
+}
+#pic3 {
+  background-image: url("https://images.pexels.com/photos/4424287/pexels-photo-4424287.jpeg?auto=compress&cs=tinysrgb&w=800");
+  animation-delay: 12s;
+}
+#pic4 {
+  background-image: url("https://images.pexels.com/photos/2921140/pexels-photo-2921140.jpeg?auto=compress&cs=tinysrgb&w=800%27");
+  animation-delay: 18s;
+}
+
+#pic5 {
+  background-image: url("https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800");
+  animation-delay: 24s;
+}
+
+#pic6 {
+  background-image: url("https://images.pexels.com/photos/219692/pexels-photo-219692.jpeg?auto=compress&cs=tinysrgb&w=800");
+  animation-delay: 30s;
+}
+
+#pic7 {
+  background-image: url("https://images.pexels.com/photos/14825208/pexels-photo-14825208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  animation-delay: 36s;
+}
+
+#pic8 {
+  background-image: url("https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=800");
+  animation-delay: 42s;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.SplashPage-Footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 5%;
+  background-color: rgb(25, 25, 25);
+  margin-left: -8px;
+}
+
+.SplashPage-Footer-Text {
+  color: white;
+}
