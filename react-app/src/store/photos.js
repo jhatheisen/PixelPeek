@@ -24,7 +24,7 @@ export const thunkGetAllPhotos = () => async (dispatch) => {
     const response = await fetch("/api/photos", {
         method: "GET",
     });
-
+    console.log("REQUEST SENT ====================>")
     if (response.ok) {
         const data = await response.json();
         dispatch(getAllPhotos(data));
@@ -64,7 +64,6 @@ export default function photoReducer(state = initialState, action) {
         case GET_ALL_PHOTOS:
             return { photos: action.payload };
         case GET_SINGLE_PHOTO:
-						// in progress
             return 
         case CREATE_NEW_PHOTO:
             return
