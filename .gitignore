@@ -3,3 +3,4 @@
 .flaskenv
 node_modules
 dev.db
+__pycache__
