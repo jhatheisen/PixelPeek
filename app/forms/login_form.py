@@ -11,7 +11,6 @@ def user_exists(form, field):
     if not user:
         raise ValidationError('Email provided not found.')
 
-
 def password_matches(form, field):
     # Checking if password matches
     password = field.data
