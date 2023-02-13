@@ -10,18 +10,19 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(255), nullable=False)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.tag_name
-        }
-
     #Many-To-Many betweeen Photos and Tags
     photos = db.relationship(
         "Photo",
         secondary="photo_tags",
         back_populates="tags"
     )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "tag_name": self.tag_name,
+            "photos": self.photos
+        }
 
 photo_tags = db.Table(
     "photo_tags",
