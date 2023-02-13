@@ -21,21 +21,51 @@ def edit_comments(comment_id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit:
-        editComments.comment = form.data["comment"]
+    if editComments is not None:
+        if form.validate_on_submit:
+            editComments.comment = form.data["comment"]
+            db.session.commit()
 
-        db.session.commit()
+            return {
+                "Comments": [
+                {
+                "id": comment_id,
+                "comment": form.data["comment"],
+                "user_id": editComments.user_id,
+                "photo_id": editComments.photo_id,
+                "createdAt": editComments.createdAt,
+                }
+                ]
+            }, 200
 
-    return {
-        "id": comment_id,
-        "comment": form.data["comment"],
-        "user_id": editComments.user_id,
-        "photo_id": editComments.photo_id,
-        "createdAt": editComments.createdAt,
-    }
+        return {
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+            "comment": "Comment is required"
+            }
+        }, 400
+
+    else:
+        return {
+            "message": "Comment couldn't be found",
+            "statusCode": 404
+        }, 404
 
 
 @comment_routes.route('<int:comment_id>', methods=['DELETE'])
 @login_required
 def delete_comments(comment_id):
-    pass
+    comment = Comment.query.get(comment_id)
+    if comment is not None:
+        db.session.delete(comment)
+        db.session.commit()
+        return {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        }, 200
+    else:
+        return {
+            "message": "Comment couldn't be found",
+            "statusCode": 404
+        }, 404
