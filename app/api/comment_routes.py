@@ -41,20 +41,20 @@ def edit_comments(comment_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit:
-            editComments.comment = form.data["comment"]
-            db.session.commit()
+        editComments.comment = form.data["comment"]
+        db.session.commit()
 
-            return {
-                "Comments": [
-                {
-                "id": comment_id,
-                "user_id": editComments.user_id,
-                "photo_id": editComments.photo_id,
-                "comment": form.data["comment"],
-                "createdAt": editComments.createdAt,
-                }
-                ]
-            }, 200
+        return {
+            "Comments": [
+            {
+            "id": comment_id,
+            "user_id": editComments.user_id,
+            "photo_id": editComments.photo_id,
+            "comment": form.data["comment"],
+            "createdAt": editComments.createdAt,
+            }
+            ]
+        }, 200
 
 @comment_routes.route('<int:comment_id>', methods=['DELETE'])
 @login_required

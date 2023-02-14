@@ -33,7 +33,6 @@ class CreatePhotoForm(FlaskForm):
   img_url = StringField('img_url', validators=[DataRequired()])
 
 
-
 class EditPhotoForm(FlaskForm):
   title = StringField('title', validators=[DataRequired(), title_validator])
   description = StringField('description', validators=[DataRequired(), description_validator])

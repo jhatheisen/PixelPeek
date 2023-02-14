@@ -22,6 +22,11 @@ const createPhoto = (data) => ({
     payload: data
 })
 
+const updatePhoto = (photo) => ({
+    type: UPDATE_PHOTO,
+    payload: photo
+})
+
 const deletePhoto = (photoId) => ({
     type: DELETE_PHOTO,
     payload: photoId
@@ -100,14 +105,45 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
     }
 };
 
+export const thunkUpdatePhoto = (updatedPhoto, photoDetails) => async (dispatch) => {
+    const { title, description, city, state, country, imageUrl } = updatedPhoto
+    console.log(title)
+    const response = await fetch(`/api/photos/${photoDetails.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "title": title,
+            "description": description,
+            "city": city,
+            "state": state,
+            "country": country,
+            "img_url": imageUrl
+        })
+    });
+    if (response.ok) {
+        const photoData = await response.json();
+        const changedPhoto = { ...photoData, ...photoDetails }
+        dispatch(updatePhoto(changedPhoto))
+        return changedPhoto
+    }
+    else if (response.status < 500) {
+        const data = await response.json();
+        console.log("======================>error response in thunk ", data)
+        throw new Error(JSON.stringify(data))
+    }
+}
+
+
 export const thunkDeletePhoto = (photoId) => async (dispatch) => {
     console.log("fetch request reached ==============> ")
-    
+
     const response = await fetch(`/api/photos/${photoId}`, {
         method: "DELETE",
     });
     console.log("fetch request completed ==============>", response)
-    if(response.ok) dispatch(deletePhoto(photoId))
+    if (response.ok) dispatch(deletePhoto(photoId))
     return response
 }
 
@@ -160,10 +196,14 @@ export const thunkDeletePhotoComment = (commentId) => async (dispatch) => {
 
 //Reducers go here
 export default function photoReducer(state = initialState, action) {
-    let newState
+    let newState;
     switch (action.type) {
         case GET_ALL_PHOTOS:
-            return { ...action.payload };
+            let result = {}
+            action.payload.allPhotos.forEach((photo) => {
+                result[photo.id] = photo
+            });
+            return { allPhotos: result };
         case GET_SINGLE_PHOTO:
             return { ...state, photoDetails: action.payload }
         case CREATE_NEW_PHOTO:
@@ -171,12 +211,13 @@ export default function photoReducer(state = initialState, action) {
             newState[action.payload.id] = action.payload
             return newState
         case UPDATE_PHOTO:
-            return
+            newState = Object.assign({}, state)
+            newState.photoDetails = action.payload
+            return newState
         case DELETE_PHOTO:
             newState = Object.assign({}, state)
-            delete newState.photos[action.photoId]
-            const newState2 = {...newState.photos}
-            delete newState2[action.photoId]
+            console.log('state', newState)
+            delete newState.allPhotos[action.photoId]
             return newState
         default:
             return state;
