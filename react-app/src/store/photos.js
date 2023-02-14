@@ -5,6 +5,8 @@ const CREATE_NEW_PHOTO = "photos/create_new_photo";
 const UPDATE_PHOTO = "photos/update_photo";
 const DELETE_PHOTO = "photos/delete_photo";
 const DELETE_PHOTO_COMMENT = "photos/delete_photo_comment";
+const CREATE_PHOTO_COMMENT = "photos/create_photo_comment";
+const EDIT_PHOTO_COMMENT = "photos/edit_photo_comment";
 
 
 // Action creators here
@@ -23,9 +25,19 @@ const createPhoto = (data) => ({
     payload: data
 })
 
-const deletePhotoComment = (data) => ({
+const deletePhotoComment = (stateI) => ({
     type: DELETE_PHOTO_COMMENT,
-    payload: data
+    payload: stateI
+})
+
+const createPhotoComment = (comment) => ({
+    type: CREATE_PHOTO_COMMENT,
+    payload: comment
+})
+
+const editPhotoComment = (stateI, comment) => ({
+    type: EDIT_PHOTO_COMMENT,
+    payload: {stateI, comment}
 })
 
 
@@ -81,7 +93,7 @@ export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) =>
 
     if (response.ok) {
             const data = await response.json();
-            dispatch(deletePhotoComment(photoId));
+            dispatch(createPhotoComment(data));
             return null;
     } else if (response.status < 500) {
             const data = await response.json();
@@ -93,14 +105,13 @@ export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) =>
     }
 }
 
-export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
+export const thunkDeletePhotoComment = (commentId, stateI) => async(dispatch) => {
     const response = await fetch(`/api/comments/${commentId}`, {
         method: "DELETE",
     })
 
     if (response.ok) {
-            const data = await response.json();
-            dispatch()
+            dispatch(deletePhotoComment(stateI))
             return null;
     } else if (response.status < 500) {
             const data = await response.json();
@@ -110,7 +121,29 @@ export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
     } else {
             return ["An error occurred. Please try again."];
     }
+}
 
+export const thunkEditPhotoComment = (commentId, stateI, comment) => async(dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+            body: JSON.stringify(comment)
+    });
+
+    if (response.ok) {
+            const data = await response.json();
+            dispatch(editPhotoComment(stateI, data.Comments[0]))
+            return null;
+    } else if (response.status < 500) {
+            const data = await response.json();
+            if (data.errors) {
+                    return data.errors;
+            }
+    } else {
+            return ["An error occurred. Please try again."];
+    }
 }
 
 //thunk for creating a photo
@@ -164,8 +197,21 @@ export default function photoReducer(state = initialState, action) {
             return
         case DELETE_PHOTO:
             return
-        case DELETE_PHOTO_COMMENT:
-            return
+        case DELETE_PHOTO_COMMENT: {
+          let nState = {...state};
+          nState.photoDetails.comments.splice(action.payload, 1)
+          return nState;
+        }
+        case CREATE_PHOTO_COMMENT: {
+          let nState = {...state};
+          nState.photoDetails.comments.push(action.payload)
+          return nState;
+        }
+        case EDIT_PHOTO_COMMENT: {
+          let nState = {...state};
+          nState.photoDetails.comments[action.payload.stateI] = action.payload.comment;
+          return nState
+        }
         default:
             return state;
     }
