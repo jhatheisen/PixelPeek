@@ -4,6 +4,7 @@ const GET_SINGLE_PHOTO = "photos/get_single_photo";
 const CREATE_NEW_PHOTO = "photos/create_new_photo";
 const UPDATE_PHOTO = "photos/update_photo";
 const DELETE_PHOTO = "photos/delete_photo";
+const DELETE_PHOTO_COMMENT = "photos/delete_photo_comment";
 
 
 // Action creators here
@@ -19,6 +20,11 @@ const getSinglePhoto = (photo) => ({
 
 const createPhoto = (data) => ({
     type: CREATE_NEW_PHOTO,
+    payload: data
+})
+
+const deletePhotoComment = (data) => ({
+    type: DELETE_PHOTO_COMMENT,
     payload: data
 })
 
@@ -75,6 +81,7 @@ export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) =>
 
     if (response.ok) {
             const data = await response.json();
+            dispatch(deletePhotoComment(photoId));
             return null;
     } else if (response.status < 500) {
             const data = await response.json();
@@ -93,6 +100,7 @@ export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
 
     if (response.ok) {
             const data = await response.json();
+            dispatch()
             return null;
     } else if (response.status < 500) {
             const data = await response.json();
@@ -146,7 +154,7 @@ export default function photoReducer(state = initialState, action) {
         case GET_ALL_PHOTOS:
             return { ...action.payload };
         case GET_SINGLE_PHOTO:
-            return { ...state, photoDetails: action.payload }
+            return { ...state.photos, photoDetails: action.payload }
         case CREATE_NEW_PHOTO:
             let newState
             newState = Object.assign({}, state)
@@ -155,6 +163,8 @@ export default function photoReducer(state = initialState, action) {
         case UPDATE_PHOTO:
             return
         case DELETE_PHOTO:
+            return
+        case DELETE_PHOTO_COMMENT:
             return
         default:
             return state;

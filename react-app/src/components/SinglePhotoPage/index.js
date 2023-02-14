@@ -95,7 +95,7 @@ const SinglePhotoPage = () => {
                         })
                     }
 
-                { !alreadyCommented &&
+                {
                     <div className="makeCommentBox">
                         <form onSubmit={handleCommentSubmit} className="commentForm">
                             <div className="commentInput">
@@ -123,9 +123,9 @@ const SinglePhotoPage = () => {
                         </form>
                     </div>
                 }
-                { alreadyCommented &&
+                {/* { alreadyCommented &&
                     <h2>Please delete your existing comment to post a new one</h2>
-                }
+                } */}
                 </div>
 
 
