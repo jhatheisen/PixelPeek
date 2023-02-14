@@ -82,47 +82,47 @@ export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
     }
 };
 
-export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) => {
-    const response = await fetch(`/api/photos/${photoId}/comments`, {
-        method: "POST",
-        headers: {
-			"Content-Type": "application/json",
-		},
-        body: JSON.stringify(comment)
-    });
+// export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) => {
+//     const response = await fetch(`/api/photos/${photoId}/comments`, {
+//         method: "POST",
+//         headers: {
+// 			"Content-Type": "application/json",
+// 		},
+//         body: JSON.stringify(comment)
+//     });
 
-    if (response.ok) {
-            const data = await response.json();
-            return null;
-    } else if (response.status < 500) {
-            const data = await response.json();
-            if (data.errors) {
-                    return data.errors;
-            }
-    } else {
-            return ["An error occurred. Please try again."];
-    }
-}
+//     if (response.ok) {
+//             const data = await response.json();
+//             return null;
+//     } else if (response.status < 500) {
+//             const data = await response.json();
+//             if (data.errors) {
+//                     return data.errors;
+//             }
+//     } else {
+//             return ["An error occurred. Please try again."];
+//     }
+// }
 
-export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
-    const response = await fetch(`/api/comments/${commentId}`, {
-        method: "DELETE",
-    })
+// export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
+//     const response = await fetch(`/api/comments/${commentId}`, {
+//         method: "DELETE",
+//     })
 
-    if (response.ok) {
-            const data = await response.json();
-            dispatch(editPhotoComment(stateI, data.Comments[0]))
-            return null;
-    } else if (response.status < 500) {
-            const data = await response.json();
-            if (data.errors) {
-                    return data.errors;
-            }
-    } else {
-            return ["An error occurred. Please try again."];
-    }
+//     if (response.ok) {
+//             const data = await response.json();
+//             dispatch(editPhotoComment(stateI, data.Comments[0]))
+//             return null;
+//     } else if (response.status < 500) {
+//             const data = await response.json();
+//             if (data.errors) {
+//                     return data.errors;
+//             }
+//     } else {
+//             return ["An error occurred. Please try again."];
+//     }
 
-}
+// }
 
 export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
     const { title, description, city, state, country } = body
