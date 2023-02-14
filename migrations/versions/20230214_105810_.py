@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: cb27d181bdcb
-Revises: 
+Revises:
 Create Date: 2023-02-14 10:58:10.035773
 
 """
@@ -29,7 +29,7 @@ def upgrade():
     )
     op.create_table('tags',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('tag_name', sa.String(length=255), nullable=False),
+    sa.Column('tag_name', sa.String(length=255), nullable=False, unique=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',

@@ -25,6 +25,11 @@ const createPhoto = (data) => ({
     payload: data
 })
 
+const deletePhoto = (photoId) => ({
+  type: DELETE_PHOTO,
+  payload: photoId
+})
+
 const deletePhotoComment = (stateI) => ({
     type: DELETE_PHOTO_COMMENT,
     payload: stateI
@@ -82,48 +87,6 @@ export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
     }
 };
 
-// export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) => {
-//     const response = await fetch(`/api/photos/${photoId}/comments`, {
-//         method: "POST",
-//         headers: {
-// 			"Content-Type": "application/json",
-// 		},
-//         body: JSON.stringify(comment)
-//     });
-
-//     if (response.ok) {
-//             const data = await response.json();
-//             return null;
-//     } else if (response.status < 500) {
-//             const data = await response.json();
-//             if (data.errors) {
-//                     return data.errors;
-//             }
-//     } else {
-//             return ["An error occurred. Please try again."];
-//     }
-// }
-
-// export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
-//     const response = await fetch(`/api/comments/${commentId}`, {
-//         method: "DELETE",
-//     })
-
-//     if (response.ok) {
-//             const data = await response.json();
-//             dispatch(editPhotoComment(stateI, data.Comments[0]))
-//             return null;
-//     } else if (response.status < 500) {
-//             const data = await response.json();
-//             if (data.errors) {
-//                     return data.errors;
-//             }
-//     } else {
-//             return ["An error occurred. Please try again."];
-//     }
-
-// }
-
 export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
     const { title, description, city, state, country } = body
     console.log("reaches fetch request ======================>")
@@ -156,7 +119,7 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
 
 export const thunkDeletePhoto = (photoId) => async (dispatch) => {
     console.log("fetch request reached ==============> ")
-    
+
     const response = await fetch(`/api/photos/${photoId}`, {
         method: "DELETE",
     });
@@ -220,7 +183,7 @@ export const thunkEditPhotoComment = (commentId, stateI, comment) => async(dispa
     });
 
     if (response.ok) {
-            dispatch(deletePhotoComment(stateI))
+            dispatch(editPhotoComment(stateI))
             return null;
     } else if (response.status < 500) {
             const data = await response.json();
@@ -231,29 +194,6 @@ export const thunkEditPhotoComment = (commentId, stateI, comment) => async(dispa
             return ["An error occurred. Please try again."];
     }
 }
-
-// export const thunkEditPhotoComment = (commentId, stateI, comment) => async(dispatch) => {
-//     const response = await fetch(`/api/comments/${commentId}`, {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//             body: JSON.stringify(comment)
-//     });
-
-//     if (response.ok) {
-//             const data = await response.json();
-//             return null;
-//     } else if (response.status < 500) {
-//         const data = await response.json();
-//         if (data.errors) {
-//             return data.errors;
-//         }
-//     } else {
-//         return ["An error occurred. Please try again."];
-//     }
-// }
-
 
 
 //Reducers go here
