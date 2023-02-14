@@ -58,13 +58,54 @@ export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
 	}
 };
 
+export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) => {
+    const response = await fetch(`/api/photos/${photoId}/comments`, {
+        method: "POST",
+        headers: {
+			"Content-Type": "application/json",
+		},
+        body: JSON.stringify(comment)
+    });
+
+    if (response.ok) {
+            const data = await response.json();
+            return null;
+    } else if (response.status < 500) {
+            const data = await response.json();
+            if (data.errors) {
+                    return data.errors;
+            }
+    } else {
+            return ["An error occurred. Please try again."];
+    }
+}
+
+export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: "DELETE",
+    })
+
+    if (response.ok) {
+            const data = await response.json();
+            return null;
+    } else if (response.status < 500) {
+            const data = await response.json();
+            if (data.errors) {
+                    return data.errors;
+            }
+    } else {
+            return ["An error occurred. Please try again."];
+    }
+
+}
+
 //Reducers go here
 export default function photoReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_PHOTOS:
             return { photos: action.payload };
         case GET_SINGLE_PHOTO:
-            return 
+            return { ...state, photoDetails: action.payload }
         case CREATE_NEW_PHOTO:
             return
         case UPDATE_PHOTO:
