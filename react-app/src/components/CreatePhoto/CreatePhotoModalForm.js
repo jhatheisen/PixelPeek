@@ -40,26 +40,13 @@ function CreatePhotoModalForm() {
             history.push(`/photos/${res.id}`)
             
         } catch (error) {
-                let errors = JSON.parse(error.message)
-                console.log(errors)
-                if (errors) setErrors(errors.errors);
-                console.log(errors)
+            let errorObject = JSON.parse(error.message)
+            const result = errorObject.errors.map(error=>{
+                
+                return error.split(': ')[1]
+            })
+            if (errorObject) setErrors(result);
         }
-
-        // dispatch(thunkCreatePhoto(body, imageUrl))
-        // .then(closeModal)
-        // .then((res) => {
-        //     console.log(res, '================================>NO ERRORS WERE FOUND')
-        //     history.push(`/photos/${res.id}`)
-        // })
-        // .catch(async (res) => {
-        //     console.log('resData', res)
-        //     const data = await res.json();
-        //     if (data && data.errors) setErrors([data.errors]);
-        //     console.log(errors)
-        // });
-
-
     };
 
 

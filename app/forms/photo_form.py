@@ -22,7 +22,7 @@ def state_validator(form, field):
 
 def country_validator(form, field):
     if len(field.data) < 3 or len(field.data) > 20 :
-        raise ValidationError('Title must be between 3 and 20 characters long')
+        raise ValidationError('Country must be between 3 and 20 characters long')
 
 class CreatePhotoForm(FlaskForm):
   title = StringField('title', validators=[DataRequired(), title_validator])

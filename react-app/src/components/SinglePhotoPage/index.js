@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink, useHistory } from "react-router-dom";
-import { thunkGetOnePhoto } from "../../store/photos";
+import { thunkGetOnePhoto, thunkDeletePhoto } from "../../store/photos";
 import * as photoActions from '../../store/photos'
 import './SinglePhotoPage.css'
+
 
 const SinglePhotoPage = () => {
 
@@ -37,6 +38,14 @@ const SinglePhotoPage = () => {
         })
     }
 
+//Photos Handlers
+    const handlePhotoDelete = async (e) => {
+        e.preventDefault();
+        dispatch(thunkDeletePhoto(photo.id))
+        // .then(() => history.push("/photos"))
+    };
+
+//Comments handlers
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -71,6 +80,7 @@ const SinglePhotoPage = () => {
                 <div className="userBox">
                     <NavLink exact to={`/users/${user.id}`}><i className="fa-solid fa-user"></i></NavLink>
                     <NavLink exact to={`/users/${user.id}`}>{user.username}</NavLink>
+                    <button onClick={handlePhotoDelete}>Delete Photo</button>
                     <p>{title}</p>
                     <p>{description}</p>
                 </div>

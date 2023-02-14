@@ -22,10 +22,15 @@ const createPhoto = (data) => ({
     payload: data
 })
 
+const deletePhoto = (photoId) => ({
+    type: DELETE_PHOTO,
+    payload: photoId
+})
 
+
+// Photo Feature Thunks Here
 const initialState = { user: null };
 
-// Thunks go here
 export const thunkGetAllPhotos = () => async (dispatch) => {
     const response = await fetch("/api/photos", {
         method: "GET",
@@ -64,48 +69,7 @@ export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
     }
 };
 
-export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) => {
-    const response = await fetch(`/api/photos/${photoId}/comments`, {
-        method: "POST",
-        headers: {
-			"Content-Type": "application/json",
-		},
-        body: JSON.stringify(comment)
-    });
 
-    if (response.ok) {
-            const data = await response.json();
-            return null;
-    } else if (response.status < 500) {
-            const data = await response.json();
-            if (data.errors) {
-                    return data.errors;
-            }
-    } else {
-            return ["An error occurred. Please try again."];
-    }
-}
-
-export const thunkDeletePhotoComment = (commentId) => async(dispatch) => {
-    const response = await fetch(`/api/comments/${commentId}`, {
-        method: "DELETE",
-    })
-
-    if (response.ok) {
-            const data = await response.json();
-            return null;
-    } else if (response.status < 500) {
-            const data = await response.json();
-            if (data.errors) {
-                    return data.errors;
-            }
-    } else {
-            return ["An error occurred. Please try again."];
-    }
-
-}
-
-//thunk for creating a photo
 export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
     const { title, description, city, state, country } = body
     console.log("reaches fetch request ======================>")
@@ -131,31 +95,89 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        console.log("======================>error response in thunk ", response)
+        console.log("======================>error response in thunk ", data)
         throw new Error(JSON.stringify(data))
-        return response
+    }
+};
+
+export const thunkDeletePhoto = (photoId) => async (dispatch) => {
+    console.log("fetch request reached ==============> ")
+    
+    const response = await fetch(`/api/photos/${photoId}`, {
+        method: "DELETE",
+    });
+    console.log("fetch request completed ==============>", response)
+    if(response.ok) dispatch(deletePhoto(photoId))
+    return response
+}
+
+
+
+// Comment Feature Thunks Here
+
+export const thunkCreatePhotoComment = (photoId, comment) => async (dispatch) => {
+    const response = await fetch(`/api/photos/${photoId}/comments`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comment)
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
     } else {
         return ["An error occurred. Please try again."];
     }
-};
+}
+
+export const thunkDeletePhotoComment = (commentId) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: "DELETE",
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ["An error occurred. Please try again."];
+    }
+
+}
+
 
 
 //Reducers go here
 export default function photoReducer(state = initialState, action) {
+    let newState
     switch (action.type) {
         case GET_ALL_PHOTOS:
             return { ...action.payload };
         case GET_SINGLE_PHOTO:
             return { ...state, photoDetails: action.payload }
         case CREATE_NEW_PHOTO:
-            let newState
             newState = Object.assign({}, state)
             newState[action.payload.id] = action.payload
             return newState
         case UPDATE_PHOTO:
             return
         case DELETE_PHOTO:
-            return
+            newState = Object.assign({}, state)
+            delete newState.photos[action.photoId]
+            const newState2 = {...newState.photos}
+            delete newState2[action.photoId]
+            return newState
         default:
             return state;
     }

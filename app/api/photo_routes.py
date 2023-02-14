@@ -177,7 +177,7 @@ def delete_photo(photoId):
 
     if delete_photo.user_id != current_user.id:
         return {'errors': ['Unauthorized']}, 401
-
+    print('ERRRRO HERE??????????')
     db.session.delete(delete_photo)
     db.session.commit()
 
