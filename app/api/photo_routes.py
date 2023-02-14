@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import Photo, db
+from app.models import Photo, db, Comment
 from ..forms.photo_form import CreatePhotoForm, EditPhotoForm
+from ..forms.comments_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
 
 
@@ -148,7 +149,7 @@ def update_photo(photoId):
         edit_photo.img_url = data['img_url']
 
         db.session.commit()
-        
+
         print("-------------------<SUCCESS")
 
         return {
@@ -181,3 +182,35 @@ def delete_photo(photoId):
     db.session.commit()
 
     return {"message": "Successfully deleted"}
+
+@photo_routes.route('/<int:photoId>/comments', methods=["POST"])
+@login_required
+def create_comment(photoId):
+  print("-------------------<ROUTEHIT FOUND")
+  user_id = current_user.id
+  print(user_id)
+  print("-------------------<USER_ID FOUND")
+  form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    print("validating")
+    data = form.data
+    newComment = Comment(
+        comment = data["comment"],
+        user_id = user_id,
+        photo_id = int(photoId)
+    )
+
+    db.session.add(newComment)
+    db.session.commit()
+    print("-------------------<SUCCESS")
+
+    allComments = Comment.query.all()
+
+    return {
+        "id": allComments[len(allComments)-1].id,
+        "user_id": user_id,
+        "photo_id": photoId,
+        "comment": data["comment"],
+        "createdAt": allComments[len(allComments)-1].createdAt
+    }

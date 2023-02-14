@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
-import AllPhotosPage from "./components/AllPhotosPage"
+import AllPhotosPage from "./components/AllPhotosPage";
+import SinglePhotoPage from './components/SinglePhotoPage'
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage";
@@ -33,7 +34,10 @@ function App() {
           <Route path='/You'>
             <YouPage />
           </Route>
-          <Route path="/">
+          <Route path='/photos/:photoId'>
+            <SinglePhotoPage/>
+          </Route>
+          <Route path="/" exact>
             <SplashPage />
           </Route>
         </Switch>
