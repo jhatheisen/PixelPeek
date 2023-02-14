@@ -131,9 +131,9 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return response;
-        }
+        console.log("======================>error response in thunk ", response)
+        throw new Error(JSON.stringify(data))
+        return response
     } else {
         return ["An error occurred. Please try again."];
     }

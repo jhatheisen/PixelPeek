@@ -20,7 +20,7 @@ function CreatePhotoModalForm() {
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal()
 
-    function handleSubmit(e) {
+    const handleSubmit = async(e) =>{
         e.preventDefault();
         setErrors([]);
         const body = {
@@ -30,26 +30,37 @@ function CreatePhotoModalForm() {
             state,
             country
         }
-        return dispatch(thunkCreatePhoto(body, imageUrl))
-            .then((res) => {
-                if(!res.errors){
-                    console.log(res, '================================>NO ERRORS WERE FOUND')
-                    history.push(`/photos/${res.id}`)
-                }
-            })
-            .then(closeModal)
-            .catch(async(res) => {
-                const data = await res.json()
-                console.log('resData', data)
-                if (data && data.errors) setErrors([data.errors]);
-                console.log(data.errors)
-            });
-            // .catch(async (res) => {
-            //     console.log("res=====================================>", res)
-            //     const data = await res.json();
-            //     if (data && data.errors) setErrors([data.errors]);
-            // });
-    }; 
+        
+        try {
+            const res = await dispatch(thunkCreatePhoto(body, imageUrl))
+            // const data = await res.json();
+    
+            console.log('res=============>success', res )
+            closeModal()
+            history.push(`/photos/${res.id}`)
+            
+        } catch (error) {
+                let errors = JSON.parse(error.message)
+                console.log(errors)
+                if (errors) setErrors(errors.errors);
+                console.log(errors)
+        }
+
+        // dispatch(thunkCreatePhoto(body, imageUrl))
+        // .then(closeModal)
+        // .then((res) => {
+        //     console.log(res, '================================>NO ERRORS WERE FOUND')
+        //     history.push(`/photos/${res.id}`)
+        // })
+        // .catch(async (res) => {
+        //     console.log('resData', res)
+        //     const data = await res.json();
+        //     if (data && data.errors) setErrors([data.errors]);
+        //     console.log(errors)
+        // });
+
+
+    };
 
 
     //add a redirect or to place to read new group
