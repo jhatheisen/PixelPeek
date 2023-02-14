@@ -28,14 +28,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path='/photos/:photoId'>
+            <SinglePhotoPage/>
+          </Route>
           <Route path='/photos'>
             <AllPhotosPage />
           </Route>
           <Route path='/You'>
             <YouPage />
-          </Route>
-          <Route path='/photos/:photoId'>
-            <SinglePhotoPage/>
           </Route>
           <Route path="/" exact>
             <SplashPage />
