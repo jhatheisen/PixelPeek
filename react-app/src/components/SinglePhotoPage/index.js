@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, NavLink, useHistory } from "react-router-dom";
+import { useParams, NavLink} from "react-router-dom";
 import { thunkGetOnePhoto, thunkDeletePhoto } from "../../store/photos";
 import * as photoActions from '../../store/photos'
 import './SinglePhotoPage.css'
@@ -9,19 +9,28 @@ import './SinglePhotoPage.css'
 const SinglePhotoPage = () => {
 
     //get photo data via thunk
-    useEffect(()=>{
-        dispatch(thunkGetOnePhoto(photoId))
-    }, [])
-
     const dispatch = useDispatch();
+
+    const [loadedPage, setLoadedPage] = useState(false);
+
+    useEffect(()=>{
+      dispatch(thunkGetOnePhoto(photoId))
+
+      return () => {
+        setLoadedPage(false);
+        setCommentText('');
+        setEditingComment(false);
+      }
+    }, [dispatch, loadedPage])
+
     const { photoId } = useParams();
-    const history = useHistory();
 
     const photo = useSelector(state => state.photos.photoDetails)
     const currUser = useSelector(state => state.session.user)
 
-    const [comment, setComment] = useState('');
+    const [commentText, setCommentText] = useState('');
     const [errors, setErrors] = useState([]);
+    const [editingComment, setEditingComment ] = useState(false);
 
     let alreadyCommented = false;
 
@@ -51,22 +60,40 @@ const SinglePhotoPage = () => {
         setErrors([]);
 
         const newComment = {
-          comment
+          comment: commentText
         }
 
         const response = await dispatch(photoActions.thunkCreatePhotoComment(id, newComment));
-        history.go(0);
+        await setLoadedPage(true)
     }
+
+    const handleCommentUpdate = async (e, commentId) => {
+        e.preventDefault();
+        setErrors([]);
+
+        let stateI = null;
+        for (let i = 0; i < comments.length; i++) {
+          const comment = comments[i];
+          if (comment.id == commentId) stateI = i;
+        }
+
+        const changedComment = {
+          comment: commentText
+        }
+
+        await dispatch(photoActions.thunkEditPhotoComment(commentId, stateI, changedComment));
+        await setLoadedPage(true)
+      }
 
     const handleCommentDelete = async (commentId) => {
-
-        const deleting = window.confirm("Are you sure you want to delete this Comment?");
-        if (deleting) {
-            dispatch(photoActions.thunkDeletePhotoComment(commentId));
-            history.go(0);
+        let stateI = null;
+        for (let i = 0; i < comments.length; i++) {
+          const comment = comments[i];
+          if (comment.id == commentId) stateI = i;
         }
+        await dispatch(photoActions.thunkDeletePhotoComment(commentId, stateI));
+        await setLoadedPage(true)
     }
-    console.log('have we already commented? : ' + alreadyCommented)
 
     return (
         <>
@@ -93,19 +120,62 @@ const SinglePhotoPage = () => {
                             if (currUser) isUser = true;
                             return (
                                 <>
-                                    <i className="fa-solid fa-user"></i>
-                                    <NavLink exact to={`/users/${comment.id}`}>{comment.username}</NavLink>
-                                    { isUser && comment.user_id == currUser.id &&
-                                        <button onClick={() => handleCommentDelete(comment.id)}><i className="fa-regular fa-trash-can"></i></button>
-                                    }
-                                    <p>{comment.comment}</p>
-                                    <p>{comment.createdAt}</p>
+                                { editingComment != comment.id &&
+                                  <div className="commentBox">
+                                      <i className="fa-solid fa-user"></i>
+                                      <NavLink exact to={`/users/${comment.id}`}>{comment.username}</NavLink>
+                                      { isUser && comment.user_id == currUser.id &&
+                                          <>
+                                          <button onClick={() => handleCommentDelete(comment.id)}><i className="fa-regular fa-trash-can"></i></button>
+                                          <button onClick={() => {
+                                            setEditingComment(comment.id)
+                                            setCommentText(comment.comment)
+                                            console.log(commentText)
+                                          }}>
+                                          <i className="fa-solid fa-pen-to-square"></i>
+                                          </button>
+                                          </>
+                                      }
+                                      <p>{comment.comment}</p>
+                                      <p>{comment.createdAt}</p>
+                                    </div>
+                                }
+
+                                    { editingComment == comment.id &&
+                                      <div className="editCommentBox">
+                                          <form onSubmit={(e) => handleCommentUpdate(e, comment.id)} className="commentForm">
+                                              <div className="commentInput">
+                                                  <label for="comment">
+                                                      <i className="fa-solid fa-camera-retro"></i>
+                                                      <textarea
+                                                          type="textarea"
+                                                          id="comment"
+                                                          value={commentText}
+                                                          onChange={(e) => setCommentText(e.target.value)}
+                                                          maxlength={255}
+                                                          placeholder="Edit your comment"
+                                                          required
+                                                      />
+                                                  </label>
+                                                  {comment &&
+                                                      <button type="submit" className='create-comment-submit-button'>
+                                                          Submit
+                                                      </button>
+                                                  }
+                                                  <ul className="createErrors">
+                                                      {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                                                  </ul>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  }
+
                                 </>
                             )
                         })
                     }
 
-                { !alreadyCommented &&
+                { !editingComment &&
                     <div className="makeCommentBox">
                         <form onSubmit={handleCommentSubmit} className="commentForm">
                             <div className="commentInput">
@@ -114,14 +184,14 @@ const SinglePhotoPage = () => {
                                     <textarea
                                         type="textarea"
                                         id="comment"
-                                        value={comment}
-                                        onChange={(e) => setComment(e.target.value)}
+                                        value={commentText}
+                                        onChange={(e) => setCommentText(e.target.value)}
                                         maxlength={255}
                                         placeholder="Add a comment"
                                         required
                                     />
                                 </label>
-                                {comment &&
+                                {commentText &&
                                     <button type="submit" className='create-comment-submit-button'>
                                         Submit
                                     </button>
@@ -133,9 +203,9 @@ const SinglePhotoPage = () => {
                         </form>
                     </div>
                 }
-                { alreadyCommented &&
+                {/* { alreadyCommented &&
                     <h2>Please delete your existing comment to post a new one</h2>
-                }
+                } */}
                 </div>
 
 

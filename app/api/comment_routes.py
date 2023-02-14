@@ -14,7 +14,7 @@ def user_comments():
         comments = Comment.query.filter_by(user_id=user_id).all()
     return {'Comments': [comment.to_dict() for comment in comments]}
 
-@comment_routes.route('<int:comment_id>', methods=['PUT'])
+@comment_routes.route('/<int:comment_id>', methods=['PUT'])
 @login_required
 def edit_comments(comment_id):
     editComments = db.session.query(Comment).get(int(comment_id))
@@ -39,27 +39,32 @@ def edit_comments(comment_id):
         }, 400
 
     form['csrf_token'].data = request.cookies['csrf_token']
-
     if form.validate_on_submit:
-            editComments.comment = form.data["comment"]
-            db.session.commit()
+      editComments.comment = form.data["comment"]
+      db.session.commit()
 
-            return {
-                "Comments": [
-                {
-                "id": comment_id,
-                "user_id": editComments.user_id,
-                "photo_id": editComments.photo_id,
-                "comment": form.data["comment"],
-                "createdAt": editComments.createdAt,
-                }
-                ]
-            }, 200
+      return {
+          "Comments": [
+          {
+          "id": comment_id,
+          "user_id": editComments.user_id,
+          "photo_id": editComments.photo_id,
+          "comment": form.data["comment"],
+          "createdAt": editComments.createdAt,
+          }
+          ]
+      }, 200
 
-@comment_routes.route('<int:comment_id>', methods=['DELETE'])
+@comment_routes.route('/<int:comment_id>', methods=['DELETE'])
 @login_required
 def delete_comments(comment_id):
     comment = Comment.query.get(comment_id)
+
+    if comment is None:
+        return {
+            "message": "Comment couldn't be found",
+            "statusCode": 404
+        }, 404
 
     if comment.user_id != current_user.id:
         return {'errors': ['Unauthorized']}, 401
@@ -71,8 +76,3 @@ def delete_comments(comment_id):
             "message": "Successfully deleted",
             "statusCode": 200
         }, 200
-    else:
-        return {
-            "message": "Comment couldn't be found",
-            "statusCode": 404
-        }, 404

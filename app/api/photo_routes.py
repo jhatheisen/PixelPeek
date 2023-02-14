@@ -54,6 +54,9 @@ def get_photo_detail(photoId):
         commentInfo.append({
             "id": comment.id,
             "comment": comment.comment,
+            "commentDate": comment.createdAt,
+            "username": comment.user.username,
+            "user_id": comment.user.id,
             "createdAt": comment.createdAt
         })
 
