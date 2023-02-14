@@ -15,7 +15,7 @@ def get_all_photos():
   print(all_photos)
 
   output = {
-    "Photos":[]
+    "allPhotos":[]
   }
 
   for photo in all_photos:
@@ -24,7 +24,7 @@ def get_all_photos():
     info.pop("albums")
     info.pop("tags")
     info.pop("comments")
-    output["Photos"].append(info)
+    output["allPhotos"].append(info)
 
   return output
 
@@ -56,7 +56,6 @@ def get_photo_detail(photoId):
             "createdAt": comment.createdAt
         })
 
-
     print(commentInfo, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>tagInfo here")
     return {
         "id": info["id"],
@@ -79,6 +78,7 @@ def get_photo_detail(photoId):
 @photo_routes.route('/', methods=["POST"])
 @login_required
 def create_photo():
+  print(request.cookies["session"])
   print("-------------------<ROUTEHIT FOUND")
   user_id = current_user.id
   print(user_id)
@@ -116,6 +116,8 @@ def create_photo():
         "img_url": data["img_url"],
         "createdAt": allPhotos[len(allPhotos)-1].createdAt
     }
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
 
 #Update photo route
 
@@ -162,8 +164,6 @@ def update_photo(photoId):
         }
     #Error handling
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-
 
 @photo_routes.route('/<int:photoId>', methods=["DELETE"])
 @login_required

@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+import CreatePhotoModal from "../CreatePhoto";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -17,6 +18,11 @@ function Navigation({ isLoaded }) {
           />
         </NavLink>
       </div>
+      {sessionUser && (
+        <div>
+          <CreatePhotoModal user={sessionUser} />
+        </div>
+      )}
       {isLoaded && (
         <div>
           <ProfileButton user={sessionUser} />

@@ -13,9 +13,15 @@ const getAllPhotos = (photos) => ({
 });
 
 const getSinglePhoto = (photo) => ({
-	type: GET_SINGLE_PHOTO,
-	payload: photo
+    type: GET_SINGLE_PHOTO,
+    payload: photo
 })
+
+const createPhoto = (data) => ({
+    type: CREATE_NEW_PHOTO,
+    payload: data
+})
+
 
 const initialState = { user: null };
 
@@ -40,38 +46,76 @@ export const thunkGetAllPhotos = () => async (dispatch) => {
 };
 
 export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
-	const response = await fetch(`/api/photos/${photoId}`, {
-			method: "GET",
-	});
+    const response = await fetch(`/api/photos/${photoId}`, {
+        method: "GET",
+    });
 
-	if (response.ok) {
-			const data = await response.json();
-			dispatch(getSinglePhoto(data));
-			return null;
-	} else if (response.status < 500) {
-			const data = await response.json();
-			if (data.errors) {
-					return data.errors;
-			}
-	} else {
-			return ["An error occurred. Please try again."];
-	}
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getSinglePhoto(data));
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ["An error occurred. Please try again."];
+    }
 };
+
+//thunk for creating a photo
+export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
+    const { title, description, city, state, country } = body
+    console.log("reaches fetch request ======================>")
+    const response = await fetch(`/api/photos/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "title": title,
+            "description": description,
+            "city": city,
+            "state": state,
+            "country": country,
+            "img_url": imageUrl
+        }),
+    });
+    if (response.ok) {
+        console.log("======================>request successful ")
+        const data = await response.json();
+        dispatch(createPhoto(data));
+        console.log("======================>request successful ", data)
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return response;
+        }
+    } else {
+        return ["An error occurred. Please try again."];
+    }
+};
+
 
 //Reducers go here
 export default function photoReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_PHOTOS:
-            return { photos: action.payload };
+            return { ...action.payload };
         case GET_SINGLE_PHOTO:
-            return 
-        case CREATE_NEW_PHOTO:
             return
+        case CREATE_NEW_PHOTO:
+            let newState
+            newState = Object.assign({}, state)
+            newState[action.payload.id] = action.payload
+            return newState
         case UPDATE_PHOTO:
             return
         case DELETE_PHOTO:
-			return
-		default:
+            return
+        default:
             return state;
     }
 }
