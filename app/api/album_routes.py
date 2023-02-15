@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Album, album_photos
 from .auth_routes import validation_errors_to_error_messages
+from ..forms.album_form import CreateAlbumForm
 
 album_routes = Blueprint('album', __name__)
 
@@ -43,7 +44,6 @@ def get_single_album(albumId):
         "photos": photoInfo
     }
 
-
 @album_routes.route('/', methods=["POST"])
 @login_required
 def create_album():
@@ -51,34 +51,36 @@ def create_album():
   user_id = current_user.id
   print(user_id)
   print("-------------------<USER_ID FOUND")
-#   form = CreateAlbumForm()
-#   form['csrf_token'].data = request.cookies['csrf_token']
-#   if form.validate_on_submit():
-#     data = form.data
+  form = CreateAlbumForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
-#     newAlbum = Album(
-#         album_name= data["album_name"],
-#     )
+  if form.validate_on_submit():
+    data = form.data
 
-#     db.session.add(newPhoto)
-#     db.session.commit()
-#     print("-------------------<SUCCESS")
+    newAlbum = Album(
+        album_name= data["album_name"],
+        user_id = current_user.id
+    )
 
-#     allPhotos = Photo.query.all()
+    db.session.add(newAlbum)
+    db.session.commit()
+    print("-------------------<SUCCESS")
+
+    allPhotos = Photo.query.all()
 
 
-#     return {
-#         "id": allPhotos[len(allPhotos)-1].id,
-#         "user_id": user_id,
-#         "title": data["title"],
-#         "description": data["description"],
-#         "city": data["city"],
-#         "state": data["state"],
-#         "country": data["country"],
-#         "img_url": data["img_url"],
-#         "createdAt": allPhotos[len(allPhotos)-1].createdAt
-#     }
-#   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {
+        "id": allPhotos[len(allPhotos)-1].id,
+        "user_id": user_id,
+        "title": data["title"],
+        "description": data["description"],
+        "city": data["city"],
+        "state": data["state"],
+        "country": data["country"],
+        "img_url": data["img_url"],
+        "createdAt": allPhotos[len(allPhotos)-1].createdAt
+    }
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 
