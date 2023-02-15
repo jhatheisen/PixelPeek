@@ -218,7 +218,8 @@ export const thunkEditPhotoComment = (commentId, stateI, comment) => async(dispa
     });
 
     if (response.ok) {
-            dispatch(editPhotoComment(stateI))
+            const data = await response.json()
+            dispatch(editPhotoComment(stateI, data.Comments))
             return null;
     } else if (response.status < 500) {
             const data = await response.json();

@@ -13,6 +13,7 @@ const SinglePhotoPage = () => {
     const dispatch = useDispatch();
 
     const [loadedPage, setLoadedPage] = useState(false);
+    const history = useHistory();
 
     useEffect(()=>{
       dispatch(thunkGetOnePhoto(photoId))
@@ -39,14 +40,6 @@ const SinglePhotoPage = () => {
 
     const { user, title, description, img_url, city, state, country, comments, tags, createdAt, id } = photo;
 
-    if (comments) {
-        comments.forEach(comment => {
-            const commentOwner = comment.user_id;
-            if (currUser) {
-                if (commentOwner == currUser.id) alreadyCommented = true
-            }
-        })
-    }
 
     //Photos Handlers
     const handlePhotoDelete = async (e) => {
@@ -57,7 +50,7 @@ const SinglePhotoPage = () => {
 
     //Comments handlers
     const handleCommentSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
         setErrors([]);
 
         const newComment = {
@@ -82,11 +75,12 @@ const SinglePhotoPage = () => {
           comment: commentText
         }
 
+        // console.log("comment to be changed: ",changedComment, commentId, stateI)
         await dispatch(photoActions.thunkEditPhotoComment(commentId, stateI, changedComment));
         await setLoadedPage(true)
       }
 
-    const handleCommentDelete = async (commentId) => {
+      const handleCommentDelete = async (commentId) => {
         let stateI = null;
         for (let i = 0; i < comments.length; i++) {
           const comment = comments[i];
@@ -99,8 +93,18 @@ const SinglePhotoPage = () => {
 
     console.log("user=------------------>", user)
 
+    if (comments) {
+      // console.log(comments)
+        comments.forEach(comment => {
+            const commentOwner = comment.user_id;
+            if (currUser) {
+                if (commentOwner == currUser.id) alreadyCommented = true
+            }
+        })
+    }
+
     return (
-        <>
+      <>
             <div className="pageBox">
                 <NavLink to='/photos' className='backLink'>Back to explore</NavLink>
 
@@ -115,7 +119,7 @@ const SinglePhotoPage = () => {
                     {currUser && photo.user_id == currUser.id &&
                         <>
                             <button onClick={handlePhotoDelete}>Delete Photo</button>
-                            
+
                         </>
                     }
                     <UpdatePhotoModal user={currUser} />
