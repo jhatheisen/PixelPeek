@@ -1,19 +1,20 @@
 """empty message
 
-Revision ID: 155dee45d37d
+Revision ID: cb27d181bdcb
 Revises:
-Create Date: 2023-02-10 13:49:11.934518
+Create Date: 2023-02-14 10:58:10.035773
 
 """
 from alembic import op
 import sqlalchemy as sa
+
 
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '155dee45d37d'
+revision = 'cb27d181bdcb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,7 +29,7 @@ def upgrade():
     )
     op.create_table('tags',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('tag_name', sa.String(length=255), nullable=False),
+    sa.Column('tag_name', sa.String(length=255), nullable=False, unique=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -62,11 +63,11 @@ def upgrade():
     )
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('comment', sa.String(length=250), nullable=False),
+    sa.Column('comment', sa.String(length=255), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('photo_id', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['photo_id'], ['photos.id'], ),
+    sa.ForeignKeyConstraint(['photo_id'], ['photos.id']),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

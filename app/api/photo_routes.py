@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import Photo, db, Comment
+from app.models import Photo, db, Comment, Tag
 from ..forms.photo_form import CreatePhotoForm, EditPhotoForm
 from ..forms.comments_form import CommentForm
+from ..forms.tags_form import TagsForm
 from .auth_routes import validation_errors_to_error_messages
 
 
@@ -139,9 +140,10 @@ def update_photo(photoId):
 
     form = EditPhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
-
+    print("=========================>reaches validate on submit")
+    print(form.data)
     if form.validate_on_submit():
+        print("====================>validate on submit passed")
         data = form.data
 
         edit_photo.title = data["title"]
@@ -203,7 +205,7 @@ def create_comment(photoId):
         user_id = user_id,
         photo_id = int(photoId)
     )
-
+    
     db.session.add(newComment)
     db.session.commit()
     print("-------------------<SUCCESS")
@@ -216,4 +218,69 @@ def create_comment(photoId):
         "photo_id": photoId,
         "comment": data["comment"],
         "createdAt": allComments[len(allComments)-1].createdAt
+    }
+
+@photo_routes.route('/<int:photoId>/tags/<int:tagId>', methods=['DELETE'])
+@login_required
+def delete_tag(photoId, tagId):
+    photo = Photo.query.get(photoId)
+
+    if photo is None:
+      return {
+        "message": "Photo couldn't be found",
+        "statusCode": 404
+      }, 404
+
+    tag = Tag.query.get(tagId)
+
+    if tag is None:
+        return {
+            "message": "Tag couldn't be found",
+            "statusCode": 404
+        }, 404
+
+    if photo.user_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    if tag not in photo.tags:
+      return {
+        "message": "Tag not attatched to photo",
+        "statusCode": 400
+      }, 400
+
+    photo.tags.remove(tag)
+    db.session.commit()
+    
+    return {
+        "message": "Successfully deleted",
+        "statusCode": 200
+    }, 200
+
+@photo_routes.route('/<int:photoId>/tags', methods=['POST'])
+@login_required
+def add_tag(photoId):
+    pass
+
+@photo_routes.route('/<int:photoId>/tags', methods=["GET"])
+def get_all_photo_tags(photoId):
+    photo = Photo.query.get(photoId)
+
+    if photo is None:
+      return {
+        "message": "Photo couldn't be found",
+        "statusCode": 404
+      }, 404
+
+    # if no tags, come back to finish
+    photo = photo.to_dict()
+    tags = photo['tags']
+    tagsList = []
+    for tag in tags:
+      tempTag = tag.to_dict()
+      tempTag.pop("photos")
+      tagsList.append(tempTag)
+
+    return {
+      "PhotoId": photo['id'],
+      "Tags":tagsList
     }

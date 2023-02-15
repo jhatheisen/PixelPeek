@@ -2,47 +2,56 @@ import React from 'react';
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { thunkCreatePhoto } from '../../store/photos';
+import { thunkUpdatePhoto } from '../../store/photos';
 import { useModal } from '../../context/Modal';
 
-function CreatePhotoModalForm() {
+function UpdatePhotoModalForm() {
     const sessionUser = useSelector(state => state.session.user);
+    const photo = useSelector(state => state.photos.photoDetails)
+
 
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [title, setTitle] = useState(photo.title);
+    const [description, setDescription] = useState(photo.description);
+    const [city, setCity] = useState(photo.city);
+    const [state, setState] = useState(photo.state);
+    const [country, setCountry] = useState(photo.country);
+    const [imageUrl, setImageUrl] = useState(photo.img_url);
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal()
 
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        const body = {
+
+        const { id, user_id } = photo
+
+        const photoDetails = {
+            id,
+            user_id
+        }
+        const editedPhotoBody = {
             title,
             description,
             city,
             state,
-            country
+            country,
+            imageUrl,
         }
-        
+
         try {
-            const res = await dispatch(thunkCreatePhoto(body, imageUrl))
-            // const data = await res.json();
-    
-            console.log('res=============>success', res )
+            const res = await dispatch(thunkUpdatePhoto(editedPhotoBody, photoDetails))
+
+            console.log('res=============>success', res)
             closeModal()
             history.push(`/photos/${res.id}`)
-            
+
         } catch (error) {
             let errorObject = JSON.parse(error.message)
-            const result = errorObject.errors.map(error=>{
-                
+            const result = errorObject.errors.map(error => {
+
                 return error.split(': ')[1]
             })
             if (errorObject) setErrors(result);
@@ -128,4 +137,4 @@ function CreatePhotoModalForm() {
     );
 }
 
-export default CreatePhotoModalForm;
+export default UpdatePhotoModalForm;

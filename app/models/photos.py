@@ -21,7 +21,7 @@ class Photo(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
   user = db.relationship("User", back_populates="photos")
-  comments = db.relationship("Comment", back_populates="photo")
+  comments = db.relationship("Comment", back_populates="photo", cascade="all,delete")
 
   #Many-To-Many betweeen Photos and Albums
   albums = db.relationship(
