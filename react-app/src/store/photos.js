@@ -358,6 +358,22 @@ export default function photoReducer(state = initialState, action) {
         action.payload.comment;
       return nState;
     }
+    case DELETE_PHOTO_TAG: {
+      let nState = { ...state };
+      nState.photoDetails.tags.splice(action.payload, 1);
+      return nState;
+    }
+    case CREATE_PHOTO_TAG: {
+      let nState = { ...state };
+      nState.photoDetails.tags.push(action.payload);
+      return nState;
+    }
+
+    case EDIT_PHOTO_TAG: {
+      let nState = { ...state };
+      nState.photoDetails.tags[action.payload.stateI] = action.payload.tag;
+      return nState;
+    }
     default:
       return state;
   }

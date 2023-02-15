@@ -33,6 +33,7 @@ const SinglePhotoPage = () => {
   const currUser = useSelector((state) => state.session.user);
 
   const [commentText, setCommentText] = useState("");
+  const [tagText, setTagText] = useState("");
   const [errors, setErrors] = useState([]);
   const [editingComment, setEditingComment] = useState(false);
 
@@ -119,7 +120,7 @@ const SinglePhotoPage = () => {
     });
   }
 
-  //Tags handlers
+  // Tags handlers
   const handleTagSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
@@ -152,25 +153,21 @@ const SinglePhotoPage = () => {
     await setLoadedPage(true);
   };
 
-  const handleTagDelete = async (commentId) => {
+  const handleTagDelete = async (tagId) => {
     let stateI = null;
-    for (let i = 0; i < comments.length; i++) {
-      const comment = comments[i];
-      if (comment.id == commentId) stateI = i;
+    for (let i = 0; i < tags.length; i++) {
+      const tag = tags[i];
+      if (tag.id == tagId) stateI = i;
     }
-    await dispatch(photoActions.thunkDeletePhotoComment(commentId, stateI));
+    await dispatch(photoActions.thunkDeletePhotoTag(tagId, stateI));
     await setLoadedPage(true);
   };
-  console.log("have we already commented? : " + alreadyCommented);
 
-  console.log("user=------------------>", user);
-
-  if (comments) {
-    // console.log(comments)
-    comments.forEach((comment) => {
-      const commentOwner = comment.user_id;
+  if (tags) {
+    tags.forEach((tag) => {
+      const tagOwner = tag.user_id;
       if (currUser) {
-        if (commentOwner == currUser.id) alreadyCommented = true;
+        if (tagOwner == currUser.id) alreadyCommented = true;
       }
     });
   }
