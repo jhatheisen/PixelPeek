@@ -250,10 +250,16 @@ export default function photoReducer(state = initialState, action) {
             return newState
         case UPDATE_PHOTO:
             newState = Object.assign({}, state)
-            newState.photoDetails = action.payload
+            const { title, description, city, country, img_url} = action.payload;
+            newState.photoDetails.title = title;
+            newState.photoDetails.description = description;
+            newState.photoDetails.city = city;
+            newState.photoDetails.state = action.payload.state;
+            newState.photoDetails.country = country;
+            newState.photoDetails.img_url = img_url;
             return newState
         case DELETE_PHOTO:
-            return
+            return state
         case DELETE_PHOTO_COMMENT: {
           let nState = {...state};
           nState.photoDetails.comments.splice(action.payload, 1)

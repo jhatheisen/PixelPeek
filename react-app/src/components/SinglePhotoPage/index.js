@@ -38,6 +38,7 @@ const SinglePhotoPage = () => {
 
     if (!photo) return null;
 
+
     const { user, title, description, img_url, city, state, country, comments, tags, createdAt, id } = photo;
 
 
@@ -119,10 +120,9 @@ const SinglePhotoPage = () => {
                     {currUser && photo.user_id == currUser.id &&
                         <>
                             <button onClick={handlePhotoDelete}>Delete Photo</button>
-
+                            <UpdatePhotoModal user={currUser} />
                         </>
                     }
-                    <UpdatePhotoModal user={currUser} />
                     <p>{title}</p>
                     <p>{description}</p>
                 </div>
