@@ -7,6 +7,7 @@ import {
   thunkUpdatePhoto,
 } from "../../store/photos";
 import * as photoActions from "../../store/photos";
+import { thunkGetAllTags, thunkCreateNewTag } from "../../store/tags";
 import UpdatePhotoModal from "../UpdatePhoto";
 import "./SinglePhotoPage.css";
 
@@ -19,11 +20,14 @@ const SinglePhotoPage = () => {
 
   useEffect(() => {
     dispatch(thunkGetOnePhoto(photoId));
+    dispatch(thunkGetAllTags())
 
     return () => {
       setLoadedPage(false);
       setCommentText("");
       setEditingComment(false);
+      setTagsOpen(false);
+      setTagName("");
     };
   }, [dispatch, loadedPage]);
 
@@ -31,15 +35,19 @@ const SinglePhotoPage = () => {
 
   const photo = useSelector((state) => state.photos.photoDetails);
   const currUser = useSelector((state) => state.session.user);
+  const allTags = useSelector((state) => state.tags.Tags);
 
   const [commentText, setCommentText] = useState("");
   const [tagText, setTagText] = useState("");
+  const [tagName, setTagName] = useState("");
   const [errors, setErrors] = useState([]);
   const [editingComment, setEditingComment] = useState(false);
+  const [tagsOpen, setTagsOpen] = useState(false);
 
   let alreadyCommented = false;
 
   if (!photo) return null;
+  if (!allTags) return null;
 
   const {
     user,
@@ -90,7 +98,6 @@ const SinglePhotoPage = () => {
       comment: commentText,
     };
 
-    // console.log("comment to be changed: ",changedComment, commentId, stateI)
     await dispatch(
       photoActions.thunkEditPhotoComment(commentId, stateI, changedComment)
     );
@@ -106,9 +113,6 @@ const SinglePhotoPage = () => {
     await dispatch(photoActions.thunkDeletePhotoComment(commentId, stateI));
     await setLoadedPage(true);
   };
-  console.log("have we already commented? : " + alreadyCommented);
-
-  console.log("user=------------------>", user);
 
   if (comments) {
     // console.log(comments)
@@ -121,45 +125,47 @@ const SinglePhotoPage = () => {
   }
 
   // Tags handlers
+
+  const handleAddTag = async (tag) => {
+    const response = await dispatch(
+      photoActions.thunkAddPhotoTag(photo.id, tag)
+    )
+    await setLoadedPage(true)
+  }
+
   const handleTagSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
 
+    setTagName(tagName[0].toUpperCase() + tagName.slice(1))
+
+    for(let i = 0; i < allTags.length; i++) {
+      let tag = allTags[i];
+      if (tag.tag_name == tagName) {
+        return window.alert('Tag already exists. Please add the tag from the list, or create a new one!')
+      }
+    }
+
     const newTag = {
-      tag: tagText,
+      tag_name: tagName,
     };
 
     const response = await dispatch(
-      photoActions.thunkCreatePhotoTag(id, newTag)
+      thunkCreateNewTag(newTag)
     );
-    await setLoadedPage(true);
-  };
-
-  const handleTagUpdate = async (e, tagId) => {
-    e.preventDefault();
-    setErrors([]);
-
-    let stateI = null;
-    for (let i = 0; i < tags.length; i++) {
-      const tag = tags[i];
-      if (tag.id == tagId) stateI = i;
-    }
-
-    const changedTag = {
-      tag: tagText,
-    };
-
-    await dispatch(photoActions.thunkEditPhotoTag(tagId, stateI, changedTag));
+    console.log(response);
+    await dispatch(photoActions.thunkAddPhotoTag(photo.id, response))
     await setLoadedPage(true);
   };
 
   const handleTagDelete = async (tagId) => {
+    console.log('tagId:', tagId)
     let stateI = null;
     for (let i = 0; i < tags.length; i++) {
       const tag = tags[i];
       if (tag.id == tagId) stateI = i;
     }
-    await dispatch(photoActions.thunkDeletePhotoTag(tagId, stateI));
+    await dispatch(photoActions.thunkDeletePhotoTag(photoId, tagId));
     await setLoadedPage(true);
   };
 
@@ -324,7 +330,37 @@ const SinglePhotoPage = () => {
 
         <hr />
         <div className="tagsBox">
-          {photo && tags.map((tag) => <p>{tag.tag_name}</p>)}
+          {photo &&
+            tags.map((tag) => (
+              <>
+                <p>{tag.tag_name}</p>
+                <button onClick={() => handleTagDelete(tag.id)}>Del</button>
+              </>
+            ))
+          }
+          { photo.user_id == currUser.id &&
+            <div className="addTagsBox">
+              <button onClick={() => setTagsOpen(!tagsOpen)} className="addTagButton">Add tag</button>
+              { tagsOpen && (
+                <>
+                  <div className="allTags">
+                    { allTags.map(tag => (<button className="tagButton" onClick={() => handleAddTag(tag)}>{tag.tag_name}</button>))}
+                  </div>
+                  <form onSubmit={handleTagSubmit}>
+                    <input
+                    type="text"
+                    id="tagName"
+                    value={tagName}
+                    onChange={(e) => setTagName(e.target.value)}
+                    maxLength={19}
+                    placeholder="Add Tag Name Here"
+                    />
+                    <button type="submit">Add a new tag</button>
+                  </form>
+                </>
+              )}
+            </div>
+          }
         </div>
       </div>
     </>
