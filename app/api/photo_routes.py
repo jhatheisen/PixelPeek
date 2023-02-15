@@ -139,9 +139,10 @@ def update_photo(photoId):
 
     form = EditPhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
-
+    print("=========================>reaches validate on submit")
+    print(form.data)
     if form.validate_on_submit():
+        print("====================>validate on submit passed")
         data = form.data
 
         edit_photo.title = data["title"]
@@ -203,7 +204,7 @@ def create_comment(photoId):
         user_id = user_id,
         photo_id = int(photoId)
     )
-
+    
     db.session.add(newComment)
     db.session.commit()
     print("-------------------<SUCCESS")

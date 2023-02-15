@@ -67,7 +67,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('photo_id', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['photo_id'], ['photos.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['photo_id'], ['photos.id']),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

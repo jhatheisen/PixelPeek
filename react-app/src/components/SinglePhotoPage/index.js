@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, NavLink} from "react-router-dom";
-import { thunkGetOnePhoto, thunkDeletePhoto } from "../../store/photos";
+import { useParams, NavLink, useHistory } from "react-router-dom";
+import { thunkGetOnePhoto, thunkDeletePhoto, thunkUpdatePhoto } from "../../store/photos";
 import * as photoActions from '../../store/photos'
+import UpdatePhotoModal from "../UpdatePhoto";
 import './SinglePhotoPage.css'
 
 
@@ -36,7 +37,7 @@ const SinglePhotoPage = () => {
 
     if (!photo) return null;
 
-    const { user, title, description, img_url, city, state, country, comments, tags, createdAt, id} = photo;
+    const { user, title, description, img_url, city, state, country, comments, tags, createdAt, id } = photo;
 
     if (comments) {
         comments.forEach(comment => {
@@ -47,14 +48,14 @@ const SinglePhotoPage = () => {
         })
     }
 
-//Photos Handlers
+    //Photos Handlers
     const handlePhotoDelete = async (e) => {
         e.preventDefault();
-        dispatch(thunkDeletePhoto(photo.id))
-        // .then(() => history.push("/photos"))
+        dispatch(thunkDeletePhoto(photo.id)).then(() => history.push("/photos"))
     };
 
-//Comments handlers
+
+    //Comments handlers
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -94,6 +95,9 @@ const SinglePhotoPage = () => {
         await dispatch(photoActions.thunkDeletePhotoComment(commentId, stateI));
         await setLoadedPage(true)
     }
+    console.log('have we already commented? : ' + alreadyCommented)
+
+    console.log("user=------------------>", user)
 
     return (
         <>
@@ -101,20 +105,27 @@ const SinglePhotoPage = () => {
                 <NavLink to='/photos' className='backLink'>Back to explore</NavLink>
 
                 <div className="photoBox">
-                    <img src={img_url} alt={'image of '+ description}></img>
+                    <img src={img_url} alt={'image of ' + description}></img>
                 </div>
 
                 <div className="userBox">
                     <NavLink exact to={`/users/${user.id}`}><i className="fa-solid fa-user"></i></NavLink>
                     <NavLink exact to={`/users/${user.id}`}>{user.username}</NavLink>
-                    <button onClick={handlePhotoDelete}>Delete Photo</button>
+
+                    {currUser && photo.user_id == currUser.id &&
+                        <>
+                            <button onClick={handlePhotoDelete}>Delete Photo</button>
+                            
+                        </>
+                    }
+                    <UpdatePhotoModal user={currUser} />
                     <p>{title}</p>
                     <p>{description}</p>
                 </div>
-                <hr/>
+                <hr />
 
                 <div className="commentBox">
-                    { photo &&
+                    {photo &&
                         comments.map(comment => {
                             let isUser = false
                             if (currUser) isUser = true;
@@ -209,13 +220,13 @@ const SinglePhotoPage = () => {
                 </div>
 
 
-                <hr/>
+                <hr />
                 <div className="detailsBox">
                     <p>{`${city}, ${state}, ${country}`}</p>
                     <p>{comments.length + ' comment(s)'}</p>
                 </div>
 
-                <hr/>
+                <hr />
                 <div className="tagsBox">
                     {photo &&
                         tags.map(tag =>
