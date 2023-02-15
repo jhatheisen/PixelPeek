@@ -55,9 +55,9 @@ def create_tag():
           "statusCode": 400
         }, 400
 
-    # newTag = Tag(
-    #   tag_name = tagName
-    # )
+    newTag = Tag(
+      tag_name = tagName
+    )
 
     db.session.add(newTag)
     db.session.commit()

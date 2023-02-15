@@ -7,9 +7,8 @@ const DELETE_PHOTO = "photos/delete_photo";
 const DELETE_PHOTO_COMMENT = "photos/delete_photo_comment";
 const CREATE_PHOTO_COMMENT = "photos/create_photo_comment";
 const EDIT_PHOTO_COMMENT = "photos/edit_photo_comment";
-const CREATE_PHOTO_TAG = "photos/create_photo_tag";
-const EDIT_PHOTO_TAG = "photos/edit_photo_tag";
-const DELETE_PHOTO_TAG = "photos/delete_photo_tag";
+const ADD_PHOTO_TAG = "photos/add_photo_tag";
+const DELETE_PHOTO_TAG = "photos/delete_photo_tag"
 
 // Action creators here
 const getAllPhotos = (photos) => ({
@@ -51,20 +50,16 @@ const editPhotoComment = (stateI, comment) => ({
   payload: { stateI, comment },
 });
 
-const createPhotoTag = (tag) => ({
-  type: CREATE_PHOTO_TAG,
-  payload: tag,
-});
+const addPhotoTag = (tag) => ({
+  type: ADD_PHOTO_TAG,
+  payload: tag
+})
 
-const editPhotoTag = (stateI, tag) => ({
-  type: EDIT_PHOTO_TAG,
-  payload: { stateI, tag },
-});
-
-const deletePhotoTag = (stateI) => ({
+const deletePhotoTag = (tagId) => ({
   type: DELETE_PHOTO_TAG,
-  payload: stateI,
-});
+  payload: tagId
+})
+
 
 // Photo Feature Thunks Here
 const initialState = { user: null };
@@ -248,18 +243,15 @@ export const thunkEditPhotoComment =
   };
 
 // Tag Feature Thunks Here
-export const thunkCreatePhotoTag = (photoId, tag) => async (dispatch) => {
-  const response = await fetch(`/api/photos/${photoId}/tags`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(tag),
+
+export const thunkAddPhotoTag = (photoId, tag) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photoId}/tags/${tag.id}`, {
+    method: "POST"
   });
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(createPhotoTag(data));
+    dispatch(addPhotoTag(tag));
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -271,36 +263,14 @@ export const thunkCreatePhotoTag = (photoId, tag) => async (dispatch) => {
   }
 };
 
-export const thunkEditPhotoTag = (tagId, stateI, tag) => async (dispatch) => {
-  const response = await fetch(`/api/tags/${tagId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(tag),
-  });
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(editPhotoTag(stateI, data.Tags));
-    return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data.errors;
-    }
-  } else {
-    return ["An error occurred. Please try again."];
-  }
-};
-
-export const thunkDeletePhotoTag = (tagId, stateI) => async (dispatch) => {
-  const response = await fetch(`/api/tags/${tagId}`, {
+export const thunkDeletePhotoTag = (photoId, tagId) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photoId}/tags/${tagId}`, {
     method: "DELETE",
   });
 
   if (response.ok) {
-    dispatch(deletePhotoTag(stateI));
+    dispatch(deletePhotoTag(tagId));
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -358,20 +328,19 @@ export default function photoReducer(state = initialState, action) {
         action.payload.comment;
       return nState;
     }
+    case ADD_PHOTO_TAG: {
+      newState = {...state};
+      state.photoDetails.tags.push(action.payload)
+    }
     case DELETE_PHOTO_TAG: {
       let nState = { ...state };
-      nState.photoDetails.tags.splice(action.payload, 1);
-      return nState;
-    }
-    case CREATE_PHOTO_TAG: {
-      let nState = { ...state };
-      nState.photoDetails.tags.push(action.payload);
-      return nState;
-    }
-
-    case EDIT_PHOTO_TAG: {
-      let nState = { ...state };
-      nState.photoDetails.tags[action.payload.stateI] = action.payload.tag;
+      let tags = nState.photoDetails.tags;
+      for (let i = 0; i < tags.length; i++) {
+        let tag = tags[i];
+        if (tag.id == action.payload) {
+          tags.splice(i, 1)
+        }
+      }
       return nState;
     }
     default:
