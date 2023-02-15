@@ -3,7 +3,7 @@ import CreatePhotoModalForm from "./CreatePhotoModalForm";
 
 const CreatePhotoModal = () => {
   return (
-    <div className="main-skybnb-create-container">
+    <div className="createPhotoBox">
       <OpenModalButton
         buttonText="Create new photo here"
         modalComponent={<CreatePhotoModalForm />}

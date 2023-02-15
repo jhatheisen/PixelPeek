@@ -3,15 +3,17 @@ import Navigation from "../Navigation";
 import Footer from "./footer";
 import "./SplashPage.css";
 import * as sessionActions from "../../store/session";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const SplashPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  if (sessionUser) return <Redirect to="/photos" />;
+  const history = useHistory();
+  // if (sessionUser) return <Redirect to="/photos" />;
 
   const demoLogin = () => {
-    return dispatch(sessionActions.login("demo@aa.io", "password"));
+    dispatch(sessionActions.login("demo@aa.io", "password"));
+    return history.push('/photos')
   };
 
   return (
