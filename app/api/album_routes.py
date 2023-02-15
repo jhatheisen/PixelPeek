@@ -11,13 +11,22 @@ album_routes = Blueprint('album', __name__)
 @album_routes.route('/')
 def get_all_albums():
     all_albums = Album.query.all()
-    print(all_albums)
     output = {
         "Albums":[]
     }
 
     for album in all_albums:
         tempAlbum = album.to_dict()
+
+        photoInfo = []
+        #pull photo info out of albums
+        if(len(album.photos) > 0):
+            for photo in album.photos:
+                photoInfo.append({
+                    "id": photo.id,
+                    "img_url": photo.img_url
+                })
+            tempAlbum["photos"] = photoInfo
         output["Albums"].append(tempAlbum)
 
     return output
@@ -62,7 +71,7 @@ def create_album():
         album_name= data["album_name"],
         user_id = current_user.id
     )
-    
+
 
     db.session.add(newAlbum)
     db.session.commit()
@@ -81,7 +90,7 @@ def add_photo_to_album(albumId):
     #Check if current user is owner of album and owner of photoId
     data = request.get_json()
     photoId = data["photoId"]
-    
+
     print(photoId)
 
     singlePhoto = db.session.query(Photo).get(photoId)
@@ -114,7 +123,7 @@ def add_photo_to_album(albumId):
 @login_required
 def delete_album(albumId):
     album = db.session.query(Album).get(albumId)
-    
+
     if album is None:
         return {
             "message": "Comment couldn't be found",
@@ -123,7 +132,7 @@ def delete_album(albumId):
 
     if album.user_id != current_user.id:
         return {'errors': ['Unauthorized']}, 401
-    
+
     if album is not None:
         db.session.delete(album)
         db.session.commit()
