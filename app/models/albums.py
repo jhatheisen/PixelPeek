@@ -13,7 +13,7 @@ class Album(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'name': self.album_name
+            'album_name': self.album_name
         }
 
     #Many-To-Many betweeen Photos and Albums

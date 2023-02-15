@@ -7,6 +7,9 @@ const DELETE_PHOTO = "photos/delete_photo";
 const DELETE_PHOTO_COMMENT = "photos/delete_photo_comment";
 const CREATE_PHOTO_COMMENT = "photos/create_photo_comment";
 const EDIT_PHOTO_COMMENT = "photos/edit_photo_comment";
+const CREATE_PHOTO_TAG = "photos/create_photo_tag";
+const EDIT_PHOTO_TAG = "photos/edit_photo_tag";
+const DELETE_PHOTO_TAG = "photos/delete_photo_tag";
 
 // Action creators here
 const getAllPhotos = (photos) => ({
@@ -46,6 +49,21 @@ const createPhotoComment = (comment) => ({
 const editPhotoComment = (stateI, comment) => ({
   type: EDIT_PHOTO_COMMENT,
   payload: { stateI, comment },
+});
+
+const createPhotoTag = (tag) => ({
+  type: CREATE_PHOTO_TAG,
+  payload: tag,
+});
+
+const editPhotoTag = (stateI, tag) => ({
+  type: EDIT_PHOTO_TAG,
+  payload: { stateI, tag },
+});
+
+const deletePhotoTag = (stateI) => ({
+  type: DELETE_PHOTO_TAG,
+  payload: stateI,
 });
 
 // Photo Feature Thunks Here
@@ -230,6 +248,69 @@ export const thunkEditPhotoComment =
   };
 
 // Tag Feature Thunks Here
+export const thunkCreatePhotoTag = (photoId, tag) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photoId}/tags`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(tag),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createPhotoTag(data));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ["An error occurred. Please try again."];
+  }
+};
+
+export const thunkEditPhotoTag = (tagId, stateI, tag) => async (dispatch) => {
+  const response = await fetch(`/api/tags/${tagId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(tag),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(editPhotoTag(stateI, data.Tags));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ["An error occurred. Please try again."];
+  }
+};
+
+export const thunkDeletePhotoTag = (tagId, stateI) => async (dispatch) => {
+  const response = await fetch(`/api/tags/${tagId}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    dispatch(deletePhotoTag(stateI));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ["An error occurred. Please try again."];
+  }
+};
 
 // Album Feature Thunks Here
 
