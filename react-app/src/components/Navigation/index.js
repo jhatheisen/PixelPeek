@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import CreatePhotoModal from "../CreatePhoto";
@@ -7,6 +7,7 @@ import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+  const location = useLocation();
 
   return (
     <div className="Navbar">
@@ -18,16 +19,14 @@ function Navigation({ isLoaded }) {
           />
         </NavLink>
       </div>
-      {sessionUser && (
-        <div>
+      <div className="rightNav">
+        {sessionUser && location.pathname != '/' &&(
           <CreatePhotoModal user={sessionUser} />
-        </div>
-      )}
-      {isLoaded && (
-        <div>
+        )}
+        {isLoaded && (
           <ProfileButton user={sessionUser} />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
