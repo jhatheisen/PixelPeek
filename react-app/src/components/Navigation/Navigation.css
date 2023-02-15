@@ -8,11 +8,9 @@
 
 .Navbar {
   background-color: #202022;
-  margin-left: -8px;
-  margin-right: -8px;
   margin-top: -8px;
   margin-bottom: 0px;
-  height: 65git px;
+  height: 65px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
