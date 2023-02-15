@@ -205,7 +205,7 @@ def create_comment(photoId):
         user_id = user_id,
         photo_id = int(photoId)
     )
-    
+
     db.session.add(newComment)
     db.session.commit()
     print("-------------------<SUCCESS")
@@ -250,16 +250,47 @@ def delete_tag(photoId, tagId):
 
     photo.tags.remove(tag)
     db.session.commit()
-    
+
     return {
         "message": "Successfully deleted",
         "statusCode": 200
     }, 200
 
-@photo_routes.route('/<int:photoId>/tags', methods=['POST'])
+@photo_routes.route('/<int:photoId>/tags/<int:tagId>', methods=['POST'])
 @login_required
-def add_tag(photoId):
-    pass
+def add_tag(photoId, tagId):
+    photo = Photo.query.get(photoId)
+
+    if photo is None:
+      return {
+        "message": "Photo couldn't be found",
+        "statusCode": 404
+      }, 404
+
+    if photo.user_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    tag = Tag.query.get(tagId)
+
+    if tag is None:
+        return {
+            "message": "Tag couldn't be found",
+            "statusCode": 404
+        }, 404
+
+    if tag in photo.tags:
+        return {
+          "message": "Tag already attached to photo",
+          "statusCode": 500
+        }, 500
+
+    photo.tags.append(tag)
+    db.session.commit()
+
+    return {
+        "message": "Tag Successfully added",
+        "statusCode": 200
+    }, 200
 
 @photo_routes.route('/<int:photoId>/tags', methods=["GET"])
 def get_all_photo_tags(photoId):
