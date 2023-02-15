@@ -1,0 +1,27 @@
+.AllPhotos-Container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 17px;
+  padding: 15px 70px;
+}
+
+.AllPhotosCards {
+  cursor: pointer;
+}
+
+.Image-holder {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 7px;
+  aspect-ratio: 1;
+}
+
+.Single-Image {
+  object-fit: cover;
+  vertical-align: bottom;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  float: left;
+}

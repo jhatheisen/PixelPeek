@@ -4,15 +4,15 @@ from .photos import photo1, photo2, photo3, photo4, photo5, photo6, photo7, phot
 # Adds a demo user, you can add other users here if you want
 def seed_albums():
     album1 = Album(
-        album_name='Demo_Album', photos=[photo1, photo2, photo3, photo14])
+        album_name='Demo_Album', photos=[photo1, photo2, photo3, photo14], user_id=1)
     album2 = Album(
-        album_name='Red',photos=[photo6, photo4, photo8, photo13])
+        album_name='Red',photos=[photo6, photo4, photo8, photo13], user_id=3)
     album3 = Album(
-        album_name='Thriller', photos=[photo12, photo10, photo9, photo15])
+        album_name='Thriller', photos=[photo12, photo10, photo9, photo15], user_id=2)
     album4 = Album(
-        album_name='Exile on Main St.', photos=[photo5, photo7, photo2, photo11])
+        album_name='Exile on Main St.', photos=[photo5, photo7, photo2, photo11], user_id=3)
     album5 = Album(
-        album_name='Blonde on Blonde', photos=[photo4, photo11, photo16, photo14])
+        album_name='Blonde on Blonde', photos=[photo4, photo11, photo16, photo14], user_id=1)
 
     db.session.add(album1)
     db.session.add(album2)

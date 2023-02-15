@@ -1,8 +1,21 @@
+import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../Navigation";
 import Footer from "./footer";
 import "./SplashPage.css";
+import * as sessionActions from "../../store/session";
+import { Redirect, useHistory } from "react-router-dom";
 
 const SplashPage = () => {
+  const sessionUser = useSelector((state) => state.session.user);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  // if (sessionUser) return <Redirect to="/photos" />;
+
+  const demoLogin = () => {
+    dispatch(sessionActions.login("demo@aa.io", "password"));
+    return history.push('/photos')
+  };
+
   return (
     <>
       <div className="SplashPage-Container">
@@ -22,7 +35,7 @@ const SplashPage = () => {
             Join the PixelPeek community, home to stunning collections of
             photography
           </p>
-          <button>Demo Button Here</button>
+          <button onClick={demoLogin}>Demo Button Here</button>
         </div>
       </div>
       <Footer />

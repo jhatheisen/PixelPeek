@@ -9,12 +9,10 @@ class Album(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     album_name = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.album_name
-        }
+    # Many-To-One between Albums and Users
+    user = db.relationship("User", back_populates="albums")
 
     #Many-To-Many betweeen Photos and Albums
     photos = db.relationship(
@@ -22,6 +20,12 @@ class Album(db.Model):
         secondary="album_photos",
         back_populates="albums"
     )
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'album_name': self.album_name
+        }
 
 album_photos = db.Table(
     "album_photos",

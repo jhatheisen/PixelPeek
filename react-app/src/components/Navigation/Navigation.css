@@ -1,21 +1,28 @@
 .profile-dropdown {
   position: absolute;
+  background-color: white;
+  top: 10vh;
+  right: 0vh;
 }
 
 .hidden {
   display: none;
 }
 
+.createPhotoBox {
+  background-color: green;
+  height: fit-content;
+}
+
 .Navbar {
   background-color: #202022;
-  margin-left: -8px;
-  margin-right: -8px;
-  margin-top: -8px;
+  margin-top: -8px; 
   margin-bottom: 0px;
-  height: 65git px;
+  height: 65px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 }
 
 .Navbar-Home-Logo {
@@ -25,4 +32,12 @@
   margin-top: 12px;
   margin-left: 31px;
   padding-right: 14px;
+}
+
+.rightNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 40vh;
 }
