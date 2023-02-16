@@ -65,15 +65,13 @@ export const thunkGetSingleAlbum = (albumId) => async (dispatch) => {
   }
 };
 
-export const thunkCreateAlbum = (data) => async (dispatch) => {
+export const thunkCreateAlbum = (album) => async (dispatch) => {
   const response = await fetch(`/api/albums/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      data,
-    }),
+    body: JSON.stringify(album),
   });
 
   if (response.ok) {
@@ -151,10 +149,13 @@ export default function albumReducer(state = initialState, action) {
       return newState;
     case DELETE_ALBUM:
       newState = Object.assign({}, state);
-      console.log(newState, "newState");
-      delete newState.allAlbums[action.payload];
-
+      console.log("newState", newState.allAlbums);
+      delete newState["allAlbums"][action.payload];
       return newState;
+    case CREATE_ALBUM:
+      newState = Object.assign({}, state);
+      newState.allAlbums[action.payload.id] = action.payload
+      return newState
     default:
       return state;
   }

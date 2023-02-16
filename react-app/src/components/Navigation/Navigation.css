@@ -1,12 +1,33 @@
 .profile-dropdown {
   position: absolute;
-  background-color: white;
-  top: 10vh;
-  right: 0vh;
+  background-color: #202022;
+  top: 50px;
+  right: 0px;
+  padding-right: 20px;
+}
+
+li {
+  color: white;
+  list-style-type: none;
+  padding: 10px 0px;
 }
 
 .hidden {
   display: none;
+}
+
+.login {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+.signup {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  color: black;
 }
 
 .createPhotoBox {
@@ -15,13 +36,14 @@
 
 .Navbar {
   background-color: #202022;
-  margin-top: -8px;
-  margin-bottom: 0px;
-  height: 65px;
+  height: 72px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .Navbar-Home-Logo {
@@ -36,7 +58,44 @@
 .rightNav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  width: 40vh;
+  width: 30vh;
+  justify-content: flex-end;
+}
+
+.leftNav {
+  display: flex;
+  flex-direction: row;
+}
+
+.YouAndExplore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 28px;
+}
+
+.YouButton {
+  color: white;
+}
+
+.ExploreButton {
+  color: white;
+  margin-left: 32px;
+}
+
+.CreatePhoto-Holder {
+  margin-right: 40px;
+}
+
+.Login-Signup-Holder {
+  margin-right: 30px;
+  display: flex;
+  flex-direction: row;
+}
+
+.Log {
+  margin-right: 10px;
+  width: 56px;
+  color: white;
 }

@@ -14,10 +14,13 @@ const YouPage = () => {
   const currUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    dispatch(thunkGetAllAlbums()).then(() => setLoadedPage(true));
-  }, [dispatch]);
+    dispatch(thunkGetAllAlbums());
+    return () => {
+      setLoadedPage(false);
+    }
+  }, [dispatch, loadedPage]);
 
-  if (!loadedPage) return null;
+  // if (!loadedPage) return null;
 
   //loop through all albums, put albums user owns into userAlbums array
 
@@ -39,8 +42,9 @@ const YouPage = () => {
 
   const handleAlbumDelete = async (albumId) => {
     console.log(albumId);
-    dispatch(thunkDeleteAlbum(albumId)).then(() => {
-      history.push("/you");
+    dispatch(thunkDeleteAlbum(albumId))
+    .then(() => {
+      setLoadedPage(true);
 
       // fix redirect !!!!!!!!!!!!!!!!!!!!!!!!
       // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

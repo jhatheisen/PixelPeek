@@ -20,5 +20,11 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color: white;
+  max-height: 80%;
+  height: max-content;
+  border-radius: 12px;
+  display: flex;
+  padding: 20px;
+  justify-content: center;
 }

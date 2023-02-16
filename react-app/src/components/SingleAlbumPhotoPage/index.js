@@ -62,7 +62,7 @@ const SingleAlbumPhotoPage = () => {
           <AllPhotoCards
             photo={photo}
             key={photo.id}
-            className="AllPhotosCards"
+            className="AllPhotos-Container"
           />
         ))}
       </div>

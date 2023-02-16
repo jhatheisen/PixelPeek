@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { thunkCreatePhoto } from "../../store/photos";
 import { useModal } from "../../context/Modal";
+import "./CreatePhotoModal.css";
 
 function CreatePhotoModalForm() {
   const sessionUser = useSelector((state) => state.session.user);
