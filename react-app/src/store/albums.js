@@ -19,9 +19,9 @@ const createAlbum = (album) => ({
   payload: album,
 });
 
-const addAlbumPhoto = (photoId) => ({
+const addAlbumPhoto = (photo) => ({
   type: ADD_ALBUM_PHOTO,
-  payload: photoId,
+  payload: photo,
 });
 
 const deleteAlbum = (albumId) => ({
@@ -88,20 +88,20 @@ export const thunkCreateAlbum = (data) => async (dispatch) => {
   }
 };
 
-export const thunkAddAlbumPhoto = (albumId, photoId) => async (dispatch) => {
+export const thunkAddAlbumPhoto = (albumId, photo) => async (dispatch) => {
   const response = await fetch(`/api/albums/${albumId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      photoId: photoId,
+      photoId: photo.id,
     }),
   });
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(getSingleAlbum(data));
+    dispatch(addAlbumPhoto(photo));
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -120,7 +120,7 @@ export const thunkDeleteAlbum = (albumId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(deleteAlbum(data));
+    dispatch(deleteAlbum(albumId));
     return data;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -145,10 +145,16 @@ export default function albumReducer(state = initialState, action) {
       newState = { ...state };
       newState.singleAlbum = action.payload;
       return newState;
-    // case ADD_ALBUM_PHOTO:
-    //   return state;
-    // case DELETE_ALBUM:
-    //   return state;
+    case ADD_ALBUM_PHOTO:
+      newState = { ...state };
+      newState.singleAlbum.photos.push(action.payload);
+      return newState;
+    case DELETE_ALBUM:
+      newState = Object.assign({}, state);
+      console.log(newState, "newState");
+      delete newState.allAlbums[action.payload];
+
+      return newState;
     default:
       return state;
   }
