@@ -1,12 +1,33 @@
 .profile-dropdown {
   position: absolute;
-  background-color: white;
-  top: 10vh;
-  right: 0vh;
+  background-color: #202022;
+  top: 50px;
+  right: 0px;
+  padding-right: 20px;
+}
+
+li {
+  color: white;
+  list-style-type: none;
+  padding: 10px 0px;
 }
 
 .hidden {
   display: none;
+}
+
+.login {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+.signup {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  color: black;
 }
 
 .createPhotoBox {
@@ -20,7 +41,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 100;
 }

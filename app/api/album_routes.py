@@ -72,13 +72,17 @@ def create_album():
         user_id = current_user.id
     )
 
-
     db.session.add(newAlbum)
     db.session.commit()
     print("-------------------<SUCCESS")
 
+    allAlbums = Album.query.all()
+
     return {
-        "album_name": newAlbum.album_name
+        "id": allAlbums[len(allAlbums)-1].id,
+        "album_name": newAlbum.album_name,
+        "photos": [],
+        "user_id":user_id
     }
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

@@ -209,6 +209,8 @@ const SinglePhotoPage = () => {
         <hr />
 
         <div className="commentBox">
+          <h2>Comments</h2>
+          <hr/>
           {photo &&
             comments.map((comment) => {
               let isUser = false;
@@ -330,6 +332,8 @@ const SinglePhotoPage = () => {
 
         <hr />
         <div className="tagsBox">
+          <h2>Tags</h2>
+          <hr/>
           {photo &&
             tags.map((tag) => (
               <>

@@ -21,7 +21,7 @@ const AllPhotosPage = () => {
   return (
     <>
       <div className="AllPhotos-Container">
-        <div className="AllPhotos-Inner-Container">
+        {/* <div className="AllPhotos-Inner-Container"> */}
           {Object.values(allPhotos).map((photo) => (
             <AllPhotoCards
               photo={photo}
@@ -29,7 +29,7 @@ const AllPhotosPage = () => {
               className="AllPhotosCards"
             />
           ))}
-        </div>
+        {/* </div> */}
       </div>
     </>
   );

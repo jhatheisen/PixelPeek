@@ -1,16 +1,16 @@
 .AllPhotos-Container {
   width: 100%;
-  /* display: grid;
+  display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 17px; */
+  gap: 17px;
   position: relative;
-  top: 95px;
+  top: 15px;
 }
 
 .AllPhotos-Inner-Container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 17px;
+  padding: 10px;
 }
 
 .AllPhotosCards {

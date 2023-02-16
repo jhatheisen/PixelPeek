@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import createAlbum thunk here
 import { useModal } from "../../context/Modal";
+import { thunkCreateAlbum } from "../../store/albums";
 
 function CreateAlbumModalForm() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -18,9 +19,12 @@ function CreateAlbumModalForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    const body = {
-      albumName,
+
+    const newAlbum = {
+      album_name: albumName
     };
+
+    const res = await dispatch(thunkCreateAlbum(newAlbum))
 
     try {
       // const res = await dispatch(thunkCreatePhoto(body, imageUrl));
@@ -28,7 +32,7 @@ function CreateAlbumModalForm() {
 
       closeModal();
       //where should prob send the user back to album/albumid right?..
-      // history.push(`/photos/${res.id}`);
+      history.go(0);
     } catch (error) {
       let errorObject = JSON.parse(error.message);
       const result = errorObject.errors.map((error) => {

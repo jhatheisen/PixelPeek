@@ -6,11 +6,12 @@ import ProfileButton from "./ProfileButton";
 import CreatePhotoModal from "../CreatePhotoModal";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session);
   const location = useLocation();
   const { closeModal } = useModal();
 
@@ -25,6 +26,8 @@ function Navigation({ isLoaded }) {
   //   />;
   // };
 
+  if (!sessionUser) return null;
+
   return (
     <div className="Navbar">
       <div className="leftNav">
@@ -36,7 +39,7 @@ function Navigation({ isLoaded }) {
             />
           </NavLink>
         </div>
-        {sessionUser && location.pathname != "/" && (
+        {(sessionUser.user || location.pathname != "/") && (
           <div className="YouAndExplore">
             <NavLink exact to="/you" className={"YouButton"}>
               You
@@ -54,11 +57,22 @@ function Navigation({ isLoaded }) {
           )}
         </div>
         {/* need to work on rendering profile dropdown in navbar when signed in only */}
-        {/* {isLoaded && <ProfileButton user={sessionUser} />} */}
-        <div className="Login-Signup-Holder">
-          <div className="Log">Log in</div>
-          <div className="Sign">SignUp</div>
-        </div>
+        {isLoaded && sessionUser.user && <ProfileButton user={sessionUser.user} />}
+        {!sessionUser.user &&
+          <div className="Login-Signup-Holder">
+              <OpenModalButton
+                buttonText="Log In"
+                className="login"
+                modalComponent={<LoginFormModal />}
+              />
+
+              <OpenModalButton
+                buttonText="Sign Up"
+                className="signup"
+                modalComponent={<SignupFormModal />}
+              />
+          </div>
+        }
       </div>
     </div>
   );
