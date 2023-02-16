@@ -34,13 +34,13 @@
   padding-right: 14px;
 }
 
-/* .rightNav {
+.rightNav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  width: 40vh;
-} */
+  width: 30vh;
+  justify-content: flex-end;
+}
 
 .leftNav {
   display: flex;
@@ -61,4 +61,20 @@
 .ExploreButton {
   color: white;
   margin-left: 32px;
+}
+
+.CreatePhoto-Holder {
+  margin-right: 40px;
+}
+
+.Login-Signup-Holder {
+  margin-right: 30px;
+  display: flex;
+  flex-direction: row;
+}
+
+.Log {
+  margin-right: 10px;
+  width: 56px;
+  color: white;
 }

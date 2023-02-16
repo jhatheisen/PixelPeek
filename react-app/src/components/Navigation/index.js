@@ -1,13 +1,29 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useModal } from "../../context/Modal";
 import ProfileButton from "./ProfileButton";
 import CreatePhotoModal from "../CreatePhotoModal";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const location = useLocation();
+  const { closeModal } = useModal();
+
+  //attempting to make it so you can click openLogin and it will open login modal, using a div below with an onClick
+
+  // const openLogin = () => {
+  //   <OpenModalButton
+  //     buttonText="Log In"
+  //     onItemClick={closeModal}
+  //     modalComponent={<LoginFormModal />}
+  //     className="Log"
+  //   />;
+  // };
 
   return (
     <div className="Navbar">
@@ -32,10 +48,17 @@ function Navigation({ isLoaded }) {
         )}
       </div>
       <div className="rightNav">
-        {sessionUser && location.pathname != "/" && (
-          <CreatePhotoModal user={sessionUser} />
-        )}
-        {isLoaded && <ProfileButton user={sessionUser} />}
+        <div className="CreatePhoto-Holder">
+          {sessionUser && location.pathname != "/" && (
+            <CreatePhotoModal user={sessionUser} />
+          )}
+        </div>
+        {/* need to work on rendering profile dropdown in navbar when signed in only */}
+        {/* {isLoaded && <ProfileButton user={sessionUser} />} */}
+        <div className="Login-Signup-Holder">
+          <div className="Log">Log in</div>
+          <div className="Sign">SignUp</div>
+        </div>
       </div>
     </div>
   );
