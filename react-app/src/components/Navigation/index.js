@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import CreatePhotoModal from "../CreatePhoto";
+import CreatePhotoModal from "../CreatePhotoModal";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
