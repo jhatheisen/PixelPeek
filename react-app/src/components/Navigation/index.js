@@ -39,20 +39,20 @@ function Navigation({ isLoaded }) {
             />
           </NavLink>
         </div>
-        {(sessionUser.user || location.pathname != "/") && (
-          <div className="YouAndExplore">
-            <NavLink exact to="/you" className={"YouButton"}>
-              You
-            </NavLink>
-            <NavLink exact to="/photos" className={"ExploreButton"}>
-              Explore
-            </NavLink>
-          </div>
-        )}
+        <div className="YouAndExplore">
+         {(sessionUser.user && location.pathname != "/") &&
+          <NavLink exact to="/you" className={"YouButton"}>
+            You
+          </NavLink>
+          }
+          <NavLink exact to="/photos" className={"ExploreButton"}>
+            Explore
+          </NavLink>
+        </div>
       </div>
       <div className="rightNav">
         <div className="CreatePhoto-Holder">
-          {sessionUser && location.pathname != "/" && (
+          {sessionUser && sessionUser.user && location.pathname != "/" && (
             <CreatePhotoModal user={sessionUser} />
           )}
         </div>

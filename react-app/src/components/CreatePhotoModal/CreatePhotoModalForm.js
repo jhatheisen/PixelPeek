@@ -56,7 +56,7 @@ function CreatePhotoModalForm() {
       <form onSubmit={handleSubmit} className="outerCreateEventFormDiv">
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx} className="createGroupErrors">
+            <li key={idx} className="createPhotoErrors">
               {error}
             </li>
           ))}
@@ -109,7 +109,7 @@ function CreatePhotoModalForm() {
           onChange={(e) => setImageUrl(e.target.value)}
           required
         />
-        <button type="submit" className="submitCreateGroupButton">
+        <button type="submit" className="submitCreatePhotoButton">
           Submit
         </button>
       </form>

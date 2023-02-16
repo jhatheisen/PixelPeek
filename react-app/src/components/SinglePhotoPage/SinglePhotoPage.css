@@ -3,44 +3,219 @@
   flex-direction: column;
 }
 
-.photoBox {
+.topPhotoBar {
+  background-color: #2b2b2e;
+  padding: 20px;
   display: flex;
-  margin-top: 30px;
+  direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.photoBox {
+  background-color: #2b2b2e;
+  justify-content: center;
+  padding: 100px 0px;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+.userDetails {
+  /* background-color: antiquewhite; */
+  padding-left: 10px;
+}
+
+.username {
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+  transition: color .25s;
+  margin: 0;
+}
+
+.username:hover {
+  text-decoration: underline;
+  color: rgb(22, 102, 129);
+}
+
+.cleanButton {
+  background-color: lightgray;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.bottomSection {
+  /* background-color: wheat; */
+  width: 95%;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.bottomSection > * {
+  width: 95%;
+}
+
+.firstHr {
+  width: 82.5%;
+}
+
+.comment {
+}
+
+.commentDetails {
+  padding-left: 10px;
+}
+
+.commentBox {
+  /* background-color: #2b2b2e; */
+  width: 90%;
+  padding: 10px 0px;
+}
+
+.commentInput {
+  display: flex;
+}
+
+.userIcon {
+  color: gray;
 }
 
 .backLink {
   display: flex;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.fa-arrow-left {
+  color: white;
 }
 
 hr {
   background-color: black;
-  width: 100%;
+  width: 95%;
 }
 
+.commentH2 {
+  padding-left: 40px;
+}
+
+.commentUser {
+  padding-right: 10px;
+}
+
+.noButton
 .allTags {
   display: flex;
   flex-direction: column;
   overflow: scroll;
-  max-height: 10vh;
-  max-width: 12vh;
+  overflow-x: hidden;
+  max-height: 200px;
+  max-width: 100%;
+  padding-right: 4px;
+  margin-right: 5px;
 }
 
-.tagsBox {
+.tag {
+  background-color: lightgray;
+  padding: 8px;
+  border-radius: 12px;
+  font-size: x-large;
+}
+
+.tagsList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 .tagButton {
-  width: 10vh;
-  height: 2vh;
+  background-color: transparent;
+  border: 0.25px solid black;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  margin: 3px;
+  padding-right: 3px;
+  padding-left: 3px;
+  cursor: pointer;
+}
+
+.tagButton:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.tagsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 250px;
 }
 
 .addTagsBox {
   display: flex;
   flex-direction: row;
+  align-items: baseline;
 }
 
 .addTagButton {
-  height: 3vh;
-  width: 3vh;
+  background-color: transparent;
+  border: 0.25px solid black;
+  border-radius: 5px;
+  margin-right: 3px;
+  font-size: 20px;
+  height: 70px;
+  width: 100px;
+}
+
+.addTagButton:hover {
+  background-color: rgb(233, 233, 233);
+  cursor: pointer;
+}
+
+.trash-button {
+  background-color: transparent;
+  border-radius: 25%;
+  border: none;
+  height: 20px;
+  cursor: pointer;
+  border: 0.25px solid transparent
+}
+
+.trash-button:hover {
+  background-color: rgb(251, 251, 251);
+  border: 0.25px solid rgb(190, 190, 190)
+}
+
+.add-tag {
+  background: transparent;
+  border: 0.25px solid rgb(190, 190, 190);
+  margin-left: 3px;
+  font-size: 20px;
+  height: 50px;
+  font-family: Proxima Nova, helvetica neue, helvetica, arial, sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-tag:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.tag-submit {
+  margin-left: 3px;
+  margin-right: 3px;
+
 }

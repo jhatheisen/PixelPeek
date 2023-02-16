@@ -4,13 +4,20 @@
   top: 50px;
   right: 0px;
   padding-right: 20px;
+  color: white;
 }
 
-li {
+.pfpButton {
   color: white;
-  list-style-type: none;
-  padding: 10px 0px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding-right: 25px;
 }
+
+/* .pfpButton:hover { */
+  /* background-color: rgb(206, 206, 206); */
+/* } */
 
 .hidden {
   display: none;
@@ -25,14 +32,11 @@ li {
 
 .signup {
   border: none;
-  background-color: white;
+  background-color: transparent;
   cursor: pointer;
-  color: black;
+  color: white;
 }
 
-.createPhotoBox {
-  height: fit-content;
-}
 
 .Navbar {
   background-color: #202022;
@@ -72,16 +76,41 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 28px;
+  text-align: center;
+  /* margin-left: 28px; */
 }
 
 .YouButton {
+  display: flex;
   color: white;
+  text-decoration: none;
+  /* padding-left: 28px; */
+  margin-right: 8px;
+  border-radius: 25%;
+  text-align: center;
+}
+
+.YouButton:hover {
+  background-color: rgb(49, 49, 49);
+  /* height: 50px; */
+  padding: 10px;
+
 }
 
 .ExploreButton {
+  display: flex;
+  padding: 10px;
   color: white;
-  margin-left: 32px;
+  /* margin-left: 32px; */
+  margin-left: 8px;
+  text-decoration: none;
+  border-radius: 25%;
+  text-align: center;
+}
+
+.ExploreButton:hover {
+  background-color: rgb(49, 49, 49);
+
 }
 
 .CreatePhoto-Holder {
@@ -98,4 +127,14 @@ li {
   margin-right: 10px;
   width: 56px;
   color: white;
+}
+
+.cleanButton {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.cleanButton:hover {
+  background-color: rgb(250, 80, 80);
 }
