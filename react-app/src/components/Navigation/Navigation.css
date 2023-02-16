@@ -10,13 +10,12 @@
 }
 
 .createPhotoBox {
-  background-color: green;
   height: fit-content;
 }
 
 .Navbar {
   background-color: #202022;
-  margin-top: -8px; 
+  margin-top: -8px;
   margin-bottom: 0px;
   height: 65px;
   display: flex;

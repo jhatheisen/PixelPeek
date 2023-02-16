@@ -1,19 +1,23 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import session from './session'
-import photoReducer from './photos';
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import session from "./session";
+import photoReducer from "./photos";
+import albumReducer from "./albums";
+import tagReducer from "./tags";
 
 const rootReducer = combineReducers({
   session,
-  photos: photoReducer
+  photos: photoReducer,
+  tags: tagReducer,
+  albums: albumReducer,
 });
 
 let enhancer;
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   enhancer = applyMiddleware(thunk);
 } else {
-  const logger = require('redux-logger').default;
+  const logger = require("redux-logger").default;
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));

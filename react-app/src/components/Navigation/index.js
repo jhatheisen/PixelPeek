@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import CreatePhotoModal from "../CreatePhoto";
+import CreatePhotoModal from "../CreatePhotoModal";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -18,14 +18,18 @@ function Navigation({ isLoaded }) {
             className="Navbar-Home-Logo"
           />
         </NavLink>
+        <NavLink exact to="/you">
+          You
+        </NavLink>
+        <NavLink exact to="/photos">
+          Explore
+        </NavLink>
       </div>
       <div className="rightNav">
-        {sessionUser && location.pathname != '/' &&(
+        {sessionUser && location.pathname != "/" && (
           <CreatePhotoModal user={sessionUser} />
         )}
-        {isLoaded && (
-          <ProfileButton user={sessionUser} />
-        )}
+        {isLoaded && <ProfileButton user={sessionUser} />}
       </div>
     </div>
   );

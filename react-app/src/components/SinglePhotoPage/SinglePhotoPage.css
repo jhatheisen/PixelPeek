@@ -1,23 +1,46 @@
 .pageBox {
-    display: flex;
-    flex-direction: column;
-
-
+  display: flex;
+  flex-direction: column;
 }
 
 .photoBox {
-    display: flex;
-    margin-top: 30px;
-
+  display: flex;
+  margin-top: 30px;
 }
 
 .backLink {
-    display: flex;
-    font-size: 12px;
-    margin-top: 5px;
+  display: flex;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 hr {
-    background-color: black;
-    width: 100%;
+  background-color: black;
+  width: 100%;
+}
+
+.allTags {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  max-height: 10vh;
+  max-width: 12vh;
+}
+
+.tagsBox {
+}
+
+.tagButton {
+  width: 10vh;
+  height: 2vh;
+}
+
+.addTagsBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.addTagButton {
+  height: 3vh;
+  width: 3vh;
 }
