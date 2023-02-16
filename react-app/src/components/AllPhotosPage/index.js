@@ -21,13 +21,15 @@ const AllPhotosPage = () => {
   return (
     <>
       <div className="AllPhotos-Container">
-        {Object.values(allPhotos).map((photo) => (
-          <AllPhotoCards
-            photo={photo}
-            key={photo.id}
-            className="AllPhotosCards"
-          />
-        ))}
+        <div className="AllPhotos-Inner-Container">
+          {Object.values(allPhotos).map((photo) => (
+            <AllPhotoCards
+              photo={photo}
+              key={photo.id}
+              className="AllPhotosCards"
+            />
+          ))}
+        </div>
       </div>
     </>
   );

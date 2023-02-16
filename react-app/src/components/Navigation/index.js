@@ -11,19 +11,25 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className="Navbar">
-      <div>
-        <NavLink exact to="/">
-          <img
-            src={process.env.PUBLIC_URL + "/PixelPeek.png"}
-            className="Navbar-Home-Logo"
-          />
-        </NavLink>
-        <NavLink exact to="/you">
-          You
-        </NavLink>
-        <NavLink exact to="/photos">
-          Explore
-        </NavLink>
+      <div className="leftNav">
+        <div className="HomeButton-Holder">
+          <NavLink exact to="/">
+            <img
+              src={process.env.PUBLIC_URL + "/PixelPeek.png"}
+              className="Navbar-Home-Logo"
+            />
+          </NavLink>
+        </div>
+        {sessionUser && location.pathname != "/" && (
+          <div className="YouAndExplore">
+            <NavLink exact to="/you" className={"YouButton"}>
+              You
+            </NavLink>
+            <NavLink exact to="/photos" className={"ExploreButton"}>
+              Explore
+            </NavLink>
+          </div>
+        )}
       </div>
       <div className="rightNav">
         {sessionUser && location.pathname != "/" && (

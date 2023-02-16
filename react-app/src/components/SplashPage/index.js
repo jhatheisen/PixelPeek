@@ -13,7 +13,7 @@ const SplashPage = () => {
 
   const demoLogin = () => {
     dispatch(sessionActions.login("demo@aa.io", "password"));
-    return history.push('/photos')
+    return history.push("/photos");
   };
 
   return (
@@ -35,7 +35,9 @@ const SplashPage = () => {
             Join the PixelPeek community, home to stunning collections of
             photography
           </p>
-          <button onClick={demoLogin}>Demo Button Here</button>
+          <button onClick={demoLogin} className="Demo-Button">
+            Try free demo
+          </button>
         </div>
       </div>
       <Footer />

@@ -15,13 +15,14 @@
 
 .Navbar {
   background-color: #202022;
-  margin-top: -8px;
-  margin-bottom: 0px;
-  height: 65px;
+  height: 72px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 .Navbar-Home-Logo {
@@ -33,10 +34,31 @@
   padding-right: 14px;
 }
 
-.rightNav {
+/* .rightNav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 40vh;
+} */
+
+.leftNav {
+  display: flex;
+  flex-direction: row;
+}
+
+.YouAndExplore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 28px;
+}
+
+.YouButton {
+  color: white;
+}
+
+.ExploreButton {
+  color: white;
+  margin-left: 32px;
 }
