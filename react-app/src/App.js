@@ -4,11 +4,12 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import AllPhotosPage from "./components/AllPhotosPage";
-import SinglePhotoPage from './components/SinglePhotoPage'
+import SinglePhotoPage from "./components/SinglePhotoPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage";
 import YouPage from "./components/YouPage";
+import SingleAlbumPhotoPage from "./components/SingleAlbumPhotoPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,13 +29,16 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path='/photos/:photoId'>
-            <SinglePhotoPage/>
+          <Route path="/photos/:photoId">
+            <SinglePhotoPage />
           </Route>
-          <Route path='/photos'>
+          <Route path="/photos">
             <AllPhotosPage />
           </Route>
-          <Route path='/You'>
+          <Route path="/You/album/:albumId">
+            <SingleAlbumPhotoPage />
+          </Route>
+          <Route path="/You">
             <YouPage />
           </Route>
           <Route path="/" exact>

@@ -18,14 +18,18 @@ function Navigation({ isLoaded }) {
             className="Navbar-Home-Logo"
           />
         </NavLink>
+        <NavLink exact to="/you">
+          You
+        </NavLink>
+        <NavLink exact to="/photos">
+          Explore
+        </NavLink>
       </div>
       <div className="rightNav">
-        {sessionUser && location.pathname != '/' &&(
+        {sessionUser && location.pathname != "/" && (
           <CreatePhotoModal user={sessionUser} />
         )}
-        {isLoaded && (
-          <ProfileButton user={sessionUser} />
-        )}
+        {isLoaded && <ProfileButton user={sessionUser} />}
       </div>
     </div>
   );

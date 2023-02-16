@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllAlbums } from "../../store/albums";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const YouPage = () => {
   const dispatch = useDispatch();
@@ -21,10 +22,9 @@ const YouPage = () => {
   //loop through all albums, put albums user owns into userAlbums array
   const userAlbums = [];
 
-  for (const album in allAlbums) {
-    if (album.user_id === currUser.id) {
-      console.log("User owns an album");
-      userAlbums.append(album);
+  for (const key in allAlbums) {
+    if (allAlbums[key].user_id === currUser.id) {
+      userAlbums.push(allAlbums[key]);
     }
   }
 
@@ -40,7 +40,25 @@ const YouPage = () => {
 
   console.log("====> 1st photo", allAlbums[1].photos[0].img_url);
 
-  return <div></div>;
+  return (
+    <div className="AllAlbums-Container">
+      <h1>Your Albums</h1>
+      {userAlbums.map((album) => {
+        return (
+          <NavLink exact to={`/you/album/${album.id}`} key={album.id}>
+            {userAlbums.length ? (
+              <div>
+                <div>{album.album_name}</div>
+                <img src={album.photos[0].img_url} alt={"Image not Found"} />
+              </div>
+            ) : (
+              <img src={process.env.PUBLIC_URL + "/EmptyAlbum.jpeg"} />
+            )}
+          </NavLink>
+        );
+      })}
+    </div>
+  );
 };
 
 {

@@ -82,8 +82,6 @@ def create_album():
     }
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
-
 @album_routes.route('/<int:albumId>', methods=['PUT'])
 @login_required
 def add_photo_to_album(albumId):

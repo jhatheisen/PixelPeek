@@ -141,8 +141,10 @@ export default function albumReducer(state = initialState, action) {
         result[album.id] = album;
       });
       return { allAlbums: result };
-    // case GET_SINGLE_ALBUM:
-    //   return state;
+    case GET_SINGLE_ALBUM:
+      newState = { ...state };
+      newState.singleAlbum = action.payload;
+      return newState;
     // case ADD_ALBUM_PHOTO:
     //   return state;
     // case DELETE_ALBUM:
