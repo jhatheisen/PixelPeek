@@ -181,36 +181,43 @@ const SinglePhotoPage = () => {
   return (
     <>
       <div className="pageBox">
-        <NavLink to="/photos" className="backLink">
-          Back to explore
-        </NavLink>
 
-        <div className="photoBox">
+        <div className="topPhotoBar">
+          <i className="fa-solid fa-arrow-left fa-xl"></i>
+          <NavLink to="/photos" className="backLink">
+          Back to explore
+          </NavLink>
+        </div>
+        <div className="photoBox flexRow">
           <img src={img_url} alt={"image of " + description}></img>
         </div>
 
-        <div className="userBox">
-          <NavLink exact to={`/users/${user.id}`}>
-            <i className="fa-solid fa-user"></i>
-          </NavLink>
-          <NavLink exact to={`/users/${user.id}`}>
-            {user.username}
-          </NavLink>
-
+        <div className="topPhotoBar">
           {currUser && photo.user_id == currUser.id && (
             <>
-              <button onClick={handlePhotoDelete}>Delete Photo</button>
-              <UpdatePhotoModal user={currUser} />
+              <button onClick={handlePhotoDelete} className="cleanButton">Delete Photo</button>
+              <UpdatePhotoModal className="cleanButton" user={currUser} />
             </>
           )}
-          <p>{title}</p>
-          <p>{description}</p>
         </div>
-        <hr />
+
+        <div className="bottomSection">
+        <div className="userBox flexRow">
+          <NavLink exact to={`/users/${user.id}`}>
+            <i className="fa-solid fa-circle-user fa-4x userIcon"></i>
+          </NavLink>
+          <div className="userDetails">
+            <NavLink exact to={`/users/${user.id}`} className="username">
+              {user.username}
+            </NavLink>
+            <p><b>{title}</b></p>
+            <p>{description}</p>
+          </div>
+        </div>
+        <hr className="firstHr"/>
 
         <div className="commentBox">
-          <h2>Comments</h2>
-          <hr/>
+          <h2 className="commentH2">Comments</h2>
           {photo &&
             comments.map((comment) => {
               let isUser = false;
@@ -219,30 +226,36 @@ const SinglePhotoPage = () => {
                 <>
                   {editingComment != comment.id && (
                     <div className="commentBox">
-                      <i className="fa-solid fa-user"></i>
-                      <NavLink exact to={`/users/${comment.id}`}>
-                        {comment.username}
-                      </NavLink>
-                      {isUser && comment.user_id == currUser.id && (
-                        <>
-                          <button
-                            onClick={() => handleCommentDelete(comment.id)}
-                          >
-                            <i className="fa-regular fa-trash-can"></i>
-                          </button>
-                          <button
-                            onClick={() => {
-                              setEditingComment(comment.id);
-                              setCommentText(comment.comment);
-                              console.log(commentText);
-                            }}
-                          >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </button>
-                        </>
-                      )}
-                      <p>{comment.comment}</p>
-                      <p>{comment.createdAt}</p>
+                      <div className="comment flexRow">
+                        <i className="fa-solid fa-circle-user fa-2x userIcon"></i>
+                        <div className="commentDetails">
+                          <NavLink exact to={`/users/${comment.id}`} className="commentUser">
+                            {comment.username}
+                          </NavLink>
+                          {isUser && comment.user_id == currUser.id && (
+                            <>
+                              <button
+                                className="noButton"
+                                onClick={() => handleCommentDelete(comment.id)}
+                              >
+                                <i className="fa-regular fa-trash-can fa-xl"></i>
+                              </button>
+                              <button
+                                className="noButton"
+                                onClick={() => {
+                                  setEditingComment(comment.id);
+                                  setCommentText(comment.comment);
+                                  console.log(commentText);
+                                }}
+                                >
+                                <i className="fa-solid fa-pen-to-square fa-xl"></i>
+                              </button>
+                            </>
+                          )}
+                          <p>{comment.comment}</p>
+                          <p>{comment.createdAt}</p>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -326,23 +339,27 @@ const SinglePhotoPage = () => {
 
         <hr />
         <div className="detailsBox">
-          <p>{`${city}, ${state}, ${country}`}</p>
+          <p>Taken in {`${city}, ${state}, ${country}`}</p>
+          <p>Taken on {createdAt}</p>
           <p>{comments.length + " comment(s)"}</p>
         </div>
 
         <hr />
         <div className="tagsBox">
           <h2>Tags</h2>
-          <hr/>
           {photo &&
-            tags.map((tag) => (
-              <>
-                <p>{tag.tag_name}</p>
-                <button onClick={() => handleTagDelete(tag.id)}>Del</button>
-              </>
-            ))
+            <div className="tagsList">
+              {tags.map((tag) => (
+                <>
+                  <p className="tag">{tag.tag_name}</p>
+                  { currUser && photo.user_id == currUser.id &&
+                    <button className='trash-button' onClick={() => handleTagDelete(tag.id)}><i className="fa-regular fa-trash-can"></i></button>
+                  }
+                </>
+              ))}
+            </div>
           }
-          { photo.user_id == currUser.id &&
+          { currUser && photo.user_id == currUser.id &&
             <div className="addTagsBox">
               <button onClick={() => setTagsOpen(!tagsOpen)} className="addTagButton">Add tag</button>
               { tagsOpen && (
@@ -350,7 +367,7 @@ const SinglePhotoPage = () => {
                   <div className="allTags">
                     { allTags.map(tag => (<button className="tagButton" onClick={() => handleAddTag(tag)}>{tag.tag_name}</button>))}
                   </div>
-                  <form onSubmit={handleTagSubmit}>
+                  <form onSubmit={handleTagSubmit} className='tag-submit'>
                     <input
                     type="text"
                     id="tagName"
@@ -359,13 +376,14 @@ const SinglePhotoPage = () => {
                     maxLength={19}
                     placeholder="Add Tag Name Here"
                     />
-                    <button type="submit">Add a new tag</button>
+                    <button className='add-tag' type="submit">Add custom tag</button>
                   </form>
                 </>
               )}
             </div>
           }
         </div>
+      </div>
       </div>
     </>
   );

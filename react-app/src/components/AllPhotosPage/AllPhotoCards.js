@@ -9,14 +9,20 @@ const AllPhotoCards = ({ photo }) => {
 
   return (
     <NavLink to={`/photos/${id}`}>
-      <div className="Image-holder">
-        <img src={img_url} className="Single-Image" />
+      <div className="card-holder" style={ {backgroundImage:`url(${img_url})`} }>
+        <div className="content-holder">
+          <div className="allPhotosCity">{city}</div>
+          <div className="allPhotosState">{state}</div>
+          <div className="allPhotosCountry">{country}</div>
+        </div>
       </div>
-      <div>{city}</div>
-      <div>{state}</div>
-      <div>{country}</div>
+
     </NavLink>
   );
 };
+
+// style={{
+//   backgroundImage: {`url(${img_url})`}
+//   }}
 
 export default AllPhotoCards;

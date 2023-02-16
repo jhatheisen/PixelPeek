@@ -1,0 +1,13 @@
+.photosList {
+  max-width: 450px;
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.normalPhoto {
+  width: 200px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 200px;
+}

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { thunkUpdatePhoto } from '../../store/photos';
 import { useModal } from '../../context/Modal';
+import "./UpdatePhotoModal.css";
 
 function UpdatePhotoModalForm() {
     const sessionUser = useSelector(state => state.session.user);
@@ -63,11 +64,11 @@ function UpdatePhotoModalForm() {
 
     return (
         <div className='create-group-outer-most-div'>
-            <div className='create-group-text-div'>Create Group</div>
+            <div className='create-group-text-div'>Update Photo</div>
             <form onSubmit={handleSubmit} className="outerCreateEventFormDiv">
                 <ul>
                     {errors.map((error, idx) => (
-                        <li key={idx} className="createGroupErrors">{error}</li>
+                        <li key={idx} className="updatePhotoErrors">{error}</li>
                     ))}
                 </ul>
                 <label className="label">

@@ -9,4 +9,38 @@
   flex-direction: column;
   height: 38vh;
   width: 36vh;
+  overflow-y: auto;
+}
+
+.createPhotoErrors{
+  color: red;
+}
+
+.label{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.submitCreatePhotoButton{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.CreatePhoto-Button {
+  color: white;
+  background: transparent;
+  border: 1px  hidden;
+  border-radius: 9px;
+  height: 5vh;
+  width: 12vh;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CreatePhoto-Button:hover {
+  cursor: pointer;
+  box-shadow: 10px;
+  background-color: rgb(46, 46, 46);
 }

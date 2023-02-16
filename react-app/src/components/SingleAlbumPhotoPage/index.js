@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { thunkGetSingleAlbum, thunkAddAlbumPhoto } from "../../store/albums";
 import { thunkGetAllPhotos } from "../../store/photos";
 import AllPhotoCards from "../AllPhotosPage/AllPhotoCards";
+import './SingleAlbumPhotoPage.css'
 
 const SingleAlbumPhotoPage = () => {
   const dispatch = useDispatch();
@@ -46,15 +47,15 @@ const SingleAlbumPhotoPage = () => {
     <>
       <h1>{album.album_name}</h1>
       <div className="addPhotoBox">
-        <button onClick={() => setPhotosOpen(!photosOpen)}>Add Photo</button>
+        <button onClick={() => setPhotosOpen(!photosOpen)}>Add photo to album</button>
         {photosOpen && (
-          <>
+          <div className="photosList">
             {yourPhotos.map((photo) => (
-              <button onClick={() => handleAddPhoto(photo)}>
-                <img src={photo.img_url} />
+              <button onClick={() => handleAddPhoto(photo)} className="normalPhoto">
+                <img src={photo.img_url} className="normalPhoto" />
               </button>
             ))}
-          </>
+          </div>
         )}
       </div>
       <div className="AllPhotos-Container">

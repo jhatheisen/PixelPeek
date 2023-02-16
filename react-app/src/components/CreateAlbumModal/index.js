@@ -1,5 +1,6 @@
 import OpenModalButton from "../OpenModalButton";
 import CreateAlbumModalForm from "./CreateAlbumModalForm";
+import "./CreateAlbumModal.css"
 
 const CreateAlbumModal = () => {
   return (

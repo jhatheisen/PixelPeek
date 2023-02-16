@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
@@ -12,6 +13,8 @@ function SignupFormModal() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
+  const location = useLocation();
+  const history = useHistory();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -20,6 +23,7 @@ function SignupFormModal() {
 			if (data) {
 				setErrors(data);
 			} else {
+        if (location.pathname == '/') history.push('/photos')
 				closeModal();
 			}
 		} else {
@@ -28,20 +32,20 @@ function SignupFormModal() {
 			]);
 		}
 	};
-	
+
 	return (
 		<>
 			<h1>Sign Up</h1>
 			<form onSubmit={handleSubmit}>
 				<ul>
 					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
+						<li className="signUpErrors" key={idx}>{error}</li>
 					))}
 				</ul>
 				<label>
 					Email
 					<input
-						type="text"
+						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required

@@ -1,27 +1,50 @@
 .AllPhotos-Container {
-  width: 100%;
+  width: 95%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 17px;
   position: relative;
   top: 15px;
+  margin: 0 auto;
 }
 
 .AllPhotos-Inner-Container {
   display: grid;
   gap: 17px;
-  padding: 10px;
 }
 
 .AllPhotosCards {
   cursor: pointer;
 }
 
-.Image-holder {
+.card-holder {
+  display: flex;
   width: 100%;
   overflow: hidden;
   border-radius: 7px;
   aspect-ratio: 1;
+  background-size: cover;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* transition: transform 0.2s ease-in-out; */
+}
+
+
+.content-holder {
+  color: transparent;
+  text-align: center;
+  font-size: 1vw;
+
+}
+
+.card-holder:hover {
+  /* transform: scale(.8); */
+}
+
+.card-holder:hover .content-holder{
+  color:white;
+  transform: scale(.8);
 }
 
 .Single-Image {
@@ -32,3 +55,12 @@
   height: 100%;
   /* float: left; */
 }
+
+/*
+.photo-container img {
+  transition: transform 0.2s ease-in-out;
+}
+
+.photo-container:hover img {
+  transform: scale(1.2);
+} */
