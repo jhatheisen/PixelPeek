@@ -317,7 +317,7 @@ const SinglePhotoPage = () => {
                       placeholder="Add a comment"
                       required
                     />
-                  {commentText && (
+                  { (
                     <button
                       type="submit"
                       className="create-comment-submit-button"
@@ -377,6 +377,7 @@ const SinglePhotoPage = () => {
                     onChange={(e) => setTagName(e.target.value)}
                     maxLength={19}
                     placeholder="Add Tag Name Here"
+                    required
                     />
                     <button className='add-tag cleanButton' type="submit">Add custom tag</button>
                   </form>
