@@ -220,6 +220,9 @@ const SinglePhotoPage = () => {
 
           <div className="commentBox">
             <h2 className="commentH2">Comments</h2>
+            { !currUser &&
+                    <h3>Please log in to comment</h3>
+                }
             {photo &&
               comments.map((comment) => {
                 let isUser = false;
@@ -335,9 +338,6 @@ const SinglePhotoPage = () => {
                 </form>
               </div>
             )}
-            { !currUser &&
-                    <h2>Please log in to comment</h2>
-                }
           </div>
 
           <hr className="hr95" />
