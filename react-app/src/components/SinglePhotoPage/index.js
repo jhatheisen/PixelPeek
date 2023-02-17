@@ -205,9 +205,9 @@ const SinglePhotoPage = () => {
 
         <div className="bottomSection">
           <div className="userBox flexRow">
-            <NavLink exact to={`/users/${user.id}`}>
+            <div>
               <i className="fa-solid fa-circle-user fa-4x userIcon"></i>
-            </NavLink>
+            </div>
             <div className="userDetails">
               <div className="username">{user.username}</div>
               <p>
@@ -220,9 +220,6 @@ const SinglePhotoPage = () => {
 
           <div className="commentBox">
             <h2 className="commentH2">Comments</h2>
-            { !currUser &&
-                    <h3>Please log in to comment</h3>
-                }
             {photo &&
               comments.map((comment) => {
                 let isUser = false;
@@ -232,9 +229,9 @@ const SinglePhotoPage = () => {
                     {editingComment != comment.id && (
                       <div className="commentBox">
                         <div className="comment flexRow">
-                          <NavLink exact to={`/users/${comment.id}`}>
+                          <div>
                             <i className="fa-solid fa-circle-user fa-2x userIcon"></i>
-                          </NavLink>
+                          </div>
                           <div className="commentDetails">
                             <a className="commentUser">{comment.username}</a>
                             {isUser && comment.user_id == currUser.id && (
@@ -244,7 +241,7 @@ const SinglePhotoPage = () => {
                                   onClick={() =>
                                     handleCommentDelete(comment.id)
                                   }
-                                >
+                                  >
                                   <i className="fa-regular fa-trash-can fa-xl"></i>
                                 </button>
                                 <button
@@ -270,7 +267,7 @@ const SinglePhotoPage = () => {
                         <form
                           onSubmit={(e) => handleCommentUpdate(e, comment.id)}
                           className="commentForm"
-                        >
+                          >
                           <div className="commentInput">
                             <label for="comment">
                               <i className="fa-solid fa-camera-retro fa-2x"></i>
@@ -282,12 +279,12 @@ const SinglePhotoPage = () => {
                                 maxLength={255}
                                 placeholder="Edit your comment"
                                 required
-                              />
+                                />
                             </label>
                             {comment && (
                               <button
-                                type="submit"
-                                className="create-comment-submit-button"
+                              type="submit"
+                              className="create-comment-submit-button"
                               >
                                 Submit
                               </button>
@@ -295,7 +292,7 @@ const SinglePhotoPage = () => {
                             <ul className="createErrors">
                               {errors.map((error, idx) => (
                                 <li key={idx}>{error}</li>
-                              ))}
+                                ))}
                             </ul>
                           </div>
                         </form>
@@ -320,11 +317,11 @@ const SinglePhotoPage = () => {
                       maxLength={255}
                       placeholder="Add a comment"
                       required
-                    />
+                      />
                     {
                       <button
-                        type="submit"
-                        className="create-comment-submit-button"
+                      type="submit"
+                      className="create-comment-submit-button"
                       >
                         Submit
                       </button>
@@ -332,12 +329,15 @@ const SinglePhotoPage = () => {
                     <ul className="createErrors">
                       {errors.map((error, idx) => (
                         <li key={idx}>{error}</li>
-                      ))}
+                        ))}
                     </ul>
                   </div>
                 </form>
               </div>
             )}
+            { !currUser &&
+                    <h3>Please log in to comment</h3>
+                }
           </div>
 
           <hr className="hr95" />
