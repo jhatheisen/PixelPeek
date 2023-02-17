@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { thunkGetSingleAlbum, thunkAddAlbumPhoto } from "../../store/albums";
 import { thunkGetAllPhotos } from "../../store/photos";
 import AllPhotoCards from "../AllPhotosPage/AllPhotoCards";
@@ -9,11 +9,11 @@ import "./SingleAlbumPhotoPage.css";
 const SingleAlbumPhotoPage = () => {
   const dispatch = useDispatch();
   const { albumId } = useParams();
+  const history = useHistory();
 
   const [loadedPage, setLoadedPage] = useState(false);
 
   const album = useSelector((state) => state.albums.singleAlbum);
-  console.log(album);
   let yourPhotos = useSelector((state) => state.photos.allPhotos);
   const currUser = useSelector((state) => state.session.user);
 
@@ -30,9 +30,11 @@ const SingleAlbumPhotoPage = () => {
   }, [dispatch]);
 
   if (!album) return null;
+  if (!currUser) return null;
   if (!loadedPage) return null;
 
   if (yourPhotos) {
+    console.log("yourPhotos: ", yourPhotos);
     yourPhotos = Object.values(yourPhotos).filter(
       (photo) => photo.user_id == currUser.id
     );
@@ -73,6 +75,7 @@ const SingleAlbumPhotoPage = () => {
           <hr />
           {photosOpen && (
             <div className="photosList">
+              <h2 className="selectText"> Select a photo</h2>
               {yourPhotos.map((photo) => (
                 <button
                   onClick={() => handleAddPhoto(photo)}

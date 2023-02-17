@@ -209,9 +209,7 @@ const SinglePhotoPage = () => {
               <i className="fa-solid fa-circle-user fa-4x userIcon"></i>
             </NavLink>
             <div className="userDetails">
-              <NavLink exact to={`/users/${user.id}`} className="username">
-                {user.username}
-              </NavLink>
+              <div className="username">{user.username}</div>
               <p>
                 <b>{title}</b>
               </p>
@@ -235,13 +233,7 @@ const SinglePhotoPage = () => {
                             <i className="fa-solid fa-circle-user fa-2x userIcon"></i>
                           </NavLink>
                           <div className="commentDetails">
-                            <NavLink
-                              exact
-                              to={`/users/${comment.id}`}
-                              className="commentUser"
-                            >
-                              {comment.username}
-                            </NavLink>
+                            <a className="commentUser">{comment.username}</a>
                             {isUser && comment.user_id == currUser.id && (
                               <>
                                 <button
@@ -284,7 +276,7 @@ const SinglePhotoPage = () => {
                                 id="comment"
                                 value={commentText}
                                 onChange={(e) => setCommentText(e.target.value)}
-                                maxlength={255}
+                                maxLength={255}
                                 placeholder="Edit your comment"
                                 required
                               />
@@ -322,7 +314,7 @@ const SinglePhotoPage = () => {
                       id="comment"
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
-                      maxlength={255}
+                      maxLength={255}
                       placeholder="Add a comment"
                       required
                     />
