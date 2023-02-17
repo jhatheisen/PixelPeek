@@ -39,6 +39,7 @@ function CreatePhotoModalForm() {
 
       closeModal();
       history.push(`/photos/${res.id}`);
+      history.go(0);
     } catch (error) {
       let errorObject = JSON.parse(error.message);
       const result = errorObject.errors.map((error) => {
