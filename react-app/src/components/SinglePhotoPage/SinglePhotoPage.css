@@ -42,7 +42,7 @@
   font-size: 25px;
   text-decoration: none;
   color: black;
-  transition: color .25s;
+  transition: color 0.25s;
   margin: 0;
 }
 
@@ -129,6 +129,9 @@
 
 .backLink {
   display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
   font-size: 20px;
   color: white;
   text-decoration: none;
@@ -180,7 +183,7 @@
   background-color: lightgray;
   padding: 8px;
   border-radius: 12px;
-  font-size: x-large;
+  font-size: large;
 }
 
 .tagsList {
@@ -247,12 +250,12 @@
   border: none;
   height: 20px;
   cursor: pointer;
-  border: 0.25px solid transparent
+  border: 0.25px solid transparent;
 }
 
 .trash-button:hover {
   background-color: rgb(251, 251, 251);
-  border: 0.25px solid rgb(190, 190, 190)
+  border: 0.25px solid rgb(190, 190, 190);
 }
 
 .add-tag {

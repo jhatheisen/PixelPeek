@@ -8,7 +8,7 @@ const DELETE_PHOTO_COMMENT = "photos/delete_photo_comment";
 const CREATE_PHOTO_COMMENT = "photos/create_photo_comment";
 const EDIT_PHOTO_COMMENT = "photos/edit_photo_comment";
 const ADD_PHOTO_TAG = "photos/add_photo_tag";
-const DELETE_PHOTO_TAG = "photos/delete_photo_tag"
+const DELETE_PHOTO_TAG = "photos/delete_photo_tag";
 
 // Action creators here
 const getAllPhotos = (photos) => ({
@@ -52,14 +52,13 @@ const editPhotoComment = (stateI, comment) => ({
 
 const addPhotoTag = (tag) => ({
   type: ADD_PHOTO_TAG,
-  payload: tag
-})
+  payload: tag,
+});
 
 const deletePhotoTag = (tagId) => ({
   type: DELETE_PHOTO_TAG,
-  payload: tagId
-})
-
+  payload: tagId,
+});
 
 // Photo Feature Thunks Here
 const initialState = { user: null };
@@ -68,7 +67,6 @@ export const thunkGetAllPhotos = () => async (dispatch) => {
   const response = await fetch("/api/photos", {
     method: "GET",
   });
-  console.log("REQUEST SENT ====================>");
   if (response.ok) {
     const data = await response.json();
     dispatch(getAllPhotos(data));
@@ -104,7 +102,6 @@ export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
 
 export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
   const { title, description, city, state, country } = body;
-  console.log("reaches fetch request ======================>");
   const response = await fetch(`/api/photos/`, {
     method: "POST",
     headers: {
@@ -120,14 +117,11 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
     }),
   });
   if (response.ok) {
-    console.log("======================>request successful ");
     const data = await response.json();
     dispatch(createPhoto(data));
-    console.log("======================>request successful ", data);
     return data;
   } else if (response.status < 500) {
     const data = await response.json();
-    console.log("======================>error response in thunk ", data);
     throw new Error(JSON.stringify(data));
   }
 };
@@ -135,7 +129,6 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
 export const thunkUpdatePhoto =
   (updatedPhoto, photoDetails) => async (dispatch) => {
     const { title, description, city, state, country, imageUrl } = updatedPhoto;
-    console.log(title);
     const response = await fetch(`/api/photos/${photoDetails.id}`, {
       method: "PUT",
       headers: {
@@ -157,18 +150,14 @@ export const thunkUpdatePhoto =
       return changedPhoto;
     } else if (response.status < 500) {
       const data = await response.json();
-      console.log("======================>error response in thunk ", data);
       throw new Error(JSON.stringify(data));
     }
   };
 
 export const thunkDeletePhoto = (photoId) => async (dispatch) => {
-  console.log("fetch request reached ==============> ");
-
   const response = await fetch(`/api/photos/${photoId}`, {
     method: "DELETE",
   });
-  console.log("fetch request completed ==============>", response);
   if (response.ok) dispatch(deletePhoto(photoId));
   return response;
 };
@@ -246,7 +235,7 @@ export const thunkEditPhotoComment =
 
 export const thunkAddPhotoTag = (photoId, tag) => async (dispatch) => {
   const response = await fetch(`/api/photos/${photoId}/tags/${tag.id}`, {
-    method: "POST"
+    method: "POST",
   });
 
   if (response.ok) {
@@ -262,7 +251,6 @@ export const thunkAddPhotoTag = (photoId, tag) => async (dispatch) => {
     return ["An error occurred. Please try again."];
   }
 };
-
 
 export const thunkDeletePhotoTag = (photoId, tagId) => async (dispatch) => {
   const response = await fetch(`/api/photos/${photoId}/tags/${tagId}`, {
@@ -329,8 +317,8 @@ export default function photoReducer(state = initialState, action) {
       return nState;
     }
     case ADD_PHOTO_TAG: {
-      newState = {...state};
-      state.photoDetails.tags.push(action.payload)
+      newState = { ...state };
+      state.photoDetails.tags.push(action.payload);
     }
     case DELETE_PHOTO_TAG: {
       let nState = { ...state };
@@ -338,7 +326,7 @@ export default function photoReducer(state = initialState, action) {
       for (let i = 0; i < tags.length; i++) {
         let tag = tags[i];
         if (tag.id == action.payload) {
-          tags.splice(i, 1)
+          tags.splice(i, 1);
         }
       }
       return nState;

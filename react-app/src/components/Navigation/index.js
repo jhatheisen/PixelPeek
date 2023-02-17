@@ -40,11 +40,11 @@ function Navigation({ isLoaded }) {
           </NavLink>
         </div>
         <div className="YouAndExplore">
-         {sessionUser.user &&
-          <NavLink exact to="/you" className={"YouButton"}>
-            You
-          </NavLink>
-          }
+          {sessionUser.user && (
+            <NavLink exact to="/you" className={"YouButton"}>
+              You
+            </NavLink>
+          )}
           <NavLink exact to="/photos" className={"ExploreButton"}>
             Explore
           </NavLink>
@@ -56,22 +56,23 @@ function Navigation({ isLoaded }) {
             <CreatePhotoModal user={sessionUser} />
           )}
         </div>
-        {/* need to work on rendering profile dropdown in navbar when signed in only */}
-        {isLoaded && sessionUser.user && <ProfileButton user={sessionUser.user} />}
-        {!sessionUser.user &&
+        {isLoaded && sessionUser.user && (
+          <ProfileButton user={sessionUser.user} />
+        )}
+        {!sessionUser.user && (
           <div className="Login-Signup-Holder">
-              <OpenModalButton
-                buttonText="Log In"
-                className="login"
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalButton
-                buttonText="Sign Up"
-                className="signup cleanButton"
-                modalComponent={<SignupFormModal />}
-              />
+            <OpenModalButton
+              buttonText="Log In"
+              className="login"
+              modalComponent={<LoginFormModal />}
+            />
+            <OpenModalButton
+              buttonText="Sign Up"
+              className="signup cleanButton"
+              modalComponent={<SignupFormModal />}
+            />
           </div>
-        }
+        )}
       </div>
     </div>
   );

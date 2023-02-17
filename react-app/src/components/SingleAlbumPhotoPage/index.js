@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { thunkGetSingleAlbum, thunkAddAlbumPhoto } from "../../store/albums";
 import { thunkGetAllPhotos } from "../../store/photos";
 import AllPhotoCards from "../AllPhotosPage/AllPhotoCards";
-import './SingleAlbumPhotoPage.css'
+import "./SingleAlbumPhotoPage.css";
 
 const SingleAlbumPhotoPage = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const SingleAlbumPhotoPage = () => {
   const [loadedPage, setLoadedPage] = useState(false);
 
   const album = useSelector((state) => state.albums.singleAlbum);
+  console.log(album);
   let yourPhotos = useSelector((state) => state.photos.allPhotos);
   const currUser = useSelector((state) => state.session.user);
 
@@ -44,30 +45,56 @@ const SingleAlbumPhotoPage = () => {
   };
 
   return (
-    <div className="albumsPage">
-      <h1>{album.album_name}</h1>
-      <div className="addPhotoBox">
-        <button onClick={() => setPhotosOpen(!photosOpen)} className="cleanButton">Add photo to album</button>
-        {photosOpen && (
-          <div className="photosList">
-            {yourPhotos.map((photo) => (
-              <button onClick={() => handleAddPhoto(photo)} className="normalPhoto">
-                <img src={photo.img_url} className="normalPhoto" />
-              </button>
-            ))}
-          </div>
-        )}
+    <>
+      {album && album.photos.length ? (
+        <img src={album.photos[0].img_url} className="backGroundPhoto"></img>
+      ) : (
+        <img
+          src="https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          className="backGroundPhoto"
+        ></img>
+      )}
+      <div className="albumsPage">
+        <h1 className="albumName">{album.album_name}</h1>
+        <div className="addPhotoBox">
+          <NavLink to="/you" className="backYou">
+            <i
+              className="fa-solid fa-arrow-left fa-xl"
+              style={{ color: "black", padding: "0px 10px" }}
+            ></i>
+            Back to you
+          </NavLink>
+          <button
+            onClick={() => setPhotosOpen(!photosOpen)}
+            className="cleanButton"
+          >
+            Add photo to album
+          </button>
+          <hr />
+          {photosOpen && (
+            <div className="photosList">
+              {yourPhotos.map((photo) => (
+                <button
+                  onClick={() => handleAddPhoto(photo)}
+                  className="normalPhoto"
+                >
+                  <img src={photo.img_url} className="normalPhoto" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="AllPhotos-Container">
+          {album.photos.map((photo) => (
+            <AllPhotoCards
+              photo={photo}
+              key={photo.id}
+              className="AllPhotos-Container"
+            />
+          ))}
+        </div>
       </div>
-      <div className="AllPhotos-Container">
-        {album.photos.map((photo) => (
-          <AllPhotoCards
-            photo={photo}
-            key={photo.id}
-            className="AllPhotos-Container"
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

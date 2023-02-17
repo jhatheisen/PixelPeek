@@ -35,7 +35,6 @@ def get_all_albums():
 @album_routes.route('/<int:albumId>')
 def get_single_album(albumId):
     single_album = db.session.query(Album).get(int(albumId))
-    print(single_album)
 
     #pull photo info out albums
     photoInfo = []
@@ -56,10 +55,7 @@ def get_single_album(albumId):
 @album_routes.route('/', methods=["POST"])
 @login_required
 def create_album():
-  print("-------------------<ROUTEHIT FOUND")
   user_id = current_user.id
-  print(user_id)
-  print("-------------------<USER_ID FOUND")
   form = CreateAlbumForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -74,7 +70,6 @@ def create_album():
 
     db.session.add(newAlbum)
     db.session.commit()
-    print("-------------------<SUCCESS")
 
     allAlbums = Album.query.all()
 
@@ -93,8 +88,6 @@ def add_photo_to_album(albumId):
     data = request.get_json()
     photoId = data["photoId"]
 
-    print(photoId)
-
     singlePhoto = db.session.query(Photo).get(photoId)
     singleAlbum = db.session.query(Album).get(albumId)
 
@@ -111,9 +104,7 @@ def add_photo_to_album(albumId):
         return {'errors': ['Unauthorized']}, 401
 
     #execute update
-    print("photos before here=================>",singleAlbum.photos)
     singleAlbum.photos.append(singlePhoto)
-    print("photos after here=================>",singleAlbum.photos)
     db.session.commit()
 
     return {

@@ -149,13 +149,12 @@ export default function albumReducer(state = initialState, action) {
       return newState;
     case DELETE_ALBUM:
       newState = Object.assign({}, state);
-      console.log("newState", newState.allAlbums);
       delete newState["allAlbums"][action.payload];
       return newState;
     case CREATE_ALBUM:
       newState = Object.assign({}, state);
-      newState.allAlbums[action.payload.id] = action.payload
-      return newState
+      newState.allAlbums[action.payload.id] = action.payload;
+      return newState;
     default:
       return state;
   }
