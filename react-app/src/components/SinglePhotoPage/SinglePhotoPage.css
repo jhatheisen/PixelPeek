@@ -41,15 +41,14 @@
 .username {
   font-size: 25px;
   text-decoration: none;
-  color: black;
-  transition: color 0.25s;
+  color: #176dac;
   margin: 0;
 }
 
-.username:hover {
+/* .username:hover {
   text-decoration: underline;
   color: rgb(22, 160, 206);
-}
+} */
 
 .cleanButton {
   background-color: lightgray;
@@ -158,10 +157,6 @@
   padding-right: 10px;
   color: #176dac;
   font-weight: bold;
-}
-
-.commentUser:hover {
-  text-decoration: underline;
 }
 
 .noButton {

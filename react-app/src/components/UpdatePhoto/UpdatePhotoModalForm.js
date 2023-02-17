@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { thunkUpdatePhoto } from "../../store/photos";
 import { useModal } from "../../context/Modal";
 import "./UpdatePhotoModal.css";
+import "../LoginFormModal/LoginForm.css";
 
 function UpdatePhotoModalForm() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -60,66 +61,82 @@ function UpdatePhotoModalForm() {
   //add a redirect or to place to read new group
 
   return (
-    <div className="create-group-outer-most-div">
-      <div className="create-group-text-div">Update Photo</div>
-      <form onSubmit={handleSubmit} className="outerCreateEventFormDiv">
-        <ul>
+    <div className="Global-Modal-Container3">
+      <img
+        src={process.env.PUBLIC_URL + "/transparentOwl.png"}
+        className="Global-Logo"
+      />
+      <div className="Global-Modal-Header">Update Photo</div>
+      <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+        <ul className="Global-Errors-UL">
           {errors.map((error, idx) => (
-            <li key={idx} className="updatePhotoErrors">
+            <li key={idx} className="Global-Errors-LI">
               {error}
             </li>
           ))}
         </ul>
-        <label className="label">Title</label>
-        <input
-          className="inputClass"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <label className="label">Description</label>
-        <textarea
-          className="inputClass createGroupTextArea"
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        ></textarea>
-        <label className="label">City</label>
-        <input
-          className="inputClass"
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
-        />
-        <label className="label">State</label>
-        <input
-          className="inputClass"
-          type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-        />
-        <label className="label">Country</label>
-        <input
-          className="inputClass"
-          type="text"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          required
-        />
-        <label className="label">Image</label>
-        <input
-          className="inputClass"
-          type="url"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          required
-        />
-        <button type="submit" className="submitCreateGroupButton">
-          Submit
+        <label for="title" className="Global-Modal-Label">
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            placeholder="Title"
+            className="Global-Modal-input"
+          />
+        </label>
+        <label for="description" className="Global-Modal-Label">
+          <textarea
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            placeholder="Description"
+            className="Global-Modal-input"
+          ></textarea>
+        </label>
+        <label for="city" className="Global-Modal-Label">
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+            placeholder="City"
+            className="Global-Modal-input"
+          />
+        </label>
+        <label for="state" className="Global-Modal-Label">
+          <input
+            type="text"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            required
+            placeholder="State"
+            className="Global-Modal-input"
+          />
+        </label>
+        <label for="country" className="Global-Modal-Label">
+          <input
+            type="text"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            required
+            placeholder="Country"
+            className="Global-Modal-input"
+          />
+        </label>
+        <label for="imageUrl" className="Global-Modal-Label">
+          <input
+            type="url"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            required
+            placeholder="Your new image url"
+            className="Global-Modal-input"
+          />
+        </label>
+        <button type="submit" className="Global-SubmitButton">
+          Update Photo
         </button>
       </form>
     </div>
