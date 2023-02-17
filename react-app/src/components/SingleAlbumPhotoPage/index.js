@@ -70,6 +70,7 @@ const SingleAlbumPhotoPage = () => {
           >
             Add photo to album
           </button>
+          <hr />
           {photosOpen && (
             <div className="photosList">
               {yourPhotos.map((photo) => (
