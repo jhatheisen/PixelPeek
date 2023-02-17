@@ -40,7 +40,7 @@ function Navigation({ isLoaded }) {
           </NavLink>
         </div>
         <div className="YouAndExplore">
-         {(sessionUser.user && location.pathname != "/") &&
+         {sessionUser.user &&
           <NavLink exact to="/you" className={"YouButton"}>
             You
           </NavLink>
@@ -65,10 +65,9 @@ function Navigation({ isLoaded }) {
                 className="login"
                 modalComponent={<LoginFormModal />}
               />
-
               <OpenModalButton
                 buttonText="Sign Up"
-                className="signup"
+                className="signup cleanButton"
                 modalComponent={<SignupFormModal />}
               />
           </div>

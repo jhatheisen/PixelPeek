@@ -23,8 +23,9 @@
   background-color: white;
   max-height: 80%;
   height: max-content;
-  border-radius: 12px;
+  border-radius: 5px;
   display: flex;
-  padding: 20px;
+  /* padding: 20px; */
   justify-content: center;
+  overflow-y: auto;
 }

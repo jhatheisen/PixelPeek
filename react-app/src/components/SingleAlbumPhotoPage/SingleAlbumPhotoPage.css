@@ -11,3 +11,8 @@
   cursor: pointer;
   height: 200px;
 }
+
+.albumsPage {
+  margin: 0 auto;
+  width: 80%;
+}

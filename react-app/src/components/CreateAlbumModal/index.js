@@ -4,8 +4,9 @@ import "./CreateAlbumModal.css"
 
 const CreateAlbumModal = () => {
   return (
-    <div className="createPhotoBox">
+    <div className="createAlbumBox">
       <OpenModalButton
+        className="album-create-button"
         buttonText="Create New Album here"
         modalComponent={<CreateAlbumModalForm />}
       />

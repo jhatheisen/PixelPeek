@@ -27,9 +27,15 @@
   display: flex;
   flex-direction: column;
 }
+
+.userIcon {
+  flex-basis: 10%;
+}
+
 .userDetails {
   /* background-color: antiquewhite; */
   padding-left: 10px;
+  flex-grow: 1;
 }
 
 .username {
@@ -42,7 +48,7 @@
 
 .username:hover {
   text-decoration: underline;
-  color: rgb(22, 102, 129);
+  color: rgb(22, 160, 206);
 }
 
 .cleanButton {
@@ -65,11 +71,12 @@
   width: 95%;
 }
 
-.firstHr {
-  width: 82.5%;
+.userBox {
+  width: 95%;
+  flex-wrap: wrap;
 }
-
-.comment {
+.firstHr {
+  width: 100%;
 }
 
 .commentDetails {
@@ -79,7 +86,37 @@
 .commentBox {
   /* background-color: #2b2b2e; */
   width: 90%;
-  padding: 10px 0px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.makeCommentBox {
+  display: flex;
+  /* background-color: aqua; */
+  flex-direction: row;
+  align-items: center;
+  padding-left: 0;
+}
+
+.flexRowCenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#comment {
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.create-comment-submit-button {
+  background-color: lightgray;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 12px;
+  margin-left: 10px;
 }
 
 .commentInput {
@@ -97,11 +134,15 @@
   text-decoration: none;
 }
 
+#photoImg {
+  max-width: 95%;
+}
+
 .fa-arrow-left {
   color: white;
 }
 
-hr {
+.hr95 {
   background-color: black;
   width: 95%;
 }
@@ -112,9 +153,18 @@ hr {
 
 .commentUser {
   padding-right: 10px;
+  color: #176dac;
+  font-weight: bold;
 }
 
-.noButton
+.commentUser:hover {
+  text-decoration: underline;
+}
+
+.noButton {
+  border: none;
+  cursor: pointer;
+}
 .allTags {
   display: flex;
   flex-direction: column;
@@ -162,12 +212,18 @@ hr {
   flex-direction: column;
   gap: 10px;
   height: 250px;
+  margin-bottom: 200px;
 }
 
 .addTagsBox {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: flex-start;
+}
+
+#tagName {
+  height: 40px;
+  font-size: 15px;
 }
 
 .addTagButton {
@@ -202,9 +258,9 @@ hr {
 .add-tag {
   background: transparent;
   border: 0.25px solid rgb(190, 190, 190);
-  margin-left: 3px;
   font-size: 20px;
   height: 50px;
+  margin: 10px;
   font-family: Proxima Nova, helvetica neue, helvetica, arial, sans-serif;
   border-radius: 5px;
   cursor: pointer;
@@ -217,5 +273,6 @@ hr {
 .tag-submit {
   margin-left: 3px;
   margin-right: 3px;
-
+  flex-direction: column;
+  display: flex;
 }
