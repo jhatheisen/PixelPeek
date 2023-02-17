@@ -70,7 +70,9 @@ function LoginFormModal() {
         <button type="submit" className="Global-SubmitButton">
           Log In
         </button>
-        <div onClick={demoLogin}>Click here to try demo</div>
+        <div onClick={demoLogin} className="Login-Demo">
+          Try demo
+        </div>
       </form>
     </div>
   );

@@ -33,6 +33,7 @@ const YouPage = () => {
       }
     }
   }
+  console.log(userAlbums);
 
   //error should not hit this route when you are logged in and own the spot
   if (userAlbums.length === 0) {
@@ -55,29 +56,33 @@ const YouPage = () => {
 
   return (
     <div className="AllAlbums-Container">
-<<<<<<< HEAD
-      {userAlbums && (
+      {userAlbums && userAlbums[0].photos.length ? (
         <img
           src={userAlbums[0].photos[0].img_url}
           className="backGroundPhoto"
         ></img>
+      ) : (
+        <img
+          src="https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          className="backGroundPhoto"
+        ></img>
       )}
-=======
-      {userAlbums && userAlbums.photos ? (
-        <img src={userAlbums[0].photos[0].img_url} className='backGroundPhoto'></img>
-      ) :
-      (
-        <img src="https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className='backGroundPhoto'></img>
-      )
-      }
->>>>>>> c7a108793c5c634d1c2b89d054860d6861c98684
       <div className="youUserDetails">
         <i className="fa-solid fa-circle-user fa-4x youUserIcon"></i>
         <p className="youUsername">{currUser.username},</p>
         <p className="youEmail">{currUser.email}</p>
       </div>
       <div className="albumsBar">
-        <h1 className="albums-title">Albums</h1>
+        <div className="leftAlbumBar">
+          <NavLink to="/photos" className="backYou">
+            <i
+              className="fa-solid fa-arrow-left fa-xl"
+              style={{ color: "black" }}
+            ></i>
+            Back to explore
+          </NavLink>
+          <h1 className="albums-title">Albums</h1>
+        </div>
         {currUser && <CreateAlbumModal />}
       </div>
       <hr />

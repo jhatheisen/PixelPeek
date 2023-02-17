@@ -60,14 +60,16 @@ function CreateAlbumModalForm() {
             </li>
           ))}
         </ul>
-        <label className="label Global-Modal-Label">Album Name</label>
-        <input
-          className="Global-Modal-input"
-          type="text"
-          value={albumName}
-          onChange={(e) => setAlbumName(e.target.value)}
-          required
-        />
+        <label className="Global-Modal-Label">
+          <input
+            type="text"
+            value={albumName}
+            onChange={(e) => setAlbumName(e.target.value)}
+            required
+            placeholder="Album Name"
+            className="Global-Modal-input"
+          />
+        </label>
         <button type="submit" className="Global-SubmitButton">
           Submit
         </button>

@@ -179,8 +179,8 @@ const SinglePhotoPage = () => {
     <>
       <div className="pageBox">
         <div className="topPhotoBar">
-          <i className="fa-solid fa-arrow-left fa-xl"></i>
           <NavLink to="/photos" className="backLink">
+            <i className="fa-solid fa-arrow-left fa-l"></i>
             Back to explore
           </NavLink>
         </div>

@@ -8,21 +8,21 @@
   margin: 0 auto;
 }
 
-
 .album-card {
-    display: grid;
-    justify-items: center;
+  display: grid;
+  justify-items: center;
 }
 
 .albumContainer {
-    display:grid;
-    justify-content: center;
+  display: grid;
+  justify-content: center;
 }
 
 .albumPhoto {
   width: 15vw;
   height: 15vw;
   object-fit: cover;
+  border-radius: 7px;
 }
 
 .backGroundPhoto {
@@ -35,8 +35,12 @@
   color: gray;
   font-weight: lighter;
   padding-bottom: 10px;
-  border-bottom: solid 5px blue;
+  border-bottom: solid 5px #128fdc;
   margin: 10px;
+}
+
+.rightAlbumBar {
+  display: flex;
 }
 
 .albumsBar {
@@ -55,7 +59,8 @@
   color: white;
 }
 
-.youUsername, .youEmail {
+.youUsername,
+.youEmail {
   font-size: x-large;
   color: white;
 }
@@ -74,5 +79,11 @@
 }
 
 #empty-card {
-    border: 0.1px solid rgb(0, 0, 0);
+  border: 0.1px solid rgb(0, 0, 0);
+}
+
+.leftAlbumBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
