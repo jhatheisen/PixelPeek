@@ -1,0 +1,18 @@
+.album-create-button {
+    display: flex;
+    background: white;
+    background-color: #128fdc;
+    border-radius: 5px;
+    color: white;
+    height: 50px;
+    padding: 20px;
+    border: none;
+    margin-left: 7px;
+    font-size: 15px;
+    align-items: center;
+}
+
+.album-create-button:hover {
+    background-color: #4cb5f7;
+    cursor: pointer;
+}

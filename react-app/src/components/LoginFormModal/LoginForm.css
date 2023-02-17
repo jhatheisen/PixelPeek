@@ -1,4 +1,68 @@
-.loginErrors
+.Global-Errors-LI
 {
-    color: red
+    color: red;
+}
+
+.Global-Errors-UL {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:red;
+    flex-direction: column;
+}
+
+
+.Global-Modal-Image-Container{
+    display: flex;
+    justify-content: center;
+}
+
+
+.Global-Modal-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32vh;
+    height: 38vh;
+    padding: 36px 40px;
+}
+
+.Global-ModalForm-Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+
+.Global-Logo {
+    width: 19%;
+}
+
+.Global-SubmitButton{
+
+    background-color: rgb(18,143,220);
+    color: white;
+    border-color:transparent;
+    border-radius:3px;
+    width: 100%;
+    padding: 10px;
+}
+
+
+.Global-Modal-input {
+    padding: 13px;
+    margin-bottom: 10px;
+    width: 100%
+}
+
+.Global-Modal-Header {
+    padding-top: 15px;
+}
+
+.Global-Modal-Label {
+    width: 100%;
+    display: flex;
 }

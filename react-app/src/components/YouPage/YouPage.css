@@ -1,0 +1,75 @@
+.albums {
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1vw;
+  position: relative;
+  top: 15px;
+  margin: 0 auto;
+}
+
+
+.album-card {
+    display: grid;
+    justify-items: center;
+}
+
+.albumContainer {
+    display:grid;
+    justify-content: center;
+}
+
+.albumPhoto {
+  width: 15vw;
+  height: 15vw;
+  object-fit: cover;
+}
+
+.backGroundPhoto {
+  width: 100vw;
+  height: 320px;
+  object-fit: cover;
+}
+
+.albums-title {
+  color: gray;
+  font-weight: lighter;
+  padding-bottom: 10px;
+  border-bottom: solid 5px blue;
+  margin: 10px;
+}
+
+.albumsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.createAlbumBox {
+  width: fit-content;
+  height: fit-content;
+}
+
+.youUserIcon {
+  color: white;
+}
+
+.youUsername {
+  font-size: xx-large;
+  color: white;
+}
+
+.youUserDetails {
+  position: absolute;
+  /* background-color: green; */
+  top: 200px;
+  align-items: center;
+  left: 20vw;
+  display: flex;
+  gap: 20px;
+}
+
+#empty-card {
+    border: 0.1px solid rgb(0, 0, 0);
+}

@@ -38,11 +38,9 @@
 
 }
 
-.card-holder:hover {
-  /* transform: scale(.8); */
-}
 
 .card-holder:hover .content-holder{
+  padding: 20px;
   color:white;
   transform: scale(.8);
 }

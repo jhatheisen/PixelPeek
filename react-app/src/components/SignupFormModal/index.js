@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
-import "./SignupForm.css";
+import "../LoginFormModal/LoginForm.css"
+import "./SignupForm.css"
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
@@ -34,53 +35,60 @@ function SignupFormModal() {
 	};
 
 	return (
-		<>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
-				<ul>
+		<div className="Global-Modal-Container2">
+			<div className="Global-Modal-Image-Container">
+				<img src={process.env.PUBLIC_URL + "/transparentOwl.png"} className="Global-Logo"/>
+			</div>
+			<div className="Global-Modal-Header">Sign up for PixelPeek</div>
+			<form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+				<ul className="Global-Errors-UL">
 					{errors.map((error, idx) => (
-						<li className="signUpErrors" key={idx}>{error}</li>
+						<li className="Global-Errors-LI" key={idx}>{error}</li>
 					))}
 				</ul>
-				<label>
-					Email
+				<label for="email" className="Global-Modal-Label">
 					<input
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
+						placeholder="Email address"
+            className="Global-Modal-input"
 					/>
 				</label>
-				<label>
-					Username
+				<label for="username" className="Global-Modal-Label">
 					<input
 						type="text"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required
+						placeholder="Username"
+            className="Global-Modal-input"
 					/>
 				</label>
-				<label>
-					Password
+				<label for="password" className="Global-Modal-Label">
 					<input
 						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
+						placeholder="Password"
+            className="Global-Modal-input"
 					/>
 				</label>
-				<label>
-					Confirm Password
+				<label for="password" className="Global-Modal-Label">
 					<input
 						type="password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
+						placeholder="Confirm your password"
+            className="Global-Modal-input"
 					/>
 				</label>
-				<button type="submit">Sign Up</button>
+				<button type="submit"  className="Global-SubmitButton">Sign Up</button>
 			</form>
-		</>
+		</div>
 	);
 }
 

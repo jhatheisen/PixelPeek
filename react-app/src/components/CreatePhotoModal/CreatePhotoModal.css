@@ -1,29 +1,11 @@
-.outerCreateEventFormDiv {
+.Global-Modal-Container3 {
   display: flex;
   flex-direction: column;
-}
-
-.create-group-outer-most-div {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 38vh;
-  width: 36vh;
-  overflow-y: auto;
-}
-
-.createPhotoErrors{
-  color: red;
-}
-
-.label{
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.submitCreatePhotoButton{
-  margin-top: 15px;
-  margin-bottom: 15px;
+  width: 32vh;
+  height: 54vh;
+  padding: 36px 40px;
 }
 
 .CreatePhoto-Button {
@@ -31,8 +13,8 @@
   background: transparent;
   border: 1px  hidden;
   border-radius: 9px;
-  height: 5vh;
-  width: 12vh;
+  height: 50px;
+  width: 120px;
   font-size: 17px;
   display: flex;
   justify-content: center;

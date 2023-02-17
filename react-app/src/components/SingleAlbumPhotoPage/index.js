@@ -44,10 +44,10 @@ const SingleAlbumPhotoPage = () => {
   };
 
   return (
-    <>
+    <div className="albumsPage">
       <h1>{album.album_name}</h1>
       <div className="addPhotoBox">
-        <button onClick={() => setPhotosOpen(!photosOpen)}>Add photo to album</button>
+        <button onClick={() => setPhotosOpen(!photosOpen)} className="cleanButton">Add photo to album</button>
         {photosOpen && (
           <div className="photosList">
             {yourPhotos.map((photo) => (
@@ -67,7 +67,7 @@ const SingleAlbumPhotoPage = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

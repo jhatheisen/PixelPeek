@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 // import createAlbum thunk here
 import { useModal } from "../../context/Modal";
 import { thunkCreateAlbum } from "../../store/albums";
+import './CreateAlbumModal.css'
 
 function CreateAlbumModalForm() {
   const sessionUser = useSelector((state) => state.session.user);

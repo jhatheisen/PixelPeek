@@ -189,7 +189,7 @@ const SinglePhotoPage = () => {
           </NavLink>
         </div>
         <div className="photoBox flexRow">
-          <img src={img_url} alt={"image of " + description}></img>
+          <img src={img_url} alt={"image of " + description} id="photoImg"></img>
         </div>
 
         <div className="topPhotoBar">
@@ -203,7 +203,7 @@ const SinglePhotoPage = () => {
 
         <div className="bottomSection">
         <div className="userBox flexRow">
-          <NavLink exact to={`/users/${user.id}`}>
+          <NavLink exact to={`/users/${user.id}`} >
             <i className="fa-solid fa-circle-user fa-4x userIcon"></i>
           </NavLink>
           <div className="userDetails">
@@ -212,9 +212,9 @@ const SinglePhotoPage = () => {
             </NavLink>
             <p><b>{title}</b></p>
             <p>{description}</p>
+          <hr className="firstHr"/>
           </div>
         </div>
-        <hr className="firstHr"/>
 
         <div className="commentBox">
           <h2 className="commentH2">Comments</h2>
@@ -227,7 +227,9 @@ const SinglePhotoPage = () => {
                   {editingComment != comment.id && (
                     <div className="commentBox">
                       <div className="comment flexRow">
-                        <i className="fa-solid fa-circle-user fa-2x userIcon"></i>
+                        <NavLink exact to={`/users/${comment.id}`} >
+                          <i className="fa-solid fa-circle-user fa-2x userIcon"></i>
+                        </NavLink>
                         <div className="commentDetails">
                           <NavLink exact to={`/users/${comment.id}`} className="commentUser">
                             {comment.username}
@@ -260,14 +262,14 @@ const SinglePhotoPage = () => {
                   )}
 
                   {editingComment == comment.id && (
-                    <div className="editCommentBox">
+                    <div className="makeCommentBox">
                       <form
                         onSubmit={(e) => handleCommentUpdate(e, comment.id)}
                         className="commentForm"
                       >
                         <div className="commentInput">
                           <label for="comment">
-                            <i className="fa-solid fa-camera-retro"></i>
+                            <i className="fa-solid fa-camera-retro fa-2x"></i>
                             <textarea
                               type="textarea"
                               id="comment"
@@ -302,9 +304,10 @@ const SinglePhotoPage = () => {
           {!editingComment && (
             <div className="makeCommentBox">
               <form onSubmit={handleCommentSubmit} className="commentForm">
-                <div className="commentInput">
+                <div className="commentInput flexRowCenter">
                   <label for="comment">
-                    <i className="fa-solid fa-camera-retro"></i>
+                    <i className="fa-solid fa-camera-retro fa-2x"></i>
+                  </label>
                     <textarea
                       type="textarea"
                       id="comment"
@@ -314,7 +317,6 @@ const SinglePhotoPage = () => {
                       placeholder="Add a comment"
                       required
                     />
-                  </label>
                   {commentText && (
                     <button
                       type="submit"
@@ -337,14 +339,14 @@ const SinglePhotoPage = () => {
                 } */}
         </div>
 
-        <hr />
+        <hr className="hr95"/>
         <div className="detailsBox">
           <p>Taken in {`${city}, ${state}, ${country}`}</p>
           <p>Taken on {createdAt}</p>
           <p>{comments.length + " comment(s)"}</p>
         </div>
 
-        <hr />
+        <hr className="hr95"/>
         <div className="tagsBox">
           <h2>Tags</h2>
           {photo &&
@@ -361,11 +363,11 @@ const SinglePhotoPage = () => {
           }
           { currUser && photo.user_id == currUser.id &&
             <div className="addTagsBox">
-              <button onClick={() => setTagsOpen(!tagsOpen)} className="addTagButton">Add tag</button>
+              <button onClick={() => setTagsOpen(!tagsOpen)} className="addTagButton cleanButton">Add tag</button>
               { tagsOpen && (
                 <>
                   <div className="allTags">
-                    { allTags.map(tag => (<button className="tagButton" onClick={() => handleAddTag(tag)}>{tag.tag_name}</button>))}
+                    { allTags.map(tag => (<button className="tagButton cleanButton" onClick={() => handleAddTag(tag)}>{tag.tag_name}</button>))}
                   </div>
                   <form onSubmit={handleTagSubmit} className='tag-submit'>
                     <input
@@ -376,7 +378,7 @@ const SinglePhotoPage = () => {
                     maxLength={19}
                     placeholder="Add Tag Name Here"
                     />
-                    <button className='add-tag' type="submit">Add custom tag</button>
+                    <button className='add-tag cleanButton' type="submit">Add custom tag</button>
                   </form>
                 </>
               )}

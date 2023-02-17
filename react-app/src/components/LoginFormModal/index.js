@@ -28,35 +28,38 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
+    <div className="Global-Modal-Container">
+      <img src={process.env.PUBLIC_URL + "/transparentOwl.png"} className="Global-Logo"/>
+      <div className="Global-Modal-Header">Log in to PixelPeek</div>
+      <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+        <ul className="Global-Errors-UL">
           {errors.map((error, idx) => (
-            <li className="loginErrors" key={idx}>{error}</li>
+            <li className="Global-Errors-LI" key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+        <label for="email" className="Global-Modal-Label">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Email address"
+            className="Global-Modal-input"
           />
         </label>
-        <label>
-          Password
+        <label for="password" className="Global-Modal-Label">
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Password"
+            className="Global-Modal-input"
           />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit" className="Global-SubmitButton">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

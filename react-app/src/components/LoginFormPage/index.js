@@ -30,16 +30,17 @@ function LoginFormPage() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
+        <label >
           Email
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+
           />
         </label>
-        <label>
+        <label >
           Password
           <input
             type="password"
@@ -48,7 +49,7 @@ function LoginFormPage() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit" >Log In</button>
       </form>
     </>
   );
