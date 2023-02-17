@@ -62,3 +62,47 @@
 .photo-container:hover img {
   transform: scale(1.2);
 } */
+
+.allPhotosContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.imgRow {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 5px 0px;
+}
+
+.imgBox {
+  border-radius: 7px;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease-in-out;
+}
+
+.infoDiv {
+  color: transparent;
+  text-align: center;
+  transition: color .5s;
+  z-index: 100;
+}
+.imgBox:hover .infoDiv {
+  color: white;
+  background-color: rgba(43, 41, 41, 0.568);
+  border-radius: 12px;
+  padding: 4px;
+}
+.imgBox:hover {
+  transform: scale(1.2);
+}
+
+.outerBox {
+  overflow: hidden;
+  height: 25vh;
+}
