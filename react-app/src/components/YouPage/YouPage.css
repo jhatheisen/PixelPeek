@@ -55,17 +55,20 @@
   color: white;
 }
 
-.youUsername {
-  font-size: xx-large;
+.youUsername, .youEmail {
+  font-size: x-large;
   color: white;
 }
 
 .youUserDetails {
   position: absolute;
-  /* background-color: green; */
-  top: 200px;
+  background-color: #2b2b2ebb;
+  border-radius: 12px;
+  padding: 5px 12px;
+  height: 80px;
+  top: 280px;
   align-items: center;
-  left: 20vw;
+  left: 1vw;
   display: flex;
   gap: 20px;
 }

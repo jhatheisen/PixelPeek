@@ -45,6 +45,13 @@ const SingleAlbumPhotoPage = () => {
 
   return (
     <div className="albumsPage">
+      {album && album.photos ? (
+        <img src={album.photos[0].img_url} className='backGroundPhoto'></img>
+      ) :
+      (
+        <img src="https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className='backGroundPhoto'></img>
+      )
+      }
       <h1>{album.album_name}</h1>
       <div className="addPhotoBox">
         <button onClick={() => setPhotosOpen(!photosOpen)} className="cleanButton">Add photo to album</button>

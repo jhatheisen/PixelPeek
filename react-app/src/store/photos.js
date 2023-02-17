@@ -117,14 +117,11 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
     }),
   });
   if (response.ok) {
-    console.log("======================>request successful ");
     const data = await response.json();
     dispatch(createPhoto(data));
-    console.log("======================>request successful ", data);
     return data;
   } else if (response.status < 500) {
     const data = await response.json();
-    console.log("======================>error response in thunk ", data);
     throw new Error(JSON.stringify(data));
   }
 };
@@ -132,7 +129,6 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
 export const thunkUpdatePhoto =
   (updatedPhoto, photoDetails) => async (dispatch) => {
     const { title, description, city, state, country, imageUrl } = updatedPhoto;
-    console.log(title);
     const response = await fetch(`/api/photos/${photoDetails.id}`, {
       method: "PUT",
       headers: {
@@ -154,18 +150,14 @@ export const thunkUpdatePhoto =
       return changedPhoto;
     } else if (response.status < 500) {
       const data = await response.json();
-      console.log("======================>error response in thunk ", data);
       throw new Error(JSON.stringify(data));
     }
   };
 
 export const thunkDeletePhoto = (photoId) => async (dispatch) => {
-  console.log("fetch request reached ==============> ");
-
   const response = await fetch(`/api/photos/${photoId}`, {
     method: "DELETE",
   });
-  console.log("fetch request completed ==============>", response);
   if (response.ok) dispatch(deletePhoto(photoId));
   return response;
 };
