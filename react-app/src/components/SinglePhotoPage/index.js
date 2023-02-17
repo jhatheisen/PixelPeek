@@ -302,7 +302,7 @@ const SinglePhotoPage = () => {
                 );
               })}
 
-            {!editingComment && (
+            {!editingComment && currUser && (
               <div className="makeCommentBox">
                 <form onSubmit={handleCommentSubmit} className="commentForm">
                   <div className="commentInput flexRowCenter">
@@ -335,9 +335,9 @@ const SinglePhotoPage = () => {
                 </form>
               </div>
             )}
-            {/* { alreadyCommented &&
-                    <h2>Please delete your existing comment to post a new one</h2>
-                } */}
+            { !currUser &&
+                    <h2>Please log in to comment</h2>
+                }
           </div>
 
           <hr className="hr95" />
