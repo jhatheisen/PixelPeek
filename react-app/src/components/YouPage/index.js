@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { thunkDeleteAlbum } from "../../store/albums";
 import CreateAlbumModal from "../CreateAlbumModal";
-import "./YouPage.css"
+import "./YouPage.css";
 
 const YouPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const YouPage = () => {
     dispatch(thunkGetAllAlbums());
     return () => {
       setLoadedPage(false);
-    }
+    };
   }, [dispatch, loadedPage]);
 
   // if (!loadedPage) return null;
@@ -33,7 +33,6 @@ const YouPage = () => {
       }
     }
   }
-  console.log(userAlbums)
 
   //error should not hit this route when you are logged in and own the spot
   if (userAlbums.length === 0) {
@@ -46,9 +45,7 @@ const YouPage = () => {
   }
 
   const handleAlbumDelete = async (albumId) => {
-    console.log(albumId);
-    dispatch(thunkDeleteAlbum(albumId))
-    .then(() => {
+    dispatch(thunkDeleteAlbum(albumId)).then(() => {
       setLoadedPage(true);
 
       // fix redirect !!!!!!!!!!!!!!!!!!!!!!!!
@@ -58,51 +55,58 @@ const YouPage = () => {
 
   return (
     <div className="AllAlbums-Container">
-      {userAlbums &&
-        <img src={userAlbums[0].photos[0].img_url} className='backGroundPhoto'></img>
-      }
+      {userAlbums && (
+        <img
+          src={userAlbums[0].photos[0].img_url}
+          className="backGroundPhoto"
+        ></img>
+      )}
       <div className="youUserDetails">
         <i className="fa-solid fa-circle-user fa-4x youUserIcon"></i>
         <p className="youUsername">{currUser.username}</p>
       </div>
       <div className="albumsBar">
-        <h1 className='albums-title'>Albums</h1>
+        <h1 className="albums-title">Albums</h1>
         {currUser && <CreateAlbumModal />}
       </div>
       <hr />
       <div className="albums">
-      {userAlbums.map((album) => {
-        return (
-          <div className='album-card'>
-            <NavLink exact to={`/you/album/${album.id}`} key={album.id}>
-              {album.photos.length ? (
-
-                <div className="albumContainer">
-
-                  <img src={album.photos[0].img_url} alt={"Image of album"} className="albumPhoto" />
-                  <p>{album.album_name}</p>
-                </div>
-
-              ) : (
-
-                <div className="albumContainer">
-                  <img src={process.env.PUBLIC_URL + "/EmptyAlbum.jpeg"} alt={"Image not Found"} className="albumPhoto" id='empty-card' />
-                  <p>{album.album_name}</p>
-                </div>
-
-              )}
-            </NavLink>
-            <button
-              onClick={() => {
-                handleAlbumDelete(album.id);
-              }}
-              className='cleanButtonDel'
-            >
-              Delete Album
-            </button>
-          </div>
-        );
-      })}
+        {userAlbums.map((album) => {
+          return (
+            <div className="album-card">
+              <NavLink exact to={`/you/album/${album.id}`} key={album.id}>
+                {album.photos.length ? (
+                  <div className="albumContainer">
+                    <img
+                      src={album.photos[0].img_url}
+                      alt={"Image of album"}
+                      className="albumPhoto"
+                    />
+                    <p>{album.album_name}</p>
+                  </div>
+                ) : (
+                  <div className="albumContainer">
+                    <img
+                      src={process.env.PUBLIC_URL + "/EmptyAlbum.jpeg"}
+                      alt={"Image not Found"}
+                      className="albumPhoto"
+                      id="empty-card"
+                    />
+                    <p>{album.album_name}</p>
+                  </div>
+                )}
+              </NavLink>
+              <button
+                onClick={() => {
+                  handleAlbumDelete(album.id);
+                }}
+                className="cleanButtonDel"
+              >
+                Delete Album
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

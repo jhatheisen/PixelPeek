@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 // import createAlbum thunk here
 import { useModal } from "../../context/Modal";
 import { thunkCreateAlbum } from "../../store/albums";
-import './CreateAlbumModal.css'
+import "./CreateAlbumModal.css";
 
 function CreateAlbumModalForm() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -22,10 +22,10 @@ function CreateAlbumModalForm() {
     setErrors([]);
 
     const newAlbum = {
-      album_name: albumName
+      album_name: albumName,
     };
 
-    const res = await dispatch(thunkCreateAlbum(newAlbum))
+    const res = await dispatch(thunkCreateAlbum(newAlbum));
 
     try {
       // const res = await dispatch(thunkCreatePhoto(body, imageUrl));
@@ -46,25 +46,29 @@ function CreateAlbumModalForm() {
   //add a redirect or to place to read new group
 
   return (
-    <div className="create-group-outer-most-div">
-      <div className="create-group-text-div">Create New Album</div>
-      <form onSubmit={handleSubmit} className="outerCreateEventFormDiv">
-        <ul>
+    <div className="Global-Modal-Container2">
+      <img
+        src={process.env.PUBLIC_URL + "/transparentOwl.png"}
+        className="Global-Logo"
+      />
+      <div className="Global-Modal-Header">Create New Album</div>
+      <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+        <ul className="Global-Errors-UL">
           {errors.map((error, idx) => (
-            <li key={idx} className="createGroupErrors">
+            <li key={idx} className="Global-Errors-LI">
               {error}
             </li>
           ))}
         </ul>
-        <label className="label">Album Name</label>
+        <label className="label Global-Modal-Label">Album Name</label>
         <input
-          className="inputClass"
+          className="Global-Modal-input"
           type="text"
           value={albumName}
           onChange={(e) => setAlbumName(e.target.value)}
           required
         />
-        <button type="submit" className="submitCreateGroupButton">
+        <button type="submit" className="Global-SubmitButton">
           Submit
         </button>
       </form>

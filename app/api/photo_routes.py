@@ -14,7 +14,6 @@ photo_routes = Blueprint('photo', __name__)
 @photo_routes.route('/')
 def get_all_photos():
   all_photos = Photo.query.all()
-  print(all_photos)
 
   output = {
     "allPhotos":[]
@@ -38,7 +37,6 @@ def get_photo_detail(photoId):
         return {"message": "Photo couldn't be found"}, 404
 
     info = single_photo.to_dict()
-    print(info, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>single photo Info here")
 
     #get tag info out of photo
     tagInfo = []
@@ -46,8 +44,6 @@ def get_photo_detail(photoId):
         tempTag = tag.to_dict()
         tempTag.pop("photos")
         tagInfo.append(tempTag)
-
-    print(tagInfo, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>tagInfo here")
 
     #get comments info out of photo
     commentInfo = []
@@ -61,7 +57,6 @@ def get_photo_detail(photoId):
             "createdAt": comment.createdAt
         })
 
-    print(commentInfo, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>tagInfo here")
     return {
         "id": info["id"],
         "user_id": info["user_id"],
@@ -83,11 +78,7 @@ def get_photo_detail(photoId):
 @photo_routes.route('/', methods=["POST"])
 @login_required
 def create_photo():
-  print(request.cookies["session"])
-  print("-------------------<ROUTEHIT FOUND")
   user_id = current_user.id
-  print(user_id)
-  print("-------------------<USER_ID FOUND")
   form = CreatePhotoForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
@@ -105,7 +96,6 @@ def create_photo():
 
     db.session.add(newPhoto)
     db.session.commit()
-    print("-------------------<SUCCESS")
 
     allPhotos = Photo.query.all()
 
@@ -140,10 +130,7 @@ def update_photo(photoId):
 
     form = EditPhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("=========================>reaches validate on submit")
-    print(form.data)
     if form.validate_on_submit():
-        print("====================>validate on submit passed")
         data = form.data
 
         edit_photo.title = data["title"]
@@ -155,7 +142,6 @@ def update_photo(photoId):
 
         db.session.commit()
 
-        print("-------------------<SUCCESS")
 
         return {
             "id": edit_photo.id,
@@ -191,14 +177,10 @@ def delete_photo(photoId):
 @photo_routes.route('/<int:photoId>/comments', methods=["POST"])
 @login_required
 def create_comment(photoId):
-  print("-------------------<ROUTEHIT FOUND")
   user_id = current_user.id
-  print(user_id)
-  print("-------------------<USER_ID FOUND")
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    print("validating")
     data = form.data
     newComment = Comment(
         comment = data["comment"],
@@ -208,7 +190,6 @@ def create_comment(photoId):
 
     db.session.add(newComment)
     db.session.commit()
-    print("-------------------<SUCCESS")
 
     allComments = Comment.query.all()
 

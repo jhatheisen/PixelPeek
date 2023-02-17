@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import { useLocation, useHistory } from "react-router-dom";
-
+import * as sessionActions from "../../store/session";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -15,26 +15,36 @@ function LoginFormModal() {
   const location = useLocation();
   const history = useHistory();
 
+  const demoLogin = () => {
+    dispatch(sessionActions.login("demo@aa.io", "password"));
+    closeModal();
+    return history.push("/photos");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
     } else {
-        if (location.pathname == '/') history.push('/photos')
-        closeModal()
-
+      if (location.pathname == "/") history.push("/photos");
+      closeModal();
     }
   };
 
   return (
     <div className="Global-Modal-Container">
-      <img src={process.env.PUBLIC_URL + "/transparentOwl.png"} className="Global-Logo"/>
+      <img
+        src={process.env.PUBLIC_URL + "/transparentOwl.png"}
+        className="Global-Logo"
+      />
       <div className="Global-Modal-Header">Log in to PixelPeek</div>
       <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
         <ul className="Global-Errors-UL">
           {errors.map((error, idx) => (
-            <li className="Global-Errors-LI" key={idx}>{error}</li>
+            <li className="Global-Errors-LI" key={idx}>
+              {error}
+            </li>
           ))}
         </ul>
         <label for="email" className="Global-Modal-Label">
@@ -57,7 +67,10 @@ function LoginFormModal() {
             className="Global-Modal-input"
           />
         </label>
-        <button type="submit" className="Global-SubmitButton">Log In</button>
+        <button type="submit" className="Global-SubmitButton">
+          Log In
+        </button>
+        <div onClick={demoLogin}>Click here to try demo</div>
       </form>
     </div>
   );

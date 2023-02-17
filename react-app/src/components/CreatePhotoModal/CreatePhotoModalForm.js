@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { thunkCreatePhoto } from "../../store/photos";
 import { useModal } from "../../context/Modal";
-import "../LoginFormModal/LoginForm.css"
+import "../LoginFormModal/LoginForm.css";
 import "./CreatePhotoModal.css";
-
 
 function CreatePhotoModalForm() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -38,7 +37,6 @@ function CreatePhotoModalForm() {
       const res = await dispatch(thunkCreatePhoto(body, imageUrl));
       // const data = await res.json();
 
-      console.log("res=============>success", res);
       closeModal();
       history.push(`/photos/${res.id}`);
     } catch (error) {
@@ -54,7 +52,10 @@ function CreatePhotoModalForm() {
 
   return (
     <div className="Global-Modal-Container3">
-      <img src={process.env.PUBLIC_URL + "/transparentOwl.png"} className="Global-Logo"/>
+      <img
+        src={process.env.PUBLIC_URL + "/transparentOwl.png"}
+        className="Global-Logo"
+      />
       <div className="Global-Modal-Header">Add a new photo</div>
       <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
         <ul className="Global-Errors-UL">

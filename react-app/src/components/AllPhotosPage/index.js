@@ -11,7 +11,6 @@ const AllPhotosPage = () => {
 
   //get all photo data via thunk
   const allPhotos = useSelector((state) => state.photos.allPhotos);
-  console.log(allPhotos);
   useEffect(() => {
     dispatch(thunkGetAllPhotos()).then(() => setLoadedPage(true));
   }, [dispatch]);
@@ -22,13 +21,13 @@ const AllPhotosPage = () => {
     <>
       <div className="AllPhotos-Container">
         {/* <div className="AllPhotos-Inner-Container"> */}
-          {Object.values(allPhotos).map((photo) => (
-            <AllPhotoCards
-              photo={photo}
-              key={photo.id}
-              className="AllPhotosCards"
-            />
-          ))}
+        {Object.values(allPhotos).map((photo) => (
+          <AllPhotoCards
+            photo={photo}
+            key={photo.id}
+            className="AllPhotosCards"
+          />
+        ))}
         {/* </div> */}
       </div>
     </>

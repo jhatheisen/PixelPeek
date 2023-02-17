@@ -3,7 +3,7 @@ import Navigation from "../Navigation";
 import Footer from "./footer";
 import "./SplashPage.css";
 import * as sessionActions from "../../store/session";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const SplashPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
