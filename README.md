@@ -14,6 +14,23 @@ https://pixel-peek.onrender.com
 * [User Stories](https://github.com/jhatheisen/PixelPeek/wiki/User-Stories)
 * [Wireframe](https://github.com/jhatheisen/PixelPeek/wiki/Wireframe)
 
+## Tech Stack
+* Frameworks, Platforms, and Libraries: 
+  * Javascript
+  * Python
+  * HTML5
+  * CSS3
+  * Node.js
+  * React
+  * Redux
+  * Flask
+  * SQLAlchemy
+  * Alembic
+* Database
+  * Postgres
+* Hosting
+  * Render
+  
 ## Getting started
 1. Clone this repository (only this branch)
 
