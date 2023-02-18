@@ -1,6 +1,6 @@
 # Pixel Peek
 
-This is the starter for the Pixel Peek.
+This is the starter for the Pixel Peek. A platform for uploading and viewing photos from around the world.
 
 ## Live Server Link
 https://pixel-peek.onrender.com
