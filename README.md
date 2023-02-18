@@ -1,6 +1,6 @@
 # 🦉Pixel Peek
 
-This is the starter for the Pixel Peek. A platform for uploading and viewing photos from around the world. Take a peek at some beautiful pics!
+This is the readme for the Pixel Peek. A platform for uploading and viewing photos from around the world. Take a peek at some beautiful pics!
 
 ## Live Server Link
 https://pixel-peek.onrender.com
