@@ -122,6 +122,7 @@ Add the following keys and values in the Render GUI form:
 - SCHEMA (your unique schema name, in snake_case)
 - REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
   https://this-application-name.onrender.com)
+- FLASK_RUN_PORT=5001
 
 In a new tab, navigate to your dashboard and click on your Postgres database
 instance.
