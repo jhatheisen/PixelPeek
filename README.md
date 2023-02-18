@@ -16,6 +16,16 @@ https://pixel-peek.onrender.com
 
 3. Create a **.env** file based on the example with proper settings for your
    development environment
+   - Example
+   
+   ```js
+   SECRET_KEY=super-secret-key
+   FLASK_ENV=development
+   FLASK_DEBUG=True
+   DATABASE_URL=sqlite:///dev.db
+   SCHEMA=pixel_peek_schema
+   FLASK_RUN_PORT=5001
+   ```
 
 4. Make sure the SQLite3 database connection URL is in the **.env** file
 
