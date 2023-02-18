@@ -5,6 +5,15 @@ This is the starter for the Pixel Peek.
 ## Live Server Link
 https://pixel-peek.onrender.com
 
+## Wiki Link
+* [API Documentation](https://github.com/jhatheisen/PixelPeek/wiki/API-Routesn)
+* [Database Schema](https://github.com/jhatheisen/PixelPeek/wiki/Database-Schema)
+* [Feature List](https://github.com/jhatheisen/PixelPeek/wiki/Feature-List)
+* [Redux Store Shape](https://github.com/jhatheisen/PixelPeek/wiki/Redux-Store)
+* [Feature List](https://github.com/jhatheisen/PixelPeek/wiki/Feature-List)
+* [User Stories](https://github.com/jhatheisen/PixelPeek/wiki/User-Stories)
+* [Wireframe](https://github.com/jhatheisen/PixelPeek/wiki/Wireframe)
+
 ## Getting started
 1. Clone this repository (only this branch)
 
