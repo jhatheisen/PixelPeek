@@ -155,7 +155,7 @@ photo17 = Photo(
     ,user_id= 3
 )
 photo18 = Photo(
-    title= "The Venice of the North: A Canalside Stroll through Amsterdam"
+    title= "Venice: A Canalside Stroll in Amsterdam"
     ,description= "Marvel at the picturesque canals, gabled houses, and colorful flower markets in Amsterdam, the vibrant capital of the Netherlands."
     ,city= "Amsterdam"
     ,state= "Amsterdam"
@@ -182,7 +182,7 @@ photo20 = Photo(
     ,user_id= 2
 )
 photo21 = Photo(
-    title= "The City that Never Sleeps: A Nighttime Adventure through New York"
+    title= "The City that Never Sleeps: New York"
     ,description= "From the bright lights of Times Square to the soaring skyscrapers of Manhattan, experience the excitement and energy of New York City after dark."
     ,city= "New York"
     ,state= "New York"
