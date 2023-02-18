@@ -11,7 +11,7 @@ https://pixel-peek.onrender.com
 ![Screenshot 2023-02-17 163833](https://user-images.githubusercontent.com/106848904/219821895-204d0796-7196-48d3-a0d9-395bdd075e04.png)
 
 ## Wiki Link
-* [API Documentation](https://github.com/jhatheisen/PixelPeek/wiki/API-Routesn)
+* [API Documentation](https://github.com/jhatheisen/PixelPeek/wiki/API-Routes)
 * [Database Schema](https://github.com/jhatheisen/PixelPeek/wiki/Database-Schema)
 * [Feature List](https://github.com/jhatheisen/PixelPeek/wiki/Feature-List)
 * [Redux Store Shape](https://github.com/jhatheisen/PixelPeek/wiki/Redux-Store)
