@@ -3,7 +3,7 @@
 This is the readme for the Pixel Peek. A platform for uploading and viewing photos from around the world. Take a peek at some beautiful pics!
 
 ## Live Server Link
-https://pixel-peek.onrender.com
+https://pixelpeek.onrender.com
 
 ## Photos
 ![Screenshot_2023-02-17_at_4 32 42_PM](https://user-images.githubusercontent.com/106848904/219821882-27d13a2f-2f84-4f1e-b8d7-18b3b19b1a4b.png)
