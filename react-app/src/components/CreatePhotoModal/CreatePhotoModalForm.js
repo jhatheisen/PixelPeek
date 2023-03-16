@@ -18,13 +18,38 @@ function CreatePhotoModalForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
+  const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+  const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+
+    const formData = new FormData();
+    formData.append("image", image);
+    setImageLoading(true);
+
+    let url;
+
+    const res = await fetch('/api/photos/upload', {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      url = await res.json();
+      url = url["url"]
+      setImageLoading(false);
+    }
+    else {
+      setImageLoading(false);
+      const errors = await res.json().errors
+      setErrors([errors])
+    }
+
     const body = {
       title,
       description,
@@ -34,7 +59,7 @@ function CreatePhotoModalForm() {
     };
 
     try {
-      const res = await dispatch(thunkCreatePhoto(body, imageUrl));
+      const res = await dispatch(thunkCreatePhoto(body, url));
       // const data = await res.json();
 
       closeModal();
@@ -48,6 +73,11 @@ function CreatePhotoModalForm() {
       if (errorObject) setErrors(result);
     }
   };
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  }
 
   //add a redirect or to place to read new group
 
@@ -118,13 +148,20 @@ function CreatePhotoModalForm() {
         </label>
         <label for="imageUrl" className="Global-Modal-Label">
           <input
+            type="file"
+            accept="image/*"
+            onChange={updateImage}
+            className="Global-Modal-input"
+          />
+          {(imageLoading) && <p>Loading...</p>}
+          {/* <input
             type="url"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             required
             placeholder="Your new image url"
             className="Global-Modal-input"
-          />
+          /> */}
         </label>
         <button type="submit" className="Global-SubmitButton">
           Add Photo

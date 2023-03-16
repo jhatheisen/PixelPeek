@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage";
 import YouPage from "./components/YouPage";
 import SingleAlbumPhotoPage from "./components/SingleAlbumPhotoPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,12 +36,12 @@ function App() {
           <Route path="/photos">
             <AllPhotosPage />
           </Route>
-          <Route path="/You/album/:albumId">
+          <ProtectedRoute path="/You/album/:albumId">
             <SingleAlbumPhotoPage />
-          </Route>
-          <Route path="/You">
+          </ProtectedRoute>
+          <ProtectedRoute path="/You">
             <YouPage />
-          </Route>
+          </ProtectedRoute>
           <Route path="/" exact>
             <SplashPage />
           </Route>

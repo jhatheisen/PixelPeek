@@ -34,7 +34,7 @@ const SingleAlbumPhotoPage = () => {
   if (!loadedPage) return null;
 
   if (yourPhotos) {
-    console.log("yourPhotos: ", yourPhotos);
+    // console.log("yourPhotos: ", yourPhotos);
     yourPhotos = Object.values(yourPhotos).filter(
       (photo) => photo.user_id == currUser.id
     );

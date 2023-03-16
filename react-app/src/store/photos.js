@@ -102,6 +102,7 @@ export const thunkGetOnePhoto = (photoId) => async (dispatch) => {
 
 export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
   const { title, description, city, state, country } = body;
+
   const response = await fetch(`/api/photos/`, {
     method: "POST",
     headers: {
@@ -129,6 +130,7 @@ export const thunkCreatePhoto = (body, imageUrl) => async (dispatch) => {
 export const thunkUpdatePhoto =
   (updatedPhoto, photoDetails) => async (dispatch) => {
     const { title, description, city, state, country, imageUrl } = updatedPhoto;
+    console.log(imageUrl)
     const response = await fetch(`/api/photos/${photoDetails.id}`, {
       method: "PUT",
       headers: {
