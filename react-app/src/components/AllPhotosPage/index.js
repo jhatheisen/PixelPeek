@@ -33,7 +33,7 @@ const AllPhotosPage = () => {
       let size3 = getRandomInt(18, 27);
       maxSize -= size3;
       let size4 = maxSize
-      console.log(`size 1 ${size1}, size2 ${size2}, size3 ${size3}, size4 ${size4} =` , size1 + size2 + size3 + size4)
+      // console.log(`size 1 ${size1}, size2 ${size2}, size3 ${size3}, size4 ${size4} =` , size1 + size2 + size3 + size4)
       return [size1, size2, size3, size4]
     }
   }
@@ -44,7 +44,7 @@ const AllPhotosPage = () => {
   for (let i = 0; i < listPhotos.length; i += 4) {
     groupedPhotos.push(listPhotos.slice(i, i+4))
   }
-  console.log(groupedPhotos)
+  // console.log(groupedPhotos)
 
 
   return (

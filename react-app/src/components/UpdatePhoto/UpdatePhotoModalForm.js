@@ -19,6 +19,8 @@ function UpdatePhotoModalForm() {
   const [city, setCity] = useState(photo.city);
   const [state, setState] = useState(photo.state);
   const [country, setCountry] = useState(photo.country);
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(photo.img_url);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
@@ -26,6 +28,34 @@ function UpdatePhotoModalForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+
+    let url;
+
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+      setImageLoading(true);
+
+
+      const res = await fetch('/api/photos/upload', {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        url = await res.json();
+        url = url["url"]
+        setImageLoading(false);
+      }
+      else {
+        setImageLoading(false);
+        const errors = await res.json().errors
+        setErrors([errors])
+      }
+    }
+
+    let passingUrl = imageUrl;
+    if (url) passingUrl = url;
 
     const { id, user_id } = photo;
 
@@ -39,7 +69,7 @@ function UpdatePhotoModalForm() {
       city,
       state,
       country,
-      imageUrl,
+      imageUrl: passingUrl
     };
 
     try {
@@ -57,6 +87,11 @@ function UpdatePhotoModalForm() {
       if (errorObject) setErrors(result);
     }
   };
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  }
 
   //add a redirect or to place to read new group
 
@@ -127,13 +162,12 @@ function UpdatePhotoModalForm() {
         </label>
         <label for="imageUrl" className="Global-Modal-Label">
           <input
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            required
-            placeholder="Your new image url"
+            type="file"
+            accept="image/*"
+            onChange={updateImage}
             className="Global-Modal-input"
           />
+          {(imageLoading) && <p>Loading...</p>}
         </label>
         <button type="submit" className="Global-SubmitButton">
           Update Photo

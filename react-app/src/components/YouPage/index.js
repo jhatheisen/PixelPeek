@@ -33,7 +33,7 @@ const YouPage = () => {
       }
     }
   }
-  console.log(userAlbums);
+  // console.log(userAlbums);
 
   //error should not hit this route when you are logged in and own the spot
   if (userAlbums.length === 0) {
