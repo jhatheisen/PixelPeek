@@ -237,15 +237,15 @@ const SinglePhotoPage = () => {
                             {isUser && comment.user_id == currUser.id && (
                               <>
                                 <button
-                                  className="noButton"
+                                  className="noButton1"
                                   onClick={() =>
                                     handleCommentDelete(comment.id)
                                   }
-                                  >
+                                >
                                   <i className="fa-regular fa-trash-can fa-xl"></i>
                                 </button>
                                 <button
-                                  className="noButton"
+                                  className="noButton2"
                                   onClick={() => {
                                     setEditingComment(comment.id);
                                     setCommentText(comment.comment);
@@ -267,10 +267,9 @@ const SinglePhotoPage = () => {
                         <form
                           onSubmit={(e) => handleCommentUpdate(e, comment.id)}
                           className="commentForm"
-                          >
+                        >
                           <div className="commentInput">
                             <label for="comment">
-                              <i className="fa-solid fa-camera-retro fa-2x"></i>
                               <textarea
                                 type="textarea"
                                 id="comment"
@@ -279,12 +278,12 @@ const SinglePhotoPage = () => {
                                 maxLength={255}
                                 placeholder="Edit your comment"
                                 required
-                                />
+                              />
                             </label>
                             {comment && (
                               <button
-                              type="submit"
-                              className="create-comment-submit-button"
+                                type="submit"
+                                className="create-comment-submit-button"
                               >
                                 Submit
                               </button>
@@ -292,7 +291,7 @@ const SinglePhotoPage = () => {
                             <ul className="createErrors">
                               {errors.map((error, idx) => (
                                 <li key={idx}>{error}</li>
-                                ))}
+                              ))}
                             </ul>
                           </div>
                         </form>
@@ -306,9 +305,7 @@ const SinglePhotoPage = () => {
               <div className="makeCommentBox">
                 <form onSubmit={handleCommentSubmit} className="commentForm">
                   <div className="commentInput flexRowCenter">
-                    <label for="comment">
-                      <i className="fa-solid fa-camera-retro fa-2x"></i>
-                    </label>
+                    <label for="comment"></label>
                     <textarea
                       type="textarea"
                       id="comment"
@@ -317,11 +314,11 @@ const SinglePhotoPage = () => {
                       maxLength={255}
                       placeholder="Add a comment"
                       required
-                      />
+                    />
                     {
                       <button
-                      type="submit"
-                      className="create-comment-submit-button"
+                        type="submit"
+                        className="create-comment-submit-button"
                       >
                         Submit
                       </button>
@@ -329,15 +326,13 @@ const SinglePhotoPage = () => {
                     <ul className="createErrors">
                       {errors.map((error, idx) => (
                         <li key={idx}>{error}</li>
-                        ))}
+                      ))}
                     </ul>
                   </div>
                 </form>
               </div>
             )}
-            { !currUser &&
-                    <h3>Please log in to comment</h3>
-                }
+            {!currUser && <h3>Please log in to comment</h3>}
           </div>
 
           <hr className="hr95" />

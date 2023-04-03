@@ -94,7 +94,7 @@
   /* background-color: aqua; */
   flex-direction: row;
   align-items: center;
-  padding-left: 0;
+  padding-left: 34px;
 }
 
 .flexRowCenter {
@@ -116,6 +116,10 @@
   cursor: pointer;
   padding: 12px;
   margin-left: 10px;
+}
+
+.create-comment-submit-button:hover {
+  background-color: rgb(171, 168, 168);
 }
 
 .commentInput {
@@ -159,10 +163,29 @@
   font-weight: bold;
 }
 
-.noButton {
+.noButton1 {
   border: none;
   cursor: pointer;
+  background: none;
+  height: 26px;
+  border-radius: 7px;
 }
+
+.noButton2 {
+  margin-left: 9px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  width: 13%;
+  height: 26px;
+  border-radius: 7px;
+}
+
+.noButton1:hover,
+.noButton2:hover {
+  background-color: lightgray;
+}
+
 .allTags {
   display: flex;
   flex-direction: column;
@@ -191,14 +214,17 @@
 .tagButton {
   background-color: transparent;
   border: 0.25px solid black;
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
-  width: 100%;
-  height: 50px;
+  height: 40px;
+  width: 118px;
   margin: 3px;
   padding-right: 3px;
   padding-left: 3px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tagButton:hover {
@@ -225,13 +251,13 @@
 }
 
 .addTagButton {
-  background-color: transparent;
-  border: 0.25px solid black;
-  border-radius: 5px;
   margin-right: 3px;
-  font-size: 20px;
-  height: 70px;
-  width: 100px;
+  font-size: 17px;
+  height: 40px;
+  width: 118px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .addTagButton:hover {
@@ -249,19 +275,24 @@
 }
 
 .trash-button:hover {
-  background-color: rgb(251, 251, 251);
+  background-color: rgb(227, 227, 227);
   border: 0.25px solid rgb(190, 190, 190);
 }
 
 .add-tag {
   background: transparent;
   border: 0.25px solid rgb(190, 190, 190);
-  font-size: 20px;
-  height: 50px;
+  font-size: 15px;
+  height: 40px;
+  width: 118px;
   margin: 10px;
   font-family: Proxima Nova, helvetica neue, helvetica, arial, sans-serif;
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
 }
 
 .add-tag:hover {
