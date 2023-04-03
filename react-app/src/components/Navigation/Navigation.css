@@ -5,6 +5,7 @@
   right: 0px;
   border-radius: 4px;
   padding-right: 20px;
+  padding-bottom: 10px;
   color: white;
 }
 
@@ -17,7 +18,7 @@
 }
 
 /* .pfpButton:hover { */
-  /* background-color: rgb(206, 206, 206); */
+/* background-color: rgb(206, 206, 206); */
 /* } */
 
 .hidden {
@@ -38,7 +39,6 @@
   padding: 10px;
   color: white;
 }
-
 
 .Navbar {
   background-color: #202022;
@@ -98,7 +98,7 @@
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 8px;
-  border-radius: 25%;
+  border-radius: 7px;
   text-align: center;
 }
 
@@ -115,13 +115,12 @@
   /* margin-left: 32px; */
   margin-left: 8px;
   text-decoration: none;
-  border-radius: 25%;
+  border-radius: 7px;
   text-align: center;
 }
 
 .ExploreButton:hover {
   background-color: rgb(49, 49, 49);
-
 }
 
 .CreatePhoto-Holder {
